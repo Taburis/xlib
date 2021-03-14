@@ -9,4 +9,5 @@ require (
 	github.com/go-martini/martini v0.0.0-20170121215854-22fa46961aab
 	github.com/gomarkdown/markdown v0.0.0-20201113031856-722100d81a8e
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c // indirect
+	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 )

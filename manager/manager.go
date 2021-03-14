@@ -1,9 +1,10 @@
 package manager
 import (
 	//
-	
+	"bytes"
 	"fmt"
 	"io/ioutil"
+	"io"
 	"strings"
 	"os"
 	//"errors"
@@ -11,6 +12,7 @@ import (
     "github.com/gomarkdown/markdown"
     "github.com/gomarkdown/markdown/parser"
     "github.com/gomarkdown/markdown/html"
+    html2 "golang.org/x/net/html"
 )
 
 type  Manager struct {
@@ -37,25 +39,25 @@ func (p *Manager) Config0() {
 }
 
 
-func (p *Manager) MD2html(in_name string, out_name string) error{
+func (p *Manager) MD2html(in_name string, out_name string)(error, error, error){
 	// converting MD files to html format file
 	// in_name : abs path of the input md file
 	// out_name: abs path of the output html file
 	content , error := ioutil.ReadFile(in_name)
 	if error != nil {
-        return error
+        return error, nil, nil
     }	
     p.Config0()
     //fmt.Printf("here -------------------------------------------\n")
     myhtml := markdown.ToHTML(content, p.parser, p.renderer)
+    toc_str:=p.TOCGenerator(string(myhtml))
+    toc := []byte(toc_str)
     //fmt.Printf("down -------------------------------------------\n")
-    error = ioutil.WriteFile(out_name, myhtml, 0644)
-    if error != nil{
-
-    	panic (error)
-    }
-
-    return error
+    error1 := ioutil.WriteFile(out_name, myhtml, 0644)
+    error2 := ioutil.WriteFile(fmt.Sprintf("%s_toc",out_name), toc, 0644)
+    if error1 != nil {panic (error1)}
+    if error2 != nil {panic (error2)}
+    return nil, error1, error2
 }
 
 func (p *Manager) ListDir(fileType string, path string) string{
@@ -116,4 +118,16 @@ func (p *Manager) Document(root string, dest string) error {
 		fmt.Printf("finished, dump to %s\n", ofile)
 	}
 	return nil
+}
+
+func (p *Manager) RenderNode(n *html2.Node) string {
+    var buf bytes.Buffer
+    w := io.Writer(&buf)
+    html2.Render(w, n)
+    return buf.String()
+}
+
+func (p *Manager) TOCGenerator(doc string) (toc string){
+	ns,_:=html2.Parse(strings.NewReader(doc))
+	return p.RenderNode( MakeTOCNodes(ns))
 }
