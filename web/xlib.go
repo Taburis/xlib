@@ -63,7 +63,7 @@ func main(){
 	//		"content" : template.HTML(cont),
 	//	})
   	//})
-	cont , _ := loadFile(fmt.Sprintf("%s/category/notesIndex.html",distRoot))
+	cont , _ := loadFile(fmt.Sprintf("%s/category/notes_index.html",distRoot))
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"content" : template.HTML(cont),
