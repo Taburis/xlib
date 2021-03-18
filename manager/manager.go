@@ -64,13 +64,14 @@ func (p *Manager) ListDir(fileType string, path string) string{
 	// iterating over the folders (path) and return the list of 
 	// paths of files that satisfies the given type (fileType)
 	var list strings.Builder
-	filepath.Walk(path, func (path string, info os.FileInfo, err error) error{
+	filepath.Walk(path, func (pp string, info os.FileInfo, err error) error{
 			if err != nil {
+				panic(err)
 				return err
 			}
-			s := strings.Split(path, ".")
+			s := strings.Split(pp, ".")
 			if fileType == s[len(s)-1]{
-				list.WriteString(path)
+				list.WriteString(pp)
 				list.WriteString("\n")
 				//fmt.Printf("found: %s\n",path)
 			}
@@ -108,7 +109,7 @@ func (p *Manager) ProduceHTML(root string, dest string) error {
 	nroot := len(root)
 	for _,f := range queue{
 		if len(f) < nroot {continue}
-		ipath, ifile, _ := p.DetachPath(f[nroot-1:])
+		ipath, ifile, _ := p.DetachPath(f[nroot+1:])
 		relpath := fmt.Sprintf("%s/%s",dest, ipath)
 		ofile   := fmt.Sprintf("%s/%s.%s", relpath, ifile, "html")
 		fmt.Println(relpath)
@@ -143,7 +144,8 @@ func (p *Manager) ProduceIndex(path string, output string) error{
 	candidates:=p.ListDir("html", path)
 	htmlstr := p.RenderNode(MakeIndexPage(h1title, path, candidates))
 	htmlbyte := []byte(htmlstr)
-	error := ioutil.WriteFile(fmt.Sprintf("%s/%sIndex.html",output,h1title), htmlbyte, 0644)
+	os.MkdirAll(output, 0755)
+	error := ioutil.WriteFile(
+		fmt.Sprintf("%s/%s_index.html",output,h1title), htmlbyte, 0644)
 	return error
 }
-

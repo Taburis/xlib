@@ -21,7 +21,6 @@ func main(){
 	
 
 	m := manager.New()
-	m.ProduceHTML("./notes/","./web/dist/notes") // test generating the html lib from MD
+	m.ProduceHTML("../Documents/myLib","./web/dist") // test generating the html lib from MD
 	m.ProduceIndex("./web/dist/notes", "./web/dist/category")
-	
 }
