@@ -94,7 +94,7 @@ func (p *Manager) DetachPath(in string) (path string, name string, ftype string)
 	return 
 }
 
-func (p *Manager) Document(root string, dest string) error {
+func (p *Manager) ProduceHTML(root string, dest string) error {
 	// root: root path of the inputs;
 	// dest: the root path of outputs.
 	if root[len(root)-1] == '/' {
@@ -108,10 +108,10 @@ func (p *Manager) Document(root string, dest string) error {
 	nroot := len(root)
 	for _,f := range queue{
 		if len(f) < nroot {continue}
-		ipath, ifile, _ := p.DetachPath(f[nroot+1:])
+		ipath, ifile, _ := p.DetachPath(f[nroot-1:])
 		relpath := fmt.Sprintf("%s/%s",dest, ipath)
 		ofile   := fmt.Sprintf("%s/%s.%s", relpath, ifile, "html")
-		//fmt.Println(relpath)
+		fmt.Println(relpath)
 		fmt.Printf("Compiling: %s...\n",f)
 		os.MkdirAll(relpath, 0755)
 		p.MD2html(f, ofile)
@@ -131,3 +131,19 @@ func (p *Manager) TOCGenerator(doc string) (toc string){
 	ns,_:=html2.Parse(strings.NewReader(doc))
 	return p.RenderNode( MakeTOCNodes(ns))
 }
+
+func (p *Manager) ProduceIndex(path string, output string) error{
+	// for instance, for notes with path "./dist/notes/subjects/articles.html"
+	// the path should be path "./dist/notes"
+	if path[len(path)-1] == '/' {
+		path = path[:len(path)-1]
+	}
+	sbuf := strings.Split(path, "/")
+	h1title := sbuf[len(sbuf)-1]
+	candidates:=p.ListDir("html", path)
+	htmlstr := p.RenderNode(MakeIndexPage(h1title, path, candidates))
+	htmlbyte := []byte(htmlstr)
+	error := ioutil.WriteFile(fmt.Sprintf("%s/%sIndex.html",output,h1title), htmlbyte, 0644)
+	return error
+}
+
