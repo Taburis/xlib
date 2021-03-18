@@ -6,6 +6,7 @@ import (
 	"os"
 	"html/template"
 	"github.com/gin-gonic/gin"
+	//"github.com/Taburis/xlib/manager"
 	//"github.com/gin-gonic/contrib/static"
 	"net/http"
 	"fmt"
@@ -42,15 +43,15 @@ func loadFile(path string) (string,error){
 
 func main(){
 	//gin.SetMode(gin.ReleaseMode)
-	distRoot:= string("./dist")
+	distRoot:= string("./web/dist")
 	r:=gin.Default()
 	//r.Delims("{{","}}")
 	r.SetFuncMap(template.FuncMap{
 		"loadFile" : loadFile,
 	})
-	r.LoadHTMLGlob("templates/*")
-	r.Static("/css", "./public/css")
-	r.Static("/js", "./public/js")
+	r.LoadHTMLGlob("./web/templates/*")
+	r.Static("/css", "./web/public/css")
+	r.Static("/js" , "./web/public/js")
 
    	//cont , _ := loadFile(fmt.Sprintf("%s/%s", distRoot, "golang.html"))
 //

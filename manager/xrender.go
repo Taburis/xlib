@@ -149,7 +149,6 @@ func MakeTOCTree(doc []*html.Node) *html.Node{
 		}
 		id = fmt.Sprintf("#%s",id)
 		tailnodes[index], tailnodes[index+1]=AppendTOCNode(tailnodes[index], label, tocnum, txt, id, isnew)
-	
 		pindex = index
 	}
 	return root_node
@@ -185,7 +184,6 @@ func MakeTOCNodes(html_node *html.Node) (*html.Node){
 }
 
 func MakeIndexPage(h1title string, path string, candi string) (*html.Node){
-	
 	queue := strings.Split(candi, "\n")
 	tmp := strings.Split(queue[0], "/")
 	h3title := tmp[len(tmp)-2]
@@ -226,7 +224,6 @@ func MakeIndexPage(h1title string, path string, candi string) (*html.Node){
 		}
 		fileName := stmp[len(stmp)-1]
 		stmp = strings.Split(fileName, ".")
-		
 		fileName = strings.ReplaceAll(stmp[0], "_", " ")
 		inode := NewNode("li")
 		LinkNode(node, inode, false)
