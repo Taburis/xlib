@@ -72,15 +72,11 @@ func main(){
 
 	listHtml := getList("html", fmt.Sprintf("%s/notes",distRoot))
 	listTOC := getList("html_toc", fmt.Sprintf("%s/notes",distRoot))
-	fmt.Println("========================> " , listHtml)
 	for i:=0 ; i<len(listHtml); i++{
 		content , _ := loadFile(listHtml[i])
   		toc , _ := loadFile(listTOC[i])
   		if len(listHtml[i])==0 {continue }
-  		fmt.Println("-------------> " , listHtml[i])
   		tmp := listHtml[i][len(distRoot)-1:len(listHtml[i])-5]
-  		
-
   		r.GET(fmt.Sprintf("/%s",tmp), func (c *gin.Context) {
 			c.HTML(http.StatusOK, "bookcase.html", gin.H{
 				"toc" : template.HTML(toc),
@@ -100,5 +96,5 @@ func main(){
 	//	})
   	//})
 
-	r.Run(":3000")
+	r.Run(":80")
 }
