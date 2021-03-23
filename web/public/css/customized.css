@@ -79,6 +79,6 @@ a {
   border: 1px solid #b2c1d4;
   padding: 45px;
 }
-img, svg{
-  max-width: 100% ! important;
+.content img{
+  max-width: 100% !important;
 }
