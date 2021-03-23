@@ -21,6 +21,8 @@ func main(){
 	m := manager.New()
 	m.ProduceHTML("../../myLib","../web/dist") // test generating the html lib from MD
 	m.ProduceIndex("../web/dist/notes", "../web/dist/category")
+	err:= m.CopyDirectory("../../myLib/images", "../web/public/images")
+    if err!=nil { panic(err)}
 }
 //func main(sourcepath string, destpath string){
 //	p.ProduceHTML(sourcepath,destpath) // test generating the html lib from MD
