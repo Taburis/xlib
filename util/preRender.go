@@ -19,7 +19,7 @@ func loadFile(path string) (string,error){
 
 func main(){
 	m := manager.New()
-	m.ProduceHTML("../../Documents/myLib","../web/dist") // test generating the html lib from MD
+	m.ProduceHTML("../../myLib","../web/dist") // test generating the html lib from MD
 	m.ProduceIndex("../web/dist/notes", "../web/dist/category")
 }
 //func main(sourcepath string, destpath string){
