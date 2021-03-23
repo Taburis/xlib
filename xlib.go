@@ -52,6 +52,7 @@ func main(){
 	r.LoadHTMLGlob("./web/templates/*")
 	r.Static("/css", "./web/public/css")
 	r.Static("/js" , "./web/public/js")
+	r.Static("/images" , "./web/public/images")
 
    	//cont , _ := loadFile(fmt.Sprintf("%s/%s", distRoot, "golang.html"))
 //
@@ -97,5 +98,5 @@ func main(){
 	//	})
   	//})
 
-	r.Run(":80")
+	r.Run(":3000")
 }

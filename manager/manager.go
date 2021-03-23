@@ -149,3 +149,4 @@ func (p *Manager) ProduceIndex(path string, output string) error{
 		fmt.Sprintf("%s/%s_index.html",output,h1title), htmlbyte, 0644)
 	return error
 }
+

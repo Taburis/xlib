@@ -80,3 +80,7 @@ a {
   border: 1px solid #b2c1d4;
   padding: 45px;
 }
+
+.cotent img{
+  max-width: 100% !important;
+}
