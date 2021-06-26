@@ -1,47 +1,72 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const math = require('remark-math');
+const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'My Library',
-  tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'XLibrary',
+  tagline:  '',
+
+  url: 'https://ton618.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/Ton618.png',
+  //favicon: 'img/favicon.ico',
   organizationName: 'Tabris', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  projectName: 'xlib', // Usually your repo name.
+  stylesheets: [
+    {
+        href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
+        integrity: "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
+        crossorigin: "anonymous",
+    },
+  ],
+/*
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X',
+      crossorigin: 'anonymous',
+    },
+  ],
+  */
   themeConfig: {
     navbar: {
-      title: 'XLib',
+      title: 'XLibrary',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/Ton618.png',
+        //src: 'img/logo.svg',
       },
       items: [
         {
           type: 'doc',
           docId: 'intro',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Notes',
+          //label: 'Tutorial',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
+          //href: 'https://github.com/facebook/docusaurus',
+          //label: 'GitHub',
+          //position: 'right',
         },
       ],
     },
     footer: {
       style: 'dark',
+		  /*
       links: [
         {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
+              label: 'Notes',
               to: '/docs/intro',
             },
           ],
@@ -77,7 +102,8 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+	*/
+      copyright: `Copyright © ${new Date().getFullYear()} Xiao W. Built with Docusaurus.`,
     },
     prism: {
       theme: lightCodeTheme,
@@ -89,16 +115,20 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+		  routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/Taburis/xlib/edit/master/',
+            //'https://github.com/facebook/docusaurus/edit/master/website/',
+          remarkPlugins: [math],
+		  rehypePlugins: [katex],
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/Taburis/xlib/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -106,4 +136,5 @@ module.exports = {
       },
     ],
   ],
+  
 };
