@@ -12,7 +12,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/Ton618.png',
+  favicon: 'img/Ton618_icon.png',
   //favicon: 'img/favicon.ico',
   organizationName: 'Tabris', // Usually your GitHub org/user name.
   projectName: 'xlib', // Usually your repo name.
