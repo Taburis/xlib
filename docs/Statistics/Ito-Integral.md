@@ -16,7 +16,7 @@ $$
 * Adapted: $I(t)$ is continuous and $\mathcal{F}(t)$-measurable;
 * Martingale: $\mathbb{E}[I(t)|\tau] = I(\tau)$
 * Ito isometry: $\mathbb{E} I^2(t)=\mathbb{E} \int_0^tf^2(u)du$;
-* Quadratic variation: $ [I,I](t)=\int_0^tf^2(u)du $.
+* Quadratic variation: $[I,I] (t)=\int_0^t f^2(u)du$.
 
 ## Ito-Doeblin Formula
 
