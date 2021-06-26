@@ -4,9 +4,6 @@ import (
 	"github.com/Taburis/xlib/manager"
 	//"fmt"
 	"io/ioutil"
-	//"golang.org/x/net/html"
-	//html2 "golang.org/x/net/html"
-	//"strings"
 )
 
 func loadFile(path string) (string,error){
@@ -24,7 +21,3 @@ func main(){
 	err:= m.CopyDirectory("../../myLib/images", "../web/public/images")
     if err!=nil { panic(err)}
 }
-//func main(sourcepath string, destpath string){
-//	p.ProduceHTML(sourcepath,destpath) // test generating the html lib from MD
-//	p.ProduceIndex(fmt.Sprintf("%s/notes", destpath), fmt.Sprintf("%s/category", destpath))
-//}
