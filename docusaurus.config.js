@@ -8,14 +8,15 @@ module.exports = {
   title: 'XLibrary',
   tagline:  '',
 
-  url: 'https://ton618.org',
-  baseUrl: '/',
+  url: 'https://taburis.github.io',
+  baseUrl: '/xlib/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/Ton618_icon.png',
   //favicon: 'img/favicon.ico',
-  organizationName: 'Tabris', // Usually your GitHub org/user name.
+  organizationName: 'Taburis', // Usually your GitHub org/user name.
   projectName: 'xlib', // Usually your repo name.
+  trailingSlash: false,
   stylesheets: [
     {
         href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
