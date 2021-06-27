@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://taburis.github.io/xlib/blog</id>
+    <title>XLibrary Blog</title>
+    <updated>2021-06-25T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://taburis.github.io/xlib/blog"/>
+    <subtitle>XLibrary Blog</subtitle>
+    <icon>https://taburis.github.io/xlib/img/Ton618_icon.png</icon>
+    <entry>
+        <title type="html"><![CDATA[Greetings!]]></title>
+        <id>greetings</id>
+        <link href="https://taburis.github.io/xlib/blog/greetings"/>
+        <updated>2021-06-25T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Greetings]]></summary>
+    </entry>
+</feed>

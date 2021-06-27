@@ -1,0 +1,1 @@
+(self.webpackChunkxlib=self.webpackChunkxlib||[]).push([[656],{8011:function(e){"use strict";e.exports=JSON.parse('{"allTagsPath":"/xlib/blog/tags","slug":"greetings","name":"greetings","count":1,"permalink":"/xlib/blog/tags/greetings"}')}}]);
