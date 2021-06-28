@@ -2,14 +2,14 @@
 <rss version="2.0">
     <channel>
         <title>XLibrary Blog</title>
-        <link>https://taburis.github.io/blog</link>
+        <link>https://taburis.github.io/xlib/blog</link>
         <description>XLibrary Blog</description>
         <lastBuildDate>Fri, 25 Jun 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Greetings!]]></title>
-            <link>https://taburis.github.io/blog/greetings</link>
+            <link>https://taburis.github.io/xlib/blog/greetings</link>
             <guid>greetings</guid>
             <pubDate>Fri, 25 Jun 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Greetings]]></description>
