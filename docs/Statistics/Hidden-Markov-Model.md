@@ -18,7 +18,7 @@ The inference problem of HMM can be classified into three types:
 2. Given an observable sequence $O=\lbrace o_1,\dots,o_N\rbrace$ and a assumption $(E,T)$, discover the best hidden state sequence $S$.
 3. Given a set of observables and sequence of stats, learn the observation probability and transition probability $(E,T)$.
 
-## Likelihood Computation
+## Likelihood: Forward Algorithm
 
 For a HMM model with an assumption $\Lambda = (E,T)$ and a sequnece of observations $O=\lbrace o_1, \dots, o_{n}\rbrace$ is given, determine the likelihood $L_\Lambda(O)=\mathbb{P}(O|\Lambda)$ for obtaining the observation $O$ with respect to the assumption $\Lambda$. 
 
@@ -107,7 +107,7 @@ def Viterbi(o : observation_array):
 
 ## Learning: The Forward-Backward Algorithm
 
-Given sequences of observations and known the possible hidden state domain, learn the HMM parameters $(E,T)$. The Baum-Welch algorithm is desinged based on the idea of the large number theorem that the possible occurance frequency is an unbias estimator for these parameters. 
+Given sequences of observations and known the possible hidden state domain, learn the HMM parameters $(E,T)$. The Baum-Welch algorithm is designed based on the idea of the large number theorem that the possible occurrence frequency is an unbiased estimator for these parameters. 
 
 $$
 \begin{aligned}

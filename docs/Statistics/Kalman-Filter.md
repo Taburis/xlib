@@ -73,27 +73,27 @@ The **posteriori estimator** $\boldsymbol{X}_{t|t}$ is the estimator for $\bolds
 
 $$
 \begin{aligned}
-H \boldsymbol{\hat X}_t &= H\boldsymbol{\hat Y}_{t|t}+H_tK_X(\boldsymbol{y}_n-H\boldsymbol{\hat X}_{t|t-1}),\\
-K_X &= \Sigma_{t|t-1}H_t^T(H_t\Sigma_{t|t-1}H^T_t+\Sigma_{Y_t})^{-1},
+H_t \boldsymbol{\hat X}_t &= H_t\boldsymbol{\hat X}_{t|t-1}+H_tK_X(\boldsymbol{y}_n-H_t\boldsymbol{\hat X}_{t|t-1}),\\
+K_X &= \Sigma_{t|t-1}H_t^T(H_t\Sigma_{t|t-1}H^T_t+\Sigma_{V_t})^{-1},
 \end{aligned}
 $$
 where $\boldsymbol{y}_t$ is the observation at $t$ and $\Sigma_{t|t-1}$ is the covariance matrix of $\boldsymbol{\hat X}_{t|t-1}$. The difference $\boldsymbol{y}_n-H\boldsymbol{\hat X}_{t|t-1}$ is also known as **innovation** or **mesurement residual**. Since we assume that $H^{-1}$ exists, it leads to the Kalman filtering procedure:
 
-1. Setting $\boldsymbol{\hat X}_{1|1} = H_1^{-1}\boldsymbol{y}_1$
-2. Update the priori estimator as
+1. Initiate condition $\boldsymbol{\hat X}_{1|1} = H_1^{-1}\boldsymbol{y}_1$.
+2. Predict the priori estimator:
 $$
 \boldsymbol{\hat X}_{t|t-1} = T_t\boldsymbol{X_{t-1|t-1}},
 $$
 with the covariance matrix
 $$
-\Sigma_{t|t-1} = T_t\Sigma{t-1|t-1}T_t^T+\Sigma_{W_t}.
+\Sigma_{t|t-1} = T_t\Sigma_{t-1|t-1}T_t^T+\Sigma_{W_t}.
 $$
-3. Update the posterior estimator as
+3. Update the posterior estimator:
 $$
-\boldsymbol{\hat X}_{t|t} = \boldsymbol{\hat X}_{t|t-1} + K_{X_t} R_t, \quad K_{X_t} = \Sigma_{t|t-1}H_t^T(H_t\Sigma_{t|t-1}H^T_t+\Sigma_{Y_t})^{-1},
+\boldsymbol{\hat X}_{t|t} = \boldsymbol{\hat X}_{t|t-1} + K_{X_t} R_t, \quad K_{X_t} = \Sigma_{t|t-1}H_t^T(H_t\Sigma_{t|t-1}H^T_t+\Sigma_{V_t})^{-1},
 $$
-with covariance
+where the $R_t=(\boldsymbol{y}_t-H_t\boldsymbol{\hat X}_{t|t-1}$ is the innovation. The covariance matrix of the posterior estimator is
 $$
-\Sigma_{t|t} = (I-K_{X_t}H_t)\Sigma_{t|t-1}.
+\Sigma_{t|t} = (I-K_{X_t}H_t)\Sigma_{t|t-1},
 $$
 4. Repeat the procedure until to the end of the time series.
