@@ -1,4 +1,4 @@
-# Tree Traversal.
+# Tree Traversal
 
 ## Binary Tree Traversal
 

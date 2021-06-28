@@ -7,7 +7,7 @@ A Hidden Markov Model (HMM) consisted by the following parts:
 1. Ground truth states, represented by a Markov process $S_t=s_1,\dots, s_N$.
 2. Observable events, represented by a Markov process $O_t=o_1,\dots,o_N$.
 3. Emission probability or observation probability $\mathbb{P}(O_t=o_t|S_1=s_1, \dots, S_t=s_t) = \mathbb{P}(O_t=o_t|S_t=s_t)$. The emission probability can also be represented as a matrix $E$ such that the element $E_{i,s}=\mathbb{P}(O_t = i|S_t = s)$.
-4. Tansition probability $T$ which the $ij$-th element $T_{ij}=\mathbb{P}(O_{t}=j|O_{t-1}=i)$ and then $\sum_iT_{ij}= 1,\forall j$.  
+4. Tansition probability $T$ which the $(i,j)$ element $T_{ij}=\mathbb{P}(O_{t}=j|O_{t-1}=i)$ and then $\sum_iT_{ij}= 1,\forall j$.  
 5. The initial probability distribution of truth states $\pi$ that $\pi_i = \mathbb{P}(S_1=i)$, $\sum_i\pi_i=1$. 
 
 The HMM introduced here also assume that it is time-homogeneous which means that both transistion probability and emission probability is independent on the time subscripts. 
