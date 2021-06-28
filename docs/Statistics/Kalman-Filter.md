@@ -1,4 +1,4 @@
-# Kalman Filtering
+# Kalman Filter
 
 ## Estimator Fusion
 

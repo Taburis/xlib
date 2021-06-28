@@ -9,14 +9,15 @@ module.exports = {
   tagline:  '',
 
   url: 'https://taburis.github.io',
-  baseUrl: '/xlib/',
+  baseUrl: '/',
+  //baseUrl: '/xlib/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/Ton618_icon.png',
   //favicon: 'img/favicon.ico',
   organizationName: 'Taburis', // Usually your GitHub org/user name.
   projectName: 'xlib', // Usually your repo name.
-  trailingSlash: false,
+  trailingSlash: true,
   stylesheets: [
     {
         href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
