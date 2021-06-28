@@ -9,8 +9,7 @@ module.exports = {
   tagline:  '',
 
   url: 'https://taburis.github.io',
-  baseUrl: '/',
-  //baseUrl: '/xlib/',
+  baseUrl: '/xlib/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/Ton618_icon.png',
