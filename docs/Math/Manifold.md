@@ -7,9 +7,9 @@ $$
 f=\varphi_U\circ\varphi_V^{-1}, \quad g=\varphi_V\circ\varphi_U^{-1}.
 $$
 
-## Differentiable Structure
+## Differentiable Manifold
 
-A $C^r$-differentiable structure on a manifold $M$ is a set of coordinate charts 
+A **$C^r$-differentiable structure** on a manifold $M$ is a set of coordinate charts 
 $$
 \mathcal{A}=\lbrace (U,\varphi_U), (V,\varphi_V),\dots\rbrace,
 $$
@@ -19,8 +19,6 @@ satisfying the following conditions
 3. $\mathcal{A}$ is the **maximal**, that is, if a $(\alpha, \varphi_\alpha)$ is a coordinate chart that $C^r$-compatible with all the charts in $\mathcal{A}$, this chart is also included in $\mathcal{A}$. 
 
 
-## Differentiable Manifold
-
 A manifold $M$ is called a $C^r$-**differentiable manifold** if there's a $C^r$-differentiable structure defined on $M$, denoted as $(\varphi, M)$ (where $\varphi(p)=\varphi_U(p)$ for $x \in U$). A **smooth manifold** is a $C^\infty$-differentiable manifold. 
 
 * A differentiable manifold is **locally compact** that there is an compact set $V$ for any point $x$ with an open neighbour $U_x$ such that $x\in U_x\subset V$.
@@ -28,7 +26,7 @@ A manifold $M$ is called a $C^r$-**differentiable manifold** if there's a $C^r$-
 $$
 \mathcal{I}_{V\subset U}(p) = \left\lbrace
 \begin{aligned}
-1 & p\in V,\\
-0 & p\notin V.
+1 \quad p\in V,\\
+0 \quad p\notin V.
 \end{aligned}\right.
 $$
