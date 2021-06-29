@@ -82,7 +82,7 @@ where $\boldsymbol{y}_t$ is the observation at $t$ and $\Sigma_{t|t-1}$ is the c
 1. Initiate condition $\boldsymbol{\hat X}_{1|1} = H_1^{-1}\boldsymbol{y}_1$.
 2. Predict the priori estimator:
 $$
-\boldsymbol{\hat X}_{t|t-1} = T_t\boldsymbol{X_{t-1|t-1}},
+\boldsymbol{\hat X}_{t|t-1} = T_t\boldsymbol{\hat X_{t-1|t-1}},
 $$
 with the covariance matrix
 $$

@@ -16,7 +16,7 @@ which is usually called G-inverse of $A$.
 
 ## Moore-Penrose Inverse
 
-A G-inverse $A^-$ is a **Moore-Penrose inverse** for $A$ if
+A G-inverse $A^+$ is a **Moore-Penrose inverse** for $A$ if
 1. Hermitian: $(A^+A)^*=A^+A$ and $(AA^+)^*=AA^+$
 2. Mutually G-inverse: $A^+AA^+=A$ and $AA^+A=A$.
 
