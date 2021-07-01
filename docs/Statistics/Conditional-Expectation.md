@@ -35,7 +35,7 @@ $$
 $$
 
 **proof**
-1. The conditional expectation is actually the Radon-Nikodym derivative, therefore, the existence is guaranteed by the Radon-Nikodym's theorem. For the almost surely uniqueness, lets assume $Y,Z$ are two random variables could be $\mathbb{E}[X|\mathcal{G}]$ and $A=\lbrace{p\in \Omega| Y(p)>Z(p)\rbrace$. By the definition:
+1. The conditional expectation is actually the Radon-Nikodym derivative, therefore, the existence is guaranteed by the Radon-Nikodym's theorem. For the almost surely uniqueness, lets assume $Y,Z$ are two random variables could be $\mathbb{E}[X|\mathcal{G}]$ and $A=\lbrace p\in \Omega| Y(p)>Z(p)\rbrace$. By the definition:
 $$
 \int_A(Y-Z)(\omega)d\mathbb{P}(\omega) = 0,
 $$
