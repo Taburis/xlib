@@ -143,7 +143,7 @@ If a $\sigma$-ring contained a unit, then it is called a $\sigma$-algebra. So is
 $$
 \bigcup_iA_i=E\setminus\bigcap_i(E\setminus A_i),\quad \bigcap_iA_i=E\setminus \bigcup_i(E\setminus A_i).
 $$
-So they are both called as a **Borel algebra (or B-algebra)**. If $\mathfrak{S}$ is a nonempty collection of sets, there is a Borel algebral $\mathfrak{B}(\mathfrak{S})$ containing $\mathfrak{S}$ and contained in every B-algebra containing $\mathfrak{S}$. This $\mathfrak{B}(\mathfrak{S})$ is called the **minimal B-algebra over** $\mathfrak{S}$ or the **Borel closure** of $\mathfrak{S}$. 
+So they are both called as a **Borel algebra (or B-algebra)**. If $\mathfrak{S}$ is a nonempty collection of sets, there is a Borel algebral $\mathfrak{B}(\mathfrak{S})$ containing $\mathfrak{S}$ and contained in every B-algebra containing $\mathfrak{S}$. This $\mathfrak{B}(\mathfrak{S})$ is called the **minimal B-algebra over** $\mathfrak{S}$ or the **Borel closure** of $\mathfrak{S}$. The element of a Borel algebra is called as a **Borel set**.
 
 Mapping on the Borel algebra $f(\mathfrak{B})$ denotes the image of all the sets $A\in\mathfrak{B}$. The mapping leads to the following properties:
 1. If $\mathfrak{R}$ is a ring, then $f^{-1}(\mathfrak{R})$ is a ring.

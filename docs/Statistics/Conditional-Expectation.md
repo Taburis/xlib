@@ -6,7 +6,7 @@ Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space, $\mathcal{G}\sub
 1. $\mathbb{E}[X|\mathcal{G}]$ is $\mathcal{G}$-measurable;
 2. The following euqation holds
 $$
-\int_A\mathbb{E}[X|\mathcal{G}](\omega)d\mathbb{P}(\omega) = \int_A X(\omega))d\mathbb{P}(\omega),\quad \forall A\in \mathcal{G}.
+\int_A\mathbb{E}[X|\mathcal{G}](\omega)d\mathbb{P}(\omega) = \int_A X(\omega)d\mathbb{P}(\omega),\quad \forall A\in \mathcal{G}.
 $$
 
 ## Properties
