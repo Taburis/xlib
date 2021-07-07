@@ -13,7 +13,7 @@ $$
 A simple function is called $\mu$-integrable if its integral exists.
 
 The Lebesgue integral of simple functions have the following properties:
-1. Suppose $A=\cup B_i$ where $B_i\cap B_j=\varnothing$ and $f$ has only one value, say $c_k$ over $B_k$, then the sufficient and necessary condition for the integral of $f$ to exist is that the following summation converent absolutely
+1. Suppose $A=\cup_i B_i$ where $B_i\cap B_j=\varnothing$ and $f$ has only one value, say $c_k$ over $B_k$, then the sufficient and necessary condition for the integral of $f$ to exist is that the following summation converent absolutely
 $$
 \int_Af(x)d\mu = \sum_kc_k\mu(B_k).
 $$
@@ -66,13 +66,13 @@ $$
 \left|\int_Af(x)d\mu\right| \le M\mu(A),
 $$
 which means that $f(x)$ is integrable.
-4. If $f$ is integrable and is non-negative over $A$, then $\int_Af(x)d\mu \ge 0$. If $f\ge g$ and $f,g$ are integrable, then $\int_Af(x)d\mu\ge\int_Ag(x)d\mu$. Furthermore, if $m\le f(x)\le M$, then $m\mu(A)\le \int_Af(x)d\mu\le M\mu(A)$. 
+4. If $f$ is integrable and is non-negative over $A$, then $\int_Af(x)d\mu \ge 0$. If $f\ge g$ and $f,g$ are integrable, then $\int_Af(x)d\mu\ge\int_Ag(x)d\mu$. Furthermore, if $m\le f(x)\le M$, then $m\le \int_Af(x)d\mu/\mu(A)\le M$. 
 5. Suppose $A$ have a countable partition $A=\cup_iA_i$, where $A_i$ are pairwise disjoint and $f$ is a integral function, then
 $$
-int_Af(x)d\mu = \sum_i\int_{A_i}f(x)d\mu.
+\int_Af(x)d\mu = \sum_i\int_{A_i}f(x)d\mu.
 $$
 It also means that if $f$ is integrable on $A$, then it is integrable on any subsets of $A$.
-6. Suppose $\varphi(x)$ is an integrable function on $A$, and $|f(x)|\ge \varphi(x)$ over $A$, then $f$ is also integrable on $A$. 
+6. Suppose $\varphi(x)$ is an integrable function on $A$, and $|f(x)|\le \varphi(x)$ over $A$, then $f$ is also integrable on $A$. 
 7. Given a function $f$ defined on $A$, then the integral $\int_Af(x)d\mu$ exists if and only if $\int_A|f(x)|d\mu$. 
 8. The **Chebyshev inequality**: If $\varphi(x)\ge 0$ on $A$, then
 $$
@@ -102,3 +102,52 @@ $$
 $$
 \int_A \varphi(x)d\mu = \left (\int_{A\setminus B} +\int_B\right)\varphi(x)d\mu\ge \int_B\varphi(x)d\mu\ge c\mu(B).
 $$
+
+
+## Exchanging the Limits
+
+1. If a sequence $f_n(x)$ converge to $f(x)$ on $A$ and $|f_n(x)|\le \varphi(x)$ for all $n$, where $\varphi(x)$ is a integrable function on $A$, then the limit function $f(x)$ is integrable over $A$ and
+$$
+\lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
+$$
+2. If $f_n(x)\to f(x)$ and $|f_n(x)|\le M$, then 
+$$
+\lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
+$$
+3. Given a sequence monotonic increasing function $f_n(x)$, $f_n(x)\le f_m(x)$ for all $n\le m$. Suppose $f_n(x)$ is integrable and the integral is bounded
+$$
+\int_Af_n(x)d\mu\le K.
+$$
+Then
+$$
+\lim_{n\to\infty}f_n(x)\to f(x)
+$$
+almost everywhere on $A$ and $f(x)$ is integrabel
+$$
+\lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
+$$
+This conclusion also holds for the monotonic decreasing sequence with a lower bound on their integrals.
+4. If $\varphi_n(x)\ge 0$ and 
+$$
+\sum_{n}\int_A\varphi_n(x)d\mu\le \infty,
+$$ 
+then $\sum_{n}\varphi_n(x)$ converges almost everywhere on $A$ and
+$$
+\sum_{n}\int_A\varphi_n(x)d\mu = \int_A\Big[\sum_n\varphi_n(x)\Big]d\mu.
+$$
+
+**Proof**
+1. Since $|f_n(x)|\le \varphi(x)$, then $f_n(x)$ is integrable. The integrable of $\varphi(x)$ implies that exists a $A_m=\lbrace x: \varphi(x) > m\rbrace$ such that
+$$
+\int_{A_m} \varphi(x)d\mu\le \epsilon.
+$$
+Based on Egorov's theorem, for a number $\epsilon/m>0$, there is a decomposition $A\A_m=D\cup E$ such that $D\subset A$ such that $\mu(E)\le \epsilon$ and $f_n(x)$ convergent to $f(x)$ uniformly. Now choosing a $N$ such that for any $n\ge N$:
+$$
+|f_n(x)-f(x)|\le\epsilon/\mu(D),
+$$
+then the integral
+$$
+\int_A[f_n(x)-f(x)]d\mu = \left(\int_{A_m}+\int_{E}+\int_C\right)[f_n(x) -f(x)] d\mu\le 5\epsilon.
+$$
+2. This is a collorary from the 1st theorem with $\varphi(x)=M$. 
+3. 
