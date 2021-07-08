@@ -141,7 +141,7 @@ $$
 $$
 \int_{A_m} \varphi(x)d\mu\le \epsilon.
 $$
-Based on Egorov's theorem, for a number $\epsilon/m>0$, there is a decomposition $A\A_m=D\cup E$ such that $D\subset A$ such that $\mu(E)\le \epsilon$ and $f_n(x)$ convergent to $f(x)$ uniformly. Now choosing a $N$ such that for any $n\ge N$:
+Based on Egorov's theorem, for a number $\epsilon/m>0$, there is a decomposition $A\setminus A_m=D\cup E$ such that $D\subset A$ such that $\mu(E)\le \epsilon$ and $f_n(x)$ convergent to $f(x)$ uniformly. Now choosing a $N$ such that for any $n\ge N$:
 $$
 |f_n(x)-f(x)|\le\epsilon/\mu(D),
 $$

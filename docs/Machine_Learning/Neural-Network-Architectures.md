@@ -18,10 +18,10 @@ $$
 where a convolution operation is used here.
 * Suppose the stride length is $S\le \min(W,H)$ and $P$ zero paddings for each side. The output tensor shape $W_1\times H_1\times D_1$ is determined
 $$
-\begin{align}
+\begin{aligned}
 W_1 &= \lfloor(W_0-W+2P)/S\rfloor+1,\\
 H_1 &= \lfloor(H_0-H+2P)/S\rfloor+1,
-\end{align}
+\end{aligned}
 $$
 where $\lfloor A\rfloor$ means the largest lower bound of integer approximation. 
 
@@ -43,4 +43,4 @@ $$
 2. Standardized the $x\to X$ by $X=(x-\mu)/(\sigma+\epsilon)$ where $\epsilon>0$ is a small number added for stability purpose. 
 3. Apply the linear transformation to get the final ouput $y=\gamma X+\beta$.
 
-Noticed that the transform will leads to original $x$ if $\gamma,\beta$ are trained to be $\gamma=\sigma$ and $\beta=\mu$, if it really leads to a max loss. 
+Noticed that the transform will leads to original $x$ if $\gamma,\beta$ was trained to be $\gamma=\sigma$ and $\beta=\mu$. 
