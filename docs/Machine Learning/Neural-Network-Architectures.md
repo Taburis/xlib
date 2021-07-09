@@ -25,7 +25,7 @@ H_1 &= \lfloor(H_0-H+2P)/S\rfloor+1,
 $$
 where $\lfloor A\rfloor$ means the largest lower bound of integer approximation. 
 
-## Max pool layer
+## Max Pooling
 
 The function of the max pool layer is boosting the traing speed and preventing the over-fitting by reducing the outputs from selecting the maximum value among the inputs within a loca region as the outputs. For instance, for a size $W\times H$ max pooling layer, it will slice the input into a many small region with shape $W\times H$, (padding or stride may apply). And only the maximum value of each slices will be the output from that region.
 
