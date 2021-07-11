@@ -30,6 +30,9 @@ where $\lfloor A\rfloor$ means the largest lower bound of integer approximation.
 The function of the max pool layer is boosting the traing speed and preventing the over-fitting by reducing the outputs from selecting the maximum value among the inputs within a loca region as the outputs. For instance, for a size $W\times H$ max pooling layer, it will slice the input into a many small region with shape $W\times H$, (padding or stride may apply). And only the maximum value of each slices will be the output from that region.
 
 ## Batch Normalization
+
+[Reference](https://arxiv.org/pdf/1502.03167.pdf)
+
 The motivation of the batch normalization is based on the imperical conclusion that the NN training can be boosted and stablized if the activations are normalized to have a standard Gaussian distribution over the training samples. The batch normalization (BN) is targetting to practically implement this idea and preserve the representation of each layer. Since we know that normalized activation $X\sim N(0,1)$ which means it will shift the mean value of the original output $x$. This can potentially contradict to what this layer is suppose to represent. So an extra linear transform is applied to $X$. 
 
 Suppose the mini-batch of samples leads to the inputs $x=\lbrace x_1,\dots, x_n\rbrace$ to BN, then the BN algorithm $y = BN(x|\gamma, \beta)$, where $\gamma,\beta$ are trainable parameters, is:

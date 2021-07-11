@@ -39,17 +39,17 @@ The algorithm of the momentum estimation updating the parameters based on
 $$
 \begin{aligned}
 \boldsymbol{\theta} &= \boldsymbol{\theta} +\alpha \Delta\boldsymbol{\theta},\\
-\Delta\boldsymbol{\theta} &= \Delta\boldsymbol{\theta} - r\nabla_\theta \mathcal{L},
+\Delta\boldsymbol{\theta} &= \Delta\boldsymbol{\theta} - r\nabla_\theta \mathcal{L}_t,
 \end{aligned}
 $$
-where $\Delta\boldsymbol{\theta}$ is 0 at the very begining, and $\alpha$ is a decay parameter in $[0,1]$.
+where $\Delta\boldsymbol{\theta}$ is 0 at the very begining, $\nabla_\theta \mathcal{L}_t$ is the graident with the parameter $\boldsymbol{\theta}_t$, and $\alpha$ is a decay parameter in $[0,1]$.
 The idea comes from imaging the searching as a point moving in parameter space at a velocity $\Delta\boldsymbol{\theta}$ with a friction decay parameter $\alpha$, while $\mathcal{L}$ is a potential function so that $\nabla_\theta \mathcal{L}$ play the role of force to change the velocity of $\Delta\boldsymbol{\theta}$. This method can supressed the disturbs from gradient fluctuation effectively so that $\mathcal{L}$ may decrease smoothly.
 
 ### Adaptive Gradient Descent
 
 The adaptive gradient descent (AdaGD) introduced a variating learning step defined by the inverse of the length of the gradient. The algorithm is similar to SGD except moving parameters as
 $$
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{S_{t+1}}}\nabla_\theta\mathcal{L}_t,\quad S_{t+1}=S_t+|\nabla_\theta\mathcal{L}|^2.
+\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{S_{t+1}}}\nabla_\theta\mathcal{L}_t,\quad S_{t+1}=S_t+\Vert\nabla_\theta\mathcal{L}_t\Vert^2.
 $$
 The gradient will be shrinked by a factor of $1/\sqrt{S_t}$ at $t$-th step. The $S_t$ increase monotonically which leads to the learning step are decreasing as the iteration number increase. 
 
@@ -58,7 +58,7 @@ The gradient will be shrinked by a factor of $1/\sqrt{S_t}$ at $t$-th step. The 
 The Root Mean Square Propagation (RMSProp) is a similar algorithm like AdaGD by variating the learning step according to the length of the gradient. Unlike the AdaGD which has a monotonic decrasing learning step, RMSProp adjust the learning rate as:
 
 $$
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{v_{t+1}}+\epsilon}\nabla_\theta\mathcal{L}_t,\quad v_{t+1}=\gamma v_t+(1-\gamma)|\nabla_\theta\mathcal{L}|^2,
+\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{v_{t+1}}+\epsilon}\nabla_\theta\mathcal{L}_t,\quad v_{t+1}=\gamma v_t+(1-\gamma)\Vert\nabla_\theta\mathcal{L}_t\Vert^2,
 $$
 where $\gamma\in [0, 1]$ is called "forgetting factor" as the history sum of gradient length will decay by a factor of $\gamma$ for each iteraction. The small $\epsilon$ constant is added here to avoid singularity.
 
@@ -68,8 +68,8 @@ where $\gamma\in [0, 1]$ is called "forgetting factor" as the history sum of gra
 The momentum estimation reliably reduces the flucuation by introduced a "inertial" and "friction" for searching. The Adaptive Momentum (Adam) estimation extended the momentum estimation algorithm by introduce an adaptive learning step similar to the RMSProp. It updates the parameters based on the formula:
 $$
 \begin{aligned}
-m_{t+1} &= \beta_1 m_t+(1-\beta_1)\nabla_\theta\mathcal{L},\\
-v_{t+1} &= \beta_1 v_t+(1-\beta_2)\Vert\nabla_\theta\mathcal{L}\Vert^2,\\
+m_{t+1} &= \beta_1 m_t+(1-\beta_1)\nabla_\theta\mathcal{L}_t,\\
+v_{t+1} &= \beta_1 v_t+(1-\beta_2)\Vert\nabla_\theta\mathcal{L}_t\Vert^2,\\
 m &= \frac{m_{t+1}}{1-\beta_1^{t+1}},\\
 v &= \frac{v_{t+1}}{1-\beta_2^{t+1}},\\
 \boldsymbol{\theta}_{t+1} &= \boldsymbol{\theta}_t-r\frac{m}{\sqrt{v}+\epsilon},
@@ -83,4 +83,4 @@ and the expectation of this quantity is
 $$
 \mathbb{E}(m)= \mathbb{E}(G)(1-\beta^N),
 $$
-indicates that an unbiased estimator for $G$ is $\hat m = m/(1-beta^N)$.
+indicates that $\hat m = m/(1-\beta^N)$ is an unbiased estimator for $G$.
