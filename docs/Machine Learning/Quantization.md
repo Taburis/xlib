@@ -1,8 +1,8 @@
 # Quantization
 
-The idea of quantization for a given model $f(x|\boldsymbol{W})$ with weights $\boldsymbol{W}$ is to approximate the original model by weights with lower precision. Many digits of the precision is redundant in terms of the marginal gain from increasing the precision of weights. Such it is possible to reduce the precision significantly with a minor tradeoff on the prediction accuracy. The quantization sliming the weight precision is expected to optimize a model in the following aspects:
+The idea of quantization for a given model $f(x|\boldsymbol{W})$ (where $\boldsymbol{W}$ are weights) is approximating the original model by weights with lower precision. Many digits of the precision is redundant in terms of the marginal gain from increasing the precision of weights. Such it is possible to reduce the precision significantly with a minor tradeoff on the prediction accuracy. The quantization sliming the weight precision is expected to optimize a model in the following aspects:
 * **Smaller storage size**: Quantizing a `float32` model into a `float16` precision will reduce the size by up to 50%.
-* Faster performance and less memory usage: Less memory usage comes from the smaller size of weights needs to be loaded. Lower precision results a faster calculation process.
+* **Faster performance and less memory usage**: Less memory usage comes from the smaller size of weights needs to be loaded. Lower precision results a faster calculation process.
 
 ## Affine Quantization
 

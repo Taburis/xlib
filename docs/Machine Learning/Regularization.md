@@ -23,4 +23,4 @@ The minimum of loss is reached if
 $$
 \nabla\sigma = -\lambda \nabla R,
 $$
-the gradient of the error term is collinear with but opposite direction to the gradient of regularization term. Notice that the gradient of L1 is always a constant, it is a 1 pointed to original on axis and $\sqrt{n}/n(1, \dots, 1)$ elsewhere. 
+the gradient of the error term is collinear with but opposite direction to the gradient of regularization term. Notice that the gradient of L1 is always a constant, it is a unit vector pointing to origin where it starts from any axis of weights, and is $\sqrt{n}/n(1, \dots, 1)$ elsewhere. 
