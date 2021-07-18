@@ -110,11 +110,12 @@ $$
 $$
 \lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
 $$
+This is also known as **Lebesgue's dominated convergence theorem**.
 2. If $f_n(x)\to f(x)$ and $|f_n(x)|\le M$, then 
 $$
 \lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
 $$
-3. Given a sequence monotonic increasing function $f_n(x)$, $f_n(x)\le f_m(x)$ for all $n\le m$. Suppose $f_n(x)$ is integrable and the integral is bounded
+3. Given a sequence monotonic increasing function $f_n(x)$ ($f_n(x)\le f_m(x)$) for all $n\le m$. Suppose $f_n(x)$ is integrable and the integral is bounded
 $$
 \int_Af_n(x)d\mu\le K.
 $$
@@ -135,6 +136,7 @@ then $\sum_{n}\varphi_n(x)$ converges almost everywhere on $A$ and
 $$
 \sum_{n}\int_A\varphi_n(x)d\mu = \int_A\Big[\sum_n\varphi_n(x)\Big]d\mu.
 $$
+5. 
 
 **Proof**
 1. Since $|f_n(x)|\le \varphi(x)$, then $f_n(x)$ is integrable. The integrable of $\varphi(x)$ implies that exists a $A_m=\lbrace x: \varphi(x) > m\rbrace$ such that
@@ -147,7 +149,27 @@ $$
 $$
 then the integral
 $$
-\int_A[f_n(x)-f(x)]d\mu = \left(\int_{A_m}+\int_{E}+\int_C\right)[f_n(x) -f(x)] d\mu\le 5\epsilon.
+\int_A[f_n(x)-f(x)]d\mu = \left(\int_{A_m}+\int_{D}+\int_E\right)[f_n(x) -f(x)] d\mu\le 5\epsilon.
 $$
 2. This is a collorary from the 1st theorem with $\varphi(x)=M$. 
-3. 
+3. To show $f_n(x)\to f$ almost everywhere, we consider the case that $f_n(x)\ge0$ without loose generality (or setting $g_n(x)=f_n(x)-f_1(x)$). Let 
+$$
+\Omega_n^r=\lbrace x: f_n(x)\ge r\rbrace,
+$$ 
+then $\Omega = \cap_r\cup_n\Omega_n^r$ is the set of all points divergence ($f_n(x)\to\infty$). By Chebyshev inequality, we have
+$$
+\mu(\Omega_n^r)\le K/r.
+$$
+By the definition of the monotonic, we have $\Omega_n^r\subset \Omega_{n+1}^r$ and hence we have $\mu(\Omega)\le K/r$ for any $r$ which means that $\mu(\Omega)=0$. This proved that $f_n(x)\to f(x)$ a.e.
+
+To show the integrable, we construct a upper bound of $f(x)$ by a simple function $\varphi(x)$ defined as $\varphi(x)= r$ for all $x$ such that
+$$
+r-1\le \varphi(x)\le r, \quad r\in \mathbb{N}^+.
+$$
+If $\varphi(x)$ is integrable, then $f$ is integrable followed by the Lebesgue's dominated convergence theorem. Let $X_r=\lbrace x: \varphi(x)=r\rbrace$, and $B_s=\cup_{i=1}^{s}X_r$, then we have
+$$
+\int_{B_s}\varphi(x)d\mu\le \lim_{n\to\infty}f_n(x)d\mu+\mu(A)= \int_{B_s}f(x)+\mu(A)\le K+\mu(A),
+$$
+since $B_s\subset A$ and $f(x)+1\ge \varphi(x)$. It means that summation is bounded above which means that the summation convergent when $n\to \infty$ so that $\varphi$ is integrable.
+4. This is a collorary from the previous theorem with $f_n(x)=\sum_{i=1}^n\varphi_i(x)$.
+5.  
