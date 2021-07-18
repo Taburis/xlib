@@ -15,7 +15,7 @@ The philosophy here is that adding extra degree of freedom into the model should
 * **L1 regularization**: $R(f)=\sum_i|\theta_i|$.
 * **L2 regularization**: $R(f)=\sum_i\theta_i^2$.
 
-All these regularization term will setup a threshold for judging if adding an extra parameter was worthy. The L0 term penalty for adding extra parameter is a constant, independent on the value of the parameters. This property often leads to find a sparse solution (many parameters are 0) for minimizing the loss function. 
+All these regularization term will setup a threshold for judging if adding an extra parameter was worthy. The L0 term penalty for adding extra parameter is a constant, independent on the value of the parameters. This property often leads to a sparse solution (many parameters are 0) minimizing the loss function. 
 
 The penalty from L1 and L2 is depends on the value of the parameters added. The penalty introduced by L1 regularization in parameter space is a diamond-like shapes while it is a sphere introduced by L2. It means that the penalty of parameters increase linearly in L1 while the L2 tolerant more than L1 term for those parameters less than 1. This makes the L1 term derive sparse solution more often than the L2 term for the parameters generally with mean less or around 1. Noticing the performance of the regularization term is highly correlated to the form of the loss term $\sigma(x, y|\hat \theta)$ since it will setup the priority of the prediction costs.
 

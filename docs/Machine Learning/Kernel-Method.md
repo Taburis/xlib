@@ -52,7 +52,7 @@ $$
 where $\lambda$ is an arbitrary parameter and the second term is the square of the inverse of the margin width $2/\Vert\boldsymbol{n}\Vert$. The fit minimizing this loss by gradient descend will ping down the parameters of the hyperplane. The loss function $\mathcal{L}$ can be viewed as maximizing the margin width (second term) with a constraint on the hyperplane (first term) by using a Lagrange multiplier method. On the other hand, it could also viewed as a cross-entropy with a L2 regularization.
 
 
-## Linear Support Vector Regression
+### Linear Support Vector Regression
 
 Unlike the linear SVC trying to separate the samples outside the hyperplane margin, the linear support vector regression (SVR) are trying to find a hyperplane with a boundary to contain as much samples as possible. In this case, the target value $y$ is represented by the offset of the hyperplane and
 $$
@@ -67,3 +67,5 @@ $$
 \mathcal{L} = \sum_i\varphi(y_i-f(\boldsymbol{x}_i))+\lambda\Vert \boldsymbol{n}\Vert^2,
 $$
 where the $\varphi$ is a loss function customizable. In the case of $\varphi(x)=x^2$, it leads to a least square estimation with a L2 regularization. It could also be $\varphi(x)=\text{max}(0, |x|-\epsilon)$ that penalty only comes from the points outside the boundary. 
+
+### Nonlinear Extension: Kernel Trick
