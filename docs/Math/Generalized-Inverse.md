@@ -32,4 +32,5 @@ Because of the idenpotent and symmetry of $A^+$, the operators $AA^+$ and $A^+A$
 The Moore-Penrose inverse of $A$ can be expressed as
 * $A^+=(A^*A)^{-1}A^*$ and $A^+A=I$ if $A$ has linearly independent columns. 
 * $A^+=A^*(AA^*)^{-1}$ and $AA^+=I$ if $A$ has linearly independent rows.
-These conclusion comes from the fact that $A^*A$ is full rank matrix if $A$ has linearly independent columns, similar argument holds for the latter case.
+
+These conclusions come from the fact that $A^*A$ is full rank matrix if $A$ has linearly independent columns, similar argument holds for the latter case.
