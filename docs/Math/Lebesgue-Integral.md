@@ -104,7 +104,7 @@ $$
 $$
 
 
-## Exchanging the Limits
+## Lebesgue Integral in Limitations
 
 1. If a sequence $f_n(x)$ converge to $f(x)$ on $A$ and $|f_n(x)|\le \varphi(x)$ for all $n$, where $\varphi(x)$ is a integrable function on $A$, then the limit function $f(x)$ is integrable over $A$ and
 $$
@@ -136,7 +136,19 @@ then $\sum_{n}\varphi_n(x)$ converges almost everywhere on $A$ and
 $$
 \sum_{n}\int_A\varphi_n(x)d\mu = \int_A\Big[\sum_n\varphi_n(x)\Big]d\mu.
 $$
-5. 
+5. If $A=\cup_nA_n$ where $A_n$ are pairwise disjoint sets, and the series
+$$
+\sum_n\int_{A_n}|f(x)|d\mu
+$$
+converges, then $f(x)$ is integrable and 
+$$
+\int_Af(x)d\mu=\sum_n\int_{A_n}f(x)d\mu.
+$$
+6. **Reimann Integral Relation**: Suppose a Reimann integral
+$$
+\int_a^bf(x)dx,
+$$
+exists for $f(x)$, then $f$ is Lebesgue integrable on $[a,b]$ and the integral is the same as its Reimann integral.
 
 **Proof**
 1. Since $|f_n(x)|\le \varphi(x)$, then $f_n(x)$ is integrable. The integrable of $\varphi(x)$ implies that exists a $A_m=\lbrace x: \varphi(x) > m\rbrace$ such that
@@ -161,7 +173,6 @@ $$
 \mu(\Omega_n^r)\le K/r.
 $$
 By the definition of the monotonic, we have $\Omega_n^r\subset \Omega_{n+1}^r$ and hence we have $\mu(\Omega)\le K/r$ for any $r$ which means that $\mu(\Omega)=0$. This proved that $f_n(x)\to f(x)$ a.e.
-
 To show the integrable, we construct a upper bound of $f(x)$ by a simple function $\varphi(x)$ defined as $\varphi(x)= r$ for all $x$ such that
 $$
 r-1\le \varphi(x)\le r, \quad r\in \mathbb{N}^+.
@@ -172,4 +183,45 @@ $$
 $$
 since $B_s\subset A$ and $f(x)+1\ge \varphi(x)$. It means that summation is bounded above which means that the summation convergent when $n\to \infty$ so that $\varphi$ is integrable.
 4. This is a collorary from the previous theorem with $f_n(x)=\sum_{i=1}^n\varphi_i(x)$.
-5.  
+5. suppose $f$ is a simple function and let $A_{in}=A_n\cap X_{f_i}$, then 
+$$
+\sum_n\int_{A_n}|f(x)|d\mu=\sum_{n,i}|f_i|\mu(A_{ni})=\sum_i|f_i|\mu(A\cap X_{f_i})
+$$ 
+converges which implies that this theorem holds for simple functions. 
+To extend to general case, we approximate the $f$ by a simple function $g$ such that $|f-g|\le \epsilon$ for any $x$ in the domain. Then
+$$
+\sum_n\int_{A_n}|f(x)|d\mu\le \sum_n\int_{A_n} |g(x)|d\mu+\epsilon\mu(A).
+$$
+By the assumption, convergence of $\sum_n\int_{A_n} |g(x)|d\mu$ implies  that $\sum_n\int_{A_n}|f(x)|d\mu$ converges. This means that $g(x)$ is integrable on $A$ and hence $f$ is integrable.
+6. Partition the interval $[a,b]$ into $2^n$ subintervals $[x_i,x_{i+1}]$ where $x_i=a+i/2^n(b-a)$ and let $M_{ni}$ and $m_{ni}$ be the least upper bound and greatest lower bound of $f(x)$ in the subinterval $[x_i,x_{i+1}]$. The Reimann's integral exists implies that the summation converges when $n\to \infty$:
+$$
+\begin{aligned}
+S_n&=\sum_{k=1}^{2^n}M_{nk}(b-a)/2^n,\\
+s_n&=\sum_{k=1}^{2^n}m_{nk}(b-a)/2^n.
+\end{aligned}
+$$
+Furthermore, they also form the simple functions 
+$$
+\begin{aligned}
+f_{n+}(x)&=M_{nk},\\
+f_{n-}(x)&=m_{nk}.
+\end{aligned}
+$$
+for $x\in [x_{k},x_{k+1}]$. Then $f_{n-}\le f\le f_{n+}$, and $f_{n+},f_{n-}$ is nonincreasing and nondecreasing, respectively, while the Lebesgue integral exists which is the same as their Reimann's integral. By the 2nd theorem, the Lebesgue integral of $f(x)$ converges to the limit of the Reimann's integral of $f_{n+}$ and $f_{n-}$. 
+
+## Extension and Application
+
+### Functions of sets
+
+A function $F$ defined on a collection $\mathfrak{S}$ such that $F:\mathfrak{S}\to \mathbb{R}$ is called a function of sets. The Radon's representation theorem provided a insight of the relation between the function of sets and the integral over sets.
+**Radon–Nikodym Theorem**: Suppose:
+1. the $F$ is defined on a Borel algebra $S_\mu$ ($\mu$ is a $\sigma$-finite measure), that $F:S_\mu\to\mathbb{R}$ (a real-valued function of sets).
+2. $F(A)$ is completely additive: $A=\cup_n A_n$ where $A_n$ is pairwise disjoint, then $F(A)=\sum_nF(A_n)$. 
+3. $F(A)$ is absolute continuous: the $\mu(A)=0$ implies $F(A)=0$, denoted as $F \ll \mu$.
+Then exists a function $f$ on $A$ so that $F(A)$ can be represented as
+$$
+F(A)=\int_A f(x)d\mu.
+$$
+This function $f=dF/d\mu$ is uniquely defined and is called **Radon–Nikodym derivative**.
+
+This theorem can also be used to extend the non-negative measure into signed measure of sets.
