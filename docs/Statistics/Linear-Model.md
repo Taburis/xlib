@@ -10,7 +10,7 @@ $$
 ### Identifiable
 The linear model under Gauss-Markov assumption is estimable for $\boldsymbol{\theta}$ only if the column space of $X$ samples is full ranked. The estimable of $\boldsymbol{\theta}$ is that if $\theta_1\ne \theta_2$, then $f(\theta_1)\ne f(\theta_2)$. This property of $f(\theta)$ is also known as identifiable. 
 
-Given two $\boldsymbol{\theta}_1\ne\boldsymbol{\theta}_2$, non-trivial soluiton of $X(\boldsymbol{\theta}_1-\boldsymbol{\theta}_2)=0$ implise that column splace of $X$ is not full ranked and $\boldsymbol{\theta}_1-\boldsymbol{\theta}_2$ are in the null space of $X$. 
+Given two $\boldsymbol{\theta}_1\ne\boldsymbol{\theta}_2$, non-trivial solution of $X(\boldsymbol{\theta}_1-\boldsymbol{\theta}_2)=0$ implies that column space of $X$ is not full ranked and $\boldsymbol{\theta}_1-\boldsymbol{\theta}_2$ are in the null space of $X$. 
 
 ### The Best Linear Unbiased Estimator
 The Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ is the linear combination of $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $$ *\boldsymbol{\hat \theta}_{\text{LSE}}$*least square estimator** $\boldsymbol{\hat \theta}_{\text{LSE}}$.
@@ -49,7 +49,7 @@ $$
 $$
 
 :::info
-A explicity solution $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$. 
+A explicit solution: $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$. But in practice, it is usually approximated by a gradient descent search to minimize the residual.
 :::
 
 ### Residual and Uncertainties
@@ -71,6 +71,10 @@ $$
 and the trace of $P_X$ is the rank of $X$. 
 
 
+## Linear Estimation
 
+Given a random variable $H\boldsymbol{\theta}$, it is estimable if
+1. $\mathcal{C}(H^T)\subset \mathcal{C}(X^T)$, where $\mathcal{C}(X^T)$ stands for the column space of $X$.
+2. The rank of the column space of $H$ is the same of the rank of $H$. 
 
-
+This 
