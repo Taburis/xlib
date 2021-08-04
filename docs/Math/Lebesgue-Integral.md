@@ -21,7 +21,6 @@ $$
 3. A simple function $f$ bounded on $A$, $M\ge |f(x)|$ over $A$, is integrable, and $|\int_Af(x)d\mu |\le M\mu(A)$.
 
 **Proof** 
-----
 1. The summation of the integral can be expressed as
 $$
 \sum_iy_i\mu(X_{y_i})=\sum_iy_i\sum_{c_k=y_i}\mu(B_k)=\sum_kc_k\mu(B_k), 
@@ -81,7 +80,6 @@ $$
 $$
 
 **Proof**
-----
 1. This comes from the factor that scaling a seuqnce by a constant won't change the convergence.
 2. Notice that this conclusion holds for simple functions, this is a straightforward conclusion from passing the limit to the approximation sequence.
 3. If $f$ is bounded and a sequence of simple functions $f_n$ convergent to $f$ uniformly, then $f_n$ is bounded and integrable. The uniformly convergence of $f_n\to f$ implies that $\int_Af_n(x)d\mu\to \int_Af(x)d\mu$ which conclude the proof.
@@ -153,7 +151,6 @@ $$
 exists for $f(x)$, then $f$ is Lebesgue integrable on $[a,b]$ and the integral is the same as its Reimann integral.
 
 **Proof**
-----
 1. Since $|f_n(x)|\le \varphi(x)$, then $f_n(x)$ is integrable. The integrable of $\varphi(x)$ implies that exists a $A_m=\lbrace x: \varphi(x) > m\rbrace$ such that
 $$
 \int_{A_m} \varphi(x)d\mu\le \epsilon.

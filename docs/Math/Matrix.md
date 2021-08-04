@@ -34,7 +34,7 @@ A=(\boldsymbol{a}_1,\dots,\boldsymbol{a}_k), \quad C=(\boldsymbol{c}_1,\dots,\bo
 $$
 then $\mathcal{C}(C)\subset \mathcal{C}(A)$ means that $\boldsymbol{c}_i=\sum_{k}b_{ik}\boldsymbol{a}_k$ so that $b_{ik}$ forms a matrix that $AB=C$. It leads to the theorem that for a two matrix $A$ and $C$, $\mathcal{C}(C)\subset \mathcal{C}(A)$ if and only if there exists a matrix $B$ such that $AB=C$. 
 
-### Eigenvectors
+### Invariant Space and Eigenvectors
 A **invariant vector space** $V$ for linear transform $A_{m\times m}$ is a space that $A\boldsymbol{x}\in V$ for all $\boldsymbol{x}\in V$. In the case that the invariant space dimension is 1, it means that any vectors $\boldsymbol{v}\in V$ can only be scaled by a constant factor after the transformation: $A\boldsymbol{v}=\lambda \boldsymbol{v}$. Those vectors are called **eigenvectors**  with a **eigenvalue** $\lambda$. The eigenvalues of a matrix $A$ is determined by the equation
 $$
 \det(A-\lambda I_m)=0.
@@ -103,7 +103,7 @@ A=V\Sigma W^*,
 $$
 where the $V$ and $W$ are $m\times m$ and $n\times n$ unitary matrix consists by left and right singular vectors, respectively. The $\Sigma$ is a $m\times n$ matrix where the diagonal elements are singular values and the rests are 0.
 
-The connection between the SVD and ED. Given a SVD that $A=V\Sigma W^*$ such that $AA^*=V\Sigma W^*W\Sigma V^*=V\Sigma\Sigma^*V^*$. Comparing the ED that $M=AA^*=V\Lambda_1 V^*$, it shows that $\Sigma\Sigma^*=\Lambda_1$. On the other hand, $A^*A=W^*\Sigma\Sigma^* W$ such that $\Sigma^*\Sigma=\Lambda_2$. Without lose generality, we assume that $m\ge n$ so that we have
+The connection between the SVD and ED. Say the SVD of $A$ is $A=V\Sigma W^*$, then we have $AA^*=V\Sigma W^*W\Sigma V^*=V\Sigma\Sigma^*V^*$. On the other hand, Since $AA^*$ or $A^*A$ is symmetric, we have the ED $AA^*=V\Lambda_1 V^*$ which shows that $\Sigma\Sigma^*=\Lambda_1$. The same for $A^*A=W^*\Sigma\Sigma^* W$ such that $\Sigma^*\Sigma=\Lambda_2$. Without lose generality, we assume that $m\ge n$ then we have
 $$
 \Sigma=\left(
 \begin{array}{c}

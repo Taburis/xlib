@@ -1,33 +1,88 @@
 # Kernel Method
-
+---
 [Reference](https://arxiv.org/pdf/math/0701907.pdf)
 
 Given a set of samples $\lbrace x_i, y_i\rbrace$, the kernel method is used to analysis the pattern of the given samples. 
 
 ## Mathematical Foundation 
+---
 
-Let $X$ be a set and $\mathcal{H}$ is Hilbert space of real valued function defined on $X$. It is a **reproducing kernel Hilbert space** if $L_x$ is continuous on any $f\in\mathcal{H}$ where
+### Reproducing Kernel Hilbert Space
+
+A Reproducing Kernel Hilbert Space (RKHS) $\mathcal{H}(X)$ is a Hilbert space consists by functions defined on $X$ such that $L_x(f)$ is continuous (or, equivalently, bouned) for any $f\in\mathcal{H}$, where $L_x:f\to f(x)$ is a linear operator known as **linear evalutaion functional**. The continuous of $L_x$ means that the small $\Vert f-g\Vert$ implies that $|f(x)-g(x)|$ is small for all $x\in X$. 
+
+:::info Riesz Representation Theorem:
+Let $H$ be a Hilbert space whose inner product $\langle x, y\rangle$ is linear for the second argument ($y$) and anti-linear for the first argument ($x$), then for every continuous linear functional $\varphi\in H^*$, there is a unique $f_\varphi\in H$ such that $\varphi(f)=\langle f_\varphi, f\rangle$. 
+:::
+
+Based on this thoerem, the linear evalutaion functional can be expressed as
 $$
-L_x:f\to f(x),\quad \forall f\in\mathcal{H},
+f(x)=L_x(f)=\langle K_x,f\rangle, \quad \forall f\in \mathcal{H}(X).
 $$
-which means for any $f,g\in\mathcal{H}$, the small of $\Vert f-g\Vert$ implies that $|f(x)-g(x)|$ is small for all $x\in X$. A reproducing kernel Hilbert space could be span by a set of kernels, where the kernel is defined as a bilinear function $K$
+Moreover, $L_y(K_x)=\langle K_y,K_x \rangle=K(x,y)$ and called $K(x,y)$ as the **reproducing kenerl** and $K:X\times X\to \mathbb{F}$. It is symmetric and positive defined. And the point evaluation of any function $f\in\mathcal{H}(X)$ can be expressed as 
 $$
-K(x,x') = \langle \psi(x), \psi(x')\rangle,
+f(y)=\sum_i\alpha_iK(y,x_i),
+$$ 
+where $\alpha_i$ is called the coordinate of the function $f$ under the kernel and $x_i$ is the basis of the support of all functions in $\mathcal{H}(X)$.
+
+:::info Moore-Aronszajn Theorem:
+Suppose $K$ is a postive defined symmetry kernel on $X$, then there is a unique Hilbert space of functions on $X$ such that $K$ is a reproducing kernel.
+:::
+
+A **gram matrix** is defined as $K_{ij}=K(x_i,x_j)$. If the kernel is positive defined, then $K_{ij}$ is positive defined. 
+
+### Construct a RKHS
+
+A RKHS kernel can be constructed for a given set $X$ from a map $\mathcal{F}(X,\mathbb{F})$, where $\mathcal{F}(X,\mathbb{F})$ is the Hilbert space of functions mapping $X\to\mathbb{F}$. The set $X$ is support of functions in $\mathcal{F}(X,\mathbb{F})$ and hence any element $f,g\in\mathcal{F}(X,\mathbb{F})$ can be expressed as linear combination by the kernels $\Psi(x_i)=K_{x_i}$:
 $$
-where $\psi:X\to\mathcal{H}$ forms a span as $\lbrace \psi(x_1),\dots, \psi(x_n)\rbrace$. So that any function $f\in\mathcal{H}$ can be expressed as a linear combination of kernels such that
+f=\sum_i\alpha_iK_{x_i},\quad g=\sum_j\beta_jK_{x_j},
+$$ 
+and the inner product for this RKHS is defined as
 $$
-f(x)=\sum_{i}\alpha_iK(x,x_i).
+\langle f,g\rangle = \sum_{ij}\alpha_i\beta_jK(x_i,x_j)=\sum_{ij}\alpha_i\beta_j\langle \Psi(x_i),\Psi(x_j)\rangle.
 $$
-A **gram matrix** is defined as $K_{ij}=K(x_i,x_j)$.
+
+### Example of Kernels
+
+#### Feature Map
+A feature map is a map $\Psi:X\to H$ where $H$ is a Hilbert space called feature space. The kernel is defined by
+$$
+K(x,y)=\langle \Psi(x),\Psi(y)\rangle_H,
+$$
+and the symmetry and positive definiteness folllows from the inner production in space $H$. 
+
+#### Polynomial Kernels
+A order of $p$-polynomial $a=\sum_{n=1}^pa_nx^n$ can be expressed as a vector $\boldsymbol{a}=(a_0,\dots,a_p)$, a polynomial kernel $K_p(\boldsymbol{x},\boldsymbol{y})$ is defined as
+$$
+K_p(\boldsymbol{x},\boldsymbol{y})=(\boldsymbol{x}^T\cdot\boldsymbol{y}+c)^p,\quad c\ge 0.
+$$
+
+#### Radial Bias Functions
+Some kernels can be expressed as
+$$
+K(x,y)=h(x-y),
+$$
+and $h$ is called positive defined if the corresponding Gram matrix is positive defined. The Radial Bias Functions (RBF) are functions $h$ can be written as $h(x)=g(\Vert x\Vert)$ where $g:[0,+\infty]\to \mathbb{R}$. 
+
+The example of the RBF kernel: 
+* **Gaussian kernel**:
+$$
+K(\boldsymbol{x},\boldsymbol{y})= \exp{-\frac{\Vert \boldsymbol{x}-\boldsymbol{y}\Vert^2}{2\sigma^2}},
+$$
+* **Laplace kernel**:
+$$
+K(\boldsymbol{x},\boldsymbol{y})=\exp{-\alpha\Vert \boldsymbol{x}-\boldsymbol{y}\Vert},\quad \alpha>0
+$$
 
 
 ## Support Vector Machine
+---
 
 The Support Vector Machine (SVM) is an algorithm designed for solving the classification problem. Given a set of samples $(x_i,y_i)$ where $i=1,\dots,N$ and $y_i=\pm 1$ labeling the sample into two classes, the SVM tries to find a hyper-surface to separate these classes.
 
 ### Linear Support Vector Classification
 
-The linear support vector classifier (SVC) $f(\boldsymbol{x})$ is a simplified SVM separating classes by a hyperplane determined by $(\boldsymbol{n}, \boldsymbol{b})$:
+The linear support vector classifier (SVC) $f(\boldsymbol{x})$ is a simplified SVM separating classes by a hyperplane determined by $(\boldsymbol{n}, b)$, where $\boldsymbol{n}$ is the vector normal to the hyperplane and $b$ is a shift:
 $$
 d(\boldsymbol{x},\boldsymbol{n},b) =0,
 $$
@@ -43,7 +98,7 @@ The linear SVM $f(\boldsymbol{x}|\boldsymbol{n},b)$ is defined as
 $$
 f(\boldsymbol{x}) = \Theta(d(\boldsymbol{x},\boldsymbol{n},b)-1)-\Theta(d(\boldsymbol{x},\boldsymbol{n},b)+1),
 $$
-where $\Theta(x)$ is a step function vanish for $x<0$ and $\Theta(x)=1$ for $x\ge 0$.
+where $\Theta(x)$ is a step function vanish for $x<0$ and $\Theta(x)=1$ for $x\ge 0$. 
 
 Given a sample $(\boldsymbol{x},y)$, a correct classification will have $yf(\boldsymbol{x})\ge 1$ while the mis-classification leads to $yf(\boldsymbol{x})\le -1$. The loss function of the linear SVM can be constructed as
 $$
