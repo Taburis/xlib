@@ -1,7 +1,48 @@
 # Special Distributions
 
-## Normal Distributions
+Given a probability space $(\Omega, \mathfrak{R},\mathbb{P})$ where $\Omega$ is the event pool and $\mathfrak{R}$ is a $\sigma$-algebra defined on $\Omega$ and $\mathbb{P}$ is a probability measure defined on $\mathfrak{R}$ and $\mathbb{P}(\Omega)=1$. A random variable $X:\Omega\to \mathbb{R}$ is a $\mathfrak{R}$-measurable function which means for any Borel set $B\in\mathbb{R}$:
+$$
+X^{-1}(B)=\lbrace\omega|\omega\in\Omega, X(\omega)\in B\rbrace \in\mathfrak{R}.
+$$
 
+A **distriubtion measure** $\mu_X$ of $X$ is a pushforward measure induced by $X$ follows $\mu_X(B)=X_*\mathbb{P}(B)=\mathbb{P}[X^{-1}(B)]$. The Randon-Nikodym's theorem make sure a non-negative $f(x)$ exists such that
+$$
+\mu_X(B)=\int_Bf(x)dx,
+$$
+which is called the **probability density function** (PDF) and a **cumulated distribution function** (CDP) $F(x)$ is defined as $F(x)=\mathbb{P}\lbrace X\le x\rbrace$.  
+
+## Binomial Distribution
+---
+### Bernoulli Experiment
+A **Bernoulli experiment** is a class of statistical experiment that only 2 possible mutually exclusive outcome at a fixed probability for each trail. The random variable $X$ for this experiment is formulated as a Bernoulli distribution $p(x)$ that
+$$
+p(x)=p^x(1-p)^{1-p},\quad x=0,1.
+$$
+The $p$ is the probability to get the outcome represented by $1$. For $X$, it is easy to verify that $\mathbb{E}(X)=p$, $\text{Var}(X)=p(1-p)$. 
+
+A random variable represents the outcome of a sequence of $n$ Bernoulli trials forms the **Binomial distribution** $b(n,p)$ where $p$ is the probability to get 1 for each trail. The PMF $f(x)$ is
+$$
+f(x)=\begin{pmatrix}n \\ x\end{pmatrix}p^{x}(1-p)^{n-x}, \quad \begin{pmatrix}n,x\end{pmatrix}=\frac{n!}{x!(n-x)!}.
+$$
+where $x=0,1,\dots, n$. 
+:::info Properties:
+* The moment generate function for binomial distribution is $M(t)=[(1-p)+pe^t]^n$.
+* $\mathbb{E}(X)=np$ and $\text{Var}(X)=np(1-p)$. 
+* Suppose $X_i\sim b(n_i,p)$ and $Y=\sum_iX_i$, then $Y\sim b(\sum_in_i,p)$. 
+:::
+
+### Other Related Distributions
+The Bernoulli trail can be extended to the case that 3 possible mutually exclusive outcomes from each trails. The random variable represents the outcome of $n$ sequence trials has a **trinominal distribution** $f(x,y)$:
+$$
+f(x,y)=\frac{n!}{x!y!(n-x-y)!}p_1^xp_2^y(1-p_1-p_2)^{n-x-y},
+$$ 
+where $x+y\le n$. The moment generate function is
+$$
+M(t_1,t_2)=(p_1e^{t_1}+p_2e^{t_2}+1-p_1-p_2)^n
+$$
+
+## Normal Distributions
+---
 A normal distribution play a important role in statistics due to central limit theorem. A normal distribution $N(\mu,\sigma)$ is determined by mean $\mu$ and variance and $\sigma$. Suppose a random variable obeys the normal distribution, the PDF is
 $$
 f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
