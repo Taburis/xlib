@@ -42,7 +42,8 @@ $$
 $$
 where $\lbrace f_n\rbrace$ is a sequence of simple $\mu$-measurable functions convergent to $f(x)$ uniformly. 
 
-**Remark**: This definition is valid since the following conditions hold:
+:::note Remark:
+This definition is valid since the following conditions hold:
 1. The limit exists for any $f_n$ uniformly convergent to $f$.
 Suppose $f_n,f_m$ are functions uniqformly convergenet to $f$, then
 $$
@@ -54,8 +55,9 @@ $$
 \left |\int_A f_n(x)d\mu -\int_A g_m(x)d\mu\right| \le \mu(A)\text{sup}\lbrace|f_n(x)-f(x)|: x\in A\rbrace+\mu(A)\text{sup}\lbrace|g_m(x)-f(x)|: x\in A\rbrace.
 $$
 3. It is obviously that this definition is the same as the Lebesgue integral definition for simple functions.
+:::
 
-**Properties**
+:::info Properties
 1. For any constant $k$ and function $f$, then $\int_Akf(x)d\mu = k\int_Af(x)d\mu$.
 2. Suppose that $f,g$ are integrable functions, then
 $$
@@ -76,10 +78,11 @@ It also means that if $f$ is integrable on $A$, then it is integrable on any sub
 7. Given a function $f$ defined on $A$, then the integral $\int_Af(x)d\mu$ exists if and only if $\int_A|f(x)|d\mu$. 
 8. The **Chebyshev inequality**: If $\varphi(x)\ge 0$ on $A$, then
 $$
-\mu\lbrace x\in A: \varphi(x)\ge 0 \rbrace \le \frac{1}{c}	 \int_A\varphi(x)d\mu.
+\mu\lbrace x\in A: \varphi(x)\ge c \rbrace \le \frac{1}{c}	 \int_A\varphi(x)d\mu.
 $$
+:::
 
-**Proof**
+:::note Proof
 1. This comes from the factor that scaling a seuqnce by a constant won't change the convergence.
 2. Notice that this conclusion holds for simple functions, this is a straightforward conclusion from passing the limit to the approximation sequence.
 3. If $f$ is bounded and a sequence of simple functions $f_n$ convergent to $f$ uniformly, then $f_n$ is bounded and integrable. The uniformly convergence of $f_n\to f$ implies that $\int_Af_n(x)d\mu\to \int_Af(x)d\mu$ which conclude the proof.
@@ -102,6 +105,7 @@ $$
 $$
 \int_A \varphi(x)d\mu = \left (\int_{A\setminus B} +\int_B\right)\varphi(x)d\mu\ge \int_B\varphi(x)d\mu\ge c\mu(B).
 $$
+:::
 
 
 ## Lebesgue Integral in Limitations
