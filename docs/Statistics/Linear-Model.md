@@ -13,7 +13,7 @@ The linear model under Gauss-Markov assumption is estimable for $\boldsymbol{\th
 Given two $\boldsymbol{\theta}_1\ne\boldsymbol{\theta}_2$, non-trivial solution of $X(\boldsymbol{\theta}_1-\boldsymbol{\theta}_2)=0$ implies that column space of $X$ is not full ranked and $\boldsymbol{\theta}_1-\boldsymbol{\theta}_2$ are in the null space of $X$. 
 
 ### The Best Linear Unbiased Estimator
-The Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ is the linear combination of $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $$ *\boldsymbol{\hat \theta}_{\text{LSE}}$*least square estimator** $\boldsymbol{\hat \theta}_{\text{LSE}}$.
+The Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ is the linear combination of $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $\boldsymbol{\hat \theta}_{\text{LSE}}$ **least square estimator** for $\theta$:
 $$
 \boldsymbol{\hat y}_{\text{BLUE}}=X\boldsymbol{\hat \theta}_{\text{LSE}}=P_X\boldsymbol{y}=XX^+\boldsymbol{y},
 $$

@@ -22,7 +22,6 @@ $$
 where $\mu$ and $\sigma$ is the mean and variance of the random variable $X$ the samples draw from.
 and
 $$
-\mathbb{E}(S^2)=\sigma^2,\quad \text{Var}(S^2)=
-$$
+\mathbb{E}(S^2)=\sigma^2.
 :::
 
