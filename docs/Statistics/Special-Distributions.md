@@ -42,7 +42,7 @@ where $x=0,1,\dots, n$.
 * Suppose $X_i\sim b(n_i,p)$ and $Y=\sum_iX_i$, then $Y\sim b(\sum_in_i,p)$. 
 :::
 
-### Other Related Distributions
+### Multinomial Distributions
 The Bernoulli trail can be extended to the case that 3 possible mutually exclusive outcomes from each trails. The random variable represents the outcome of $n$ sequence trials has a **trinominal distribution** $f(x,y)$:
 $$
 f(x,y)=\frac{n!}{x!y!(n-x-y)!}p_1^xp_2^y(1-p_1-p_2)^{n-x-y},
@@ -51,6 +51,15 @@ where $x+y\le n$. The moment generate function is
 $$
 M(t_1,t_2)=(p_1e^{t_1}+p_2e^{t_2}+1-p_1-p_2)^n
 $$
+
+To generalize this idea to the case that $k$ outcomes for each trial, and let the random vector $\boldsymbol{X}=(X_1,\dots,X_k)$ be the outcomes where $X_i$ is the counts of $i$-th outcome occurance in $n$ trials. This leads to a **multinomial distribution** with a PDF
+$$
+f(x_1,\dots,x_k)=\frac{n!}{\prod_{i=1}^kx_i!}\prod_{i=1}^kp_i^{x_i},
+$$
+where $p_i$ stands for the probability of the $i$-th outcome occurs in each trial. It is easy to varify that
+1. $\mathbb{E}(X_i)=np_i$ and $\text{Var}(X_i)=np_i(1-p_i)$.
+2. $\text{Cov}(X_iX_j)=-np_ip_j$. 
+
 
 ## Poisson Distributions
 ---
@@ -234,16 +243,17 @@ satisfies:
 4. Let $T=(\overline{X}-\mu)/(S/\sqrt{n})$, then $T\sim t(n-1)$.
 :::
 
-**Proof**: The proof of the 1st refers to the [section](#normal-distributions). 
+**Proof**: 
+1. The proof of the 1st refers to the [section](#normal-distributions). 
 2. Since all $X_i$ and $\overline{X}$ are normal distributions, then $X_i-\overline{X}\perp\overline{X}$ if and only if $\text{Cov}(X_i-\overline{X},X_i)=0$ and it is from straight calculation. This proved the 2nd point.
 3. $X_i-\mu\sim N(0,\sigma^2)$ and
 $$
 \begin{aligned}
-V&=\sum_i\left[(X_i-\overline{X})+(\overline{X}-\mu)\right]^2/sigma^2\\,
-&=\sum_i(X_i-\overline{X})^2/sigma^2+\left(\frac{\overline{X}-\mu}{\sigma\sqrt{n}}\right)^2,
+V&=\sum_i\left[(X_i-\overline{X})+(\overline{X}-\mu)\right]^2/\sigma^2\\,
+&=\sum_i(X_i-\overline{X})^2/\sigma^2+\left(\frac{\overline{X}-\mu}{\sigma\sqrt{n}}\right)^2,
 \end{aligned}
 $$ 
-where the first term is $(n-1)S^2/sigma^2$ and independent with the second term. It is known that $V\sim\chi^2(n)$ and the last term is a $chi^2(1)$ distribution. It implies that the rest is $\chi^2(n-1)$ which conclude this proof.
+where the first term is $(n-1)S^2/\sigma^2$ and independent with the second term. It is known that $V\sim\chi^2(n)$ and the last term is a $chi^2(1)$ distribution. It implies that the rest is $\chi^2(n-1)$ which conclude this proof.
 4. It follows by the $t$-distributions definition along with the 2nd point that $\overline{X}\perp S^2$.
 
 The CLT along with the student's theorem play a important role in sampling inference.

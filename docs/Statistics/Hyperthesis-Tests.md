@@ -54,3 +54,21 @@ Then $C$ is a best critical region of size $\alpha=\max_{H_0}\mathbb{P}_{H_0}(\b
 **Proof** Notice that
 To show the best power of $C$ which is $\mu_{X,\theta_1}(C)\ge\mu_{X,\theta_1}(A)$ for any other region $A$ such that $\mu_{X,\theta_0}(A)=\alpha$, we decompose $C=(C\cap A)\cup(C\cap (E\setminus A))$ and $A=(C\cap A)\cup(A\cap (E\setminus C))$. By the condition 1 and 2, $\mu_{X,\theta_1}(C)\ge \mu_{X,\theta_1}(E\setminus C)$ implies $\mu_{x,\theta_1}[C\cap (E\setminus A)]\ge \mu_{X,\theta_1}[A\cap (E\setminus C)]$. Using the linearity $\mu_{X,\theta_1}(C\cup D)=\mu_{X,\theta_1}(C)+\mu_{X,\theta_1}(D)$ for any $C\cap D=\varnothing$ then the theorem follows.
 
+### Chi-Square Test
+Given ranodm variables of a multinomial distribution $\lbrace X_k\rbrace$, the corresponding test hyperthesis is that
+$$
+H_0: p_i=p_i^0,\: \forall i\quad H_1: \text{otherwise}.
+$$
+Define 
+$$
+Q=\sum_{i=1}^k\frac{(X_i-np_i^0)^2}{np_i^0},\quad Q\sim\chi^2(k-1),
+$$
+and this provides the statistics for testing the hyperthesis and the critical region could be the $\alpha$-confidence region based on the $chi^2(k-1)$ distribution.
+
+:::note Mathematical Fundation
+For the counts $X_i$, it is $X_i=\sum_{j=1}^nB^i_j$ where $B^i_j$ is a Bernoulli distribution so that the sample mean of $\overline{B_i}=\sum_jB^i_j/n=X_i/n$ where $n$ is number of the total trials. The CLT shows that 
+$$
+Y_i=\sqrt{n}\frac{\overline{B_i}-p_i}{\sqrt{p_i(1-p_i)}}=\frac{X_i-np_i}{\sqrt{np_i(1-p_i)}}=\sim N(0,1),
+$$
+and $Y^2_i\sim \chi^2(1)$. Notice that $\sum_ip_i=1$ and $\sum_iX_i=n$, then 
+::: 
