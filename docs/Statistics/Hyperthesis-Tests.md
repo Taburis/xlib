@@ -66,9 +66,9 @@ $$
 and this provides the statistics for testing the hyperthesis and the critical region could be the $\alpha$-confidence region based on the $chi^2(k-1)$ distribution.
 
 :::note Mathematical Fundation
-For the counts $X_i$, it is $X_i=\sum_{j=1}^nB^i_j$ where $B^i_j$ is a Bernoulli distribution so that the sample mean of $\overline{B_i}=\sum_jB^i_j/n=X_i/n$ where $n$ is number of the total trials. The CLT shows that 
+For the counts $X_i$, it is $X_i=\sum_{j=1}^nB^i_j$ where $B^i_j$ is a Bernoulli distribution so that the sample mean of $\overline{B_i}=\sum_jB^i_j/n=X_i/n$ where $n$ is number of the total trials. Let 
 $$
 Y_i=\sqrt{n}\frac{\overline{B_i}-p_i}{\sqrt{p_i(1-p_i)}}=\frac{X_i-np_i}{\sqrt{np_i(1-p_i)}}=\sim N(0,1),
 $$
-and $Y^2_i\sim \chi^2(1)$. Notice that $\sum_ip_i=1$ and $\sum_iX_i=n$, then 
-::: 
+and The CLT shows that $Y^2_i\sim \chi^2(1)$. Notice that $\sum_ip_i=1$ and $\sum_iX_i=n$, then
+:::
