@@ -70,5 +70,5 @@ For the counts $X_i$, it is $X_i=\sum_{j=1}^nB^i_j$ where $B^i_j$ is a Bernoulli
 $$
 Y_i=\sqrt{n}\frac{\overline{B_i}-p_i}{\sqrt{p_i(1-p_i)}}=\frac{X_i-np_i}{\sqrt{np_i(1-p_i)}}=\sim N(0,1),
 $$
-and The CLT shows that $Y^2_i\sim \chi^2(1)$. Notice that $\sum_ip_i=1$ and $\sum_iX_i=n$, then
+and The CLT shows that $Y^2_i\sim \chi^2(1)$. Notice that $\sum_ip_i=1$ and $\sum_iX_i=n$, then 
 :::
