@@ -154,3 +154,7 @@ and the trace of $P_X$ is the rank of $X$.
 Given a random variable $H\boldsymbol{\theta}$, it is estimable if
 1. $\mathcal{C}(H^T)\subset \mathcal{C}(X^T)$, where $\mathcal{C}(X^T)$ stands for the column space of $X$.
 2. The rank of the column space of $H$ is the same of the rank of $H$. 
+
+
+## One-Way ANOVA
+---

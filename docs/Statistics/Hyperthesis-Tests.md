@@ -55,20 +55,99 @@ Then $C$ is a best critical region of size $\alpha=\max_{H_0}\mathbb{P}_{H_0}(\b
 To show the best power of $C$ which is $\mu_{X,\theta_1}(C)\ge\mu_{X,\theta_1}(A)$ for any other region $A$ such that $\mu_{X,\theta_0}(A)=\alpha$, we decompose $C=(C\cap A)\cup(C\cap (E\setminus A))$ and $A=(C\cap A)\cup(A\cap (E\setminus C))$. By the condition 1 and 2, $\mu_{X,\theta_1}(C)\ge \mu_{X,\theta_1}(E\setminus C)$ implies $\mu_{x,\theta_1}[C\cap (E\setminus A)]\ge \mu_{X,\theta_1}[A\cap (E\setminus C)]$. Using the linearity $\mu_{X,\theta_1}(C\cup D)=\mu_{X,\theta_1}(C)+\mu_{X,\theta_1}(D)$ for any $C\cap D=\varnothing$ then the theorem follows.
 
 ### Chi-Square Test
-Given ranodm variables of a multinomial distribution $\lbrace X_k\rbrace$, the corresponding test hyperthesis is that
+ 
+#### Pearson's chi-squared test
+Given ranodm variables of a multinomial distribution $\lbrace X_k\rbrace$, which $X_i$ stands for the occurance of the $i$-th outcome and $k$ distinct outcomes in total, and assuming the test hyperthesis is that
 $$
-H_0: p_i=p_i^0,\: \forall i\quad H_1: \text{otherwise}.
+H_0: p_i=\mu_i,\: \forall i=1,\dots,k.\quad H_1: \text{otherwise}.
 $$
-Define 
+The statistics for the hypothesis test is defined as 
 $$
-Q=\sum_{i=1}^k\frac{(X_i-np_i^0)^2}{np_i^0},\quad Q\sim\chi^2(k-1),
+Q=\sum_{i=1}^k\frac{(X_i-n\mu_i)^2}{n\mu_i},\quad\sum_i\mu_i=1,\quad Q\sim\chi^2(k-1),
 $$
-and this provides the statistics for testing the hyperthesis and the critical region could be the $\alpha$-confidence region based on the $chi^2(k-1)$ distribution.
+and the critical region of size $\alpha$ is determined according to the $\chi^2(k-1)$ distribution.
 
 :::note Mathematical Fundation
-For the counts $X_i$, it is $X_i=\sum_{j=1}^nB^i_j$ where $B^i_j$ is a Bernoulli distribution so that the sample mean of $\overline{B_i}=\sum_jB^i_j/n=X_i/n$ where $n$ is number of the total trials. Let 
+Each multinomial random variable $X_i$ is actually the sum of Bernoulli's random variables $B^i_j$: $X_i=\sum_{j=1}^nB^i_j$. According to the Central Limit Theorem, $\overline{B_i}=\sum_jB^i_j/n=X_i/n$ is approximately a normal distribution with mean $\mathbb{E}(B^i_j)=p_i$ and variance $p_i(1-p_i)$ when $n$, the number of the total trials, is large. Explicitly: 
 $$
-Y_i=\sqrt{n}\frac{\overline{B_i}-p_i}{\sqrt{p_i(1-p_i)}}=\frac{X_i-np_i}{\sqrt{np_i(1-p_i)}}=\sim N(0,1),
+\sqrt{n}\frac{\overline{B_i}-p_i}{\sqrt{p_i(1-p_i)}}=\frac{X_i-np_i}{\sqrt{np_i(1-p_i)}}\xrightarrow{d} N(0,1),
 $$
-and The CLT shows that $Y^2_i\sim \chi^2(1)$. Notice that $\sum_ip_i=1$ and $\sum_iX_i=n$, then 
+Define $Y_i=(X_i-np_i)/\sqrt{np_i}$, then $Y_i\sim N(0,1-p_i)$. Furthermore, for the covariance we have
+$$
+\text{Cov}(Y_i,Y_j)=\text{Cov}(X_i/n,X_j/n)/(n\sqrt{p_ip_j})=-\sqrt{p_ip_j}
+$$
+and hence $\boldsymbol{Y}\sim N_k(0,\Sigma)$ where $\Sigma_{ii}=1-p_i$ and $\Sigma_{ij}=-\sqrt{p_ip_j}$. Noticing that if we introduce a vector $\boldsymbol{v}=(\sqrt{p_1},\dots,\sqrt{p_k})^T$, then $\Sigma=I_k-\boldsymbol{v}\boldsymbol{v}^T$. Further more, it is easy to verify that $P=\boldsymbol{v}\boldsymbol{v}^T$ is symmetric and idempotent since $P^2=P(\sum_ip_i)=P$ and $\text{rank}(P)=1$. It means that $\text{rank}(\Sigma)=k-1$ and hence there's a transform $\Gamma$ diagonalizing the $\Sigma$ so that $k-1$ diagonal elements are 1 and the rest is 0. Based on the [Cochran's theorem](Normal-Models.md#mathematical-fundation):
+$$
+\boldsymbol{Y}^T\boldsymbol{Y}=\sum_{i=1}^{k-1}Z_i^2\sim\chi^2(k-1),
+$$ 
+which proved the conclusion. 
+:::
+
+#### Fisher's Exact Test
+
+The fact that multinomial distribution approximates to normal distribution in large sample size makes the Chi-square test is not applicable to the case with limited sample size. The Fisher's exact test is introduced to small sample hypothesis test.
+
+Given a $n$-size sample satisfying a multinomial distribution $X_i$ according to features $\lbrace A_k\rbrace$ ($X_i$ is the number of samples labeled as $A_i$). Furthermore, these samples can also be labeled according a other feature set $\lbrace B_h\rbrace$ which satisfies a multinomial distribution denoted as $Y_j$. The hypothesis is
+$$
+H_0: X_i\perp Y_j \quad H_1:\text{otherwise},
+$$
+and the random variable $P_{i,j}$ stands for the counts for samples labeled as $(i,j)$.
+
+For the case that $X$ and $Y$ are binomial, the distributions of $P_{i,j}$ has only 4 possible combination and can be represented by a $2\times 2$ table
+
+|   | A1| A2 | Margin B |
+|---|----|-----|------------|
+|**B1**| a |b | a+b|
+|**B2**| c | d| c+d|
+|**Margin A**|a+c| b+d| n=a+b+c+d|
+
+Fisher shows that $P_{i,j}$ satisfies the hypergeometric distribution under the null hypothesis. The probability to have the table above is: 
+$$
+p=\frac{\binom{a+b}{a}\binom{c+d}{c}}{\binom{n}{a+c}}=\frac{\binom{a+b}{b}\binom{c+d}{d}}{\binom{n}{b+d}}=\frac{(a+b)!(c+d)!(a+c)!(b+d)!}{a!b!c!d!n!}.
+$$
+
+:::danger
+The probability $p$ alone can't tell anything. To understand how rare of this sample, it is crucial to understand where this result located overall the hypergeometric distribution. The idea is that we need to calculate the probability to have a more extreme (imbalanced) result than the current one, which is sum over the probability of all extreme cases. It could be sum over the possible result imbalanced toward one-side or two-sides, depends on the problem we are facing. The cumulative probability of the extreme cases is the power or confidential to the null hypothesis.
+:::
+
+### t-Test
+
+The $t$-Test is a general term referring to all the hypothesis tests using a statistics following the $t$-distribution.
+
+
+#### Independent two-sample $t$-test
+
+Given two samples $\lbrace X_m\rbrace$ and $\lbrace Y_n\rbrace$ with $X_i\perp Y_j$, assuming the mean $\mu_X,\mu_Y$ and variance $\sigma_X,\sigma_Y$ exists for both $X_i,Y_j$, the test hypothesis is
+$$
+H_0: \mu_X = \mu_Y\quad H_1: \mu_X\ne \mu_Y.
+$$
+* With a presumption that $\sigma_X=\sigma_Y$, the statistics $T$ for testing is defined as 
+$$
+T=\frac{\overline{X}-\overline{Y}}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}}, \quad S_p^2=\frac{(m-1)S^2_X+(n-1)S^2_Y}{m+n-2},\quad T\sim\chi^2(m+n-2).
+$$
+* Suppose $\sigma_X\ne\sigma_Y$, the statistics $T$ is defined for testing is defined as
+$$
+T=\frac{\overline{X}-\overline{Y}}{\sqrt{s^2_{\overline{X}}+s^2_{\overline{Y}}}},
+$$
+where $s_{\overline{X}}$ is the standard error. This test is also known as **Welch's $t$-test**.
+
+:::note Mathematical Foundation 
+From the [student's theorem](Speical-Distributions.md#t-Distribution) we know that following facts:
+1. $\overline{X}\sim N(\mu,\sigma^2_x/m)$ and $\overline{X}\sim N(\mu_y,\sigma^2_y/n)$.
+2. $(m-1)S_X^2/\sigma^2_X\sim\chi^2(m-1)$ and $(n-1)S_Y^2/\sigma^2_Y\sim\chi^2(n-1)$.
+3. $\overline{X}\perp S^2_X$ and $\overline{Y}\perp S^2_Y$.
+
+The null hypothesis assumed that $\mu_X=\mu_Y$ and hence $Z\sim N(0, S_{X+Y}^2)$ where $Z=\overline{X}-\overline{Y}$ and $S_{X+Y}^2=\frac{\sigma^2_X}{m}+\frac{\sigma^2_Y}{n}$. It is easy to prove that $(X_i\overline{X})\perp Z$ and hence $Z\perp S_X^2$, so is $Z\perp S_Y^2$. Now we can define a variance 
+$$
+S^2=(m-1)S^2_X/\sigma^2_X+(n-1)S_Y^2/\sigma^2_Y,\quad S^2\sim\chi^2(n+m-2)
+$$
+and $S\perp Z$. This means that if we define 
+$$
+T=\frac{Z/\sqrt{S^2_{X+Y}}}{\sqrt{S^2/(m+n-2)}},
+$$
+then $T\sim t(m+n-2)$. This expression can be further simplified if we assuming $\sigma_X=\sigma_Y$, which leads to the $t$-test:
+$$
+T=\frac{\overline{X}-\overline{Y}}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}},\quad S_p^2=\frac{(m-1)S^2_X+(n-1)S^2_Y}{m+n-2},
+$$
+where $S_p^2$ is also known as **pooled standard deviation**.
 :::

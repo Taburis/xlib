@@ -168,7 +168,7 @@ A **chi square distribution** $\chi^2(r)$ is defined as $\chi^2(r)=\Gamma(r/2,2)
 :::
 
 **Proof**
-1. Since $X_i$ are mutually independent, then $M_Y(t)=\prod_iM_{X_i}(t)$ which leads to the theorem immdiately.
+1. Since $X_i$ are mutually independent, then $M_Y(t)=\prod_iM_{X_i}(t)$ which leads to the theorem immdiately. It means that $\sum_i\chi^2(r_i)=\chi^2(\sum_ir_i)$.
 2. It follows straight from the calculation of $\mathbb{E}(X^k)$.
 3. Let $X\sim N(0,1)$, consider the PDF 
 $$
@@ -219,7 +219,7 @@ so that $F_{X,Y}(x,y)=F_X(x)F_Y(y)$ and so is the joint PDF.
 
 ### t-Distributions
 
-It will show later that the sample mean and sample variance is independent with each other. provided the distribution of sample mean and variance is known by CLT, the distribution of normalized sample mean satisifes a $t$**-distribution**. The PDF of the $t$-distribution with degree of freedom $r$, denoted as $t(r)$, is 
+It will show later that the sample mean and sample variance is independent with each other. Provided the distribution of sample mean and variance is known by CLT, the distribution of normalized sample mean satisifes a $t$**-distribution**. The PDF of the $t$-distribution with degree of freedom $r$, denoted as $t(r)$, is 
 $$
 f(t)= \frac{\Gamma(\frac{r+1}{2})}{\Gamma(\frac{r}{2})}\frac{1}{\sqrt{\pi r}}(1+t^2/r)^{-(r+1)/2}, \quad t \in \mathbb{R}.
 $$
@@ -240,20 +240,29 @@ satisfies:
 1. $\overline{X}\sim N(\mu, \sigma^2/n)$;
 2. Independent: $\overline{X}\perp S^2$;
 3. $(n-1)S^2/\sigma^2\sim \chi^2(n-1)$;
-4. Let $T=(\overline{X}-\mu)/(S/\sqrt{n})$, then $T\sim t(n-1)$.
+4. Let $Z=(\overline{X}-\mu)/\sqrt{\frac{\sigma^2}{n}}$, then $T=Z/\sqrt{\frac{S^2}{n-1}}=(\overline{X}-\mu)/(S/\sqrt{n})$ satisfies the $t$-distribution $T\sim t(n-1)$.
 :::
 
 **Proof**: 
 1. The proof of the 1st refers to the [section](#normal-distributions). 
-2. Since all $X_i$ and $\overline{X}$ are normal distributions, then $X_i-\overline{X}\perp\overline{X}$ if and only if $\text{Cov}(X_i-\overline{X},X_i)=0$ and it is from straight calculation. This proved the 2nd point.
+2. Since all $X_i$ and $\overline{X}$ are normal distributions, then $X_i-\overline{X}\perp\overline{X}$ if and only if $\text{Cov}(X_i-\overline{X},\overline{X})=0$. Straight calcuation shows
+$$
+\begin{aligned}
+\text{Cov}(X_i-\overline{X},\overline{X})&=\mathbb{E}(X_i\overline{X}-X_i\mu-\overline{X}^2+\mu\overline{X})\\
+&=\mathbb{E}(X_i\overline{X}-\overline{X}^2)\\
+&=\frac{\sigma^2+\mu^2}{n}+\frac{n-1}{n}\mu^2-\frac{\sigma^2}{n}-\mu^2\\
+&=0.
+\end{aligned}
+$$
+This proved the 2nd point.
 3. $X_i-\mu\sim N(0,\sigma^2)$ and
 $$
 \begin{aligned}
-V&=\sum_i\left[(X_i-\overline{X})+(\overline{X}-\mu)\right]^2/\sigma^2\\,
+V&=\sum_i\left[(X_i-\overline{X})+(\overline{X}-\mu)\right]^2/\sigma^2\\
 &=\sum_i(X_i-\overline{X})^2/\sigma^2+\left(\frac{\overline{X}-\mu}{\sigma\sqrt{n}}\right)^2,
 \end{aligned}
 $$ 
-where the first term is $(n-1)S^2/\sigma^2$ and independent with the second term. It is known that $V\sim\chi^2(n)$ and the last term is a $chi^2(1)$ distribution. It implies that the rest is $\chi^2(n-1)$ which conclude this proof.
+where the first term is $(n-1)S^2/\sigma^2$ and independent with the second term. It is known that $V\sim\chi^2(n)$ and the last term is a $\chi^2(1)$ distribution. It implies that the rest is $\chi^2(n-1)$ which conclude this proof.
 4. It follows by the $t$-distributions definition along with the 2nd point that $\overline{X}\perp S^2$.
 
 The CLT along with the student's theorem play a important role in sampling inference.
