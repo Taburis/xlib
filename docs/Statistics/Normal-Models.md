@@ -1,8 +1,8 @@
 # Normal Models
 
-The follow theorems are the mathematical fundation for many models rely on normal distributions. By the CLT, these models are practically useful in many cases. 
+The follow theorems are the mathematical foundation for many models rely on normal distributions. By the CLT, these models are practically useful in many cases. 
 
-## Mathematical Fundation
+## Mathematical Foundation
 ---
 :::note Theorems:
 Given a random vector $\boldsymbol{X}=(X_1,\dots, X_n)$, then
@@ -10,7 +10,7 @@ Given a random vector $\boldsymbol{X}=(X_1,\dots, X_n)$, then
 $$
 M(t)=\prod_{i=1}^r(1-2t\lambda_i)^{-\frac{1}{2}}=\det(1-2tA)^{-\frac{1}{2}},\quad r=\text{rank}(A).
 $$
-where $\lambda_i$ is the $i$-th eignvalue of $A$. Furthermore, $Q\sim\chi^2(r)$ if and only if $A^2=A$ (idempotent).
+where $\lambda_i$ is the $i$-th eigenvalue of $A$. Furthermore, $Q\sim\chi^2(r)$ if and only if $A^2=A$ (idempotent).
 2. Suppose $\boldsymbol{X}\sim N_n(\boldsymbol{\mu},\Sigma)$, and $Q=(\boldsymbol{X}-\boldsymbol{\mu})^T\Sigma^{-1}(\boldsymbol{X}-\boldsymbol{\mu})$, then $Q\sim \chi^2(n)$.
 3. Suppose $\boldsymbol{X}\sim N_n(\boldsymbol{\mu},\Sigma)$ and $Q=(\boldsymbol{X}-\boldsymbol{\mu})^TA(\boldsymbol{X}-\boldsymbol{\mu})$ where $A$ is symmetry. Then $Q\sim\chi^2(r)$ where $r=\text{rank}(A)$ if and only if $A\Sigma A=A$. 
 4. Given $\boldsymbol{X}\sim N_n(0,I_n\sigma^2)$, and define the quadratic form $Q_A=\sigma^{-2}\boldsymbol{X}^TA\boldsymbol{X}$, then $Q_A\perp Q_B$ if and only if $AB=0$.
@@ -23,7 +23,7 @@ where $Q_j=\boldsymbol{X}^TA_j\boldsymbol{X}$ for symmetric $A_j$ with $\text{ra
 :::
 
 **Proof**: 
-1. Since $A$ is symmetry, there's a spectra decomposition of $A=\Gamma \Lambda \Gamma^T$ where $\Lambda$ is diagnoal matrix with $\Lambda_{ii}=\lambda_i$ and $\Gamma\Gamma^T=1$. Then the diagnolization $\boldsymbol{Z}=\Gamma\boldsymbol{X}$ leads to $Z\sim N_n(0,I_n\sigma^2)$ and $Q=\sum_i\lambda_iZ_i^2$. The moment generate function is
+1. Since $A$ is symmetry, there's a spectra decomposition of $A=\Gamma \Lambda \Gamma^T$ where $\Lambda$ is diagonal matrix with $\Lambda_{ii}=\lambda_i$ and $\Gamma\Gamma^T=1$. Then the diagonalization $\boldsymbol{Z}=\Gamma\boldsymbol{X}$ leads to $Z\sim N_n(0,I_n\sigma^2)$ and $Q=\sum_i\lambda_iZ_i^2$. The moment generate function is
 $$
 \begin{aligned}
 M_X(t) = M_Z(t)&=\mathbb{E}\left\lbrace e^{\sum_{i=1}^r\lambda_i Z_i}\right\rbrace\\
@@ -32,8 +32,8 @@ M_X(t) = M_Z(t)&=\mathbb{E}\left\lbrace e^{\sum_{i=1}^r\lambda_i Z_i}\right\rbra
 &=\det(I_n-2tA).
 \end{aligned}
 $$
-Furthermore, if $A^2=A$, then the eigenvalues of $A$ is $\lambda_i=1$ for $i=1,\dots, r$ where $r=\text{rank}(A)$. Put this but to the moment generate function above leads to the exact formula of moment generate function of $\chi^2(r)$ distriubtion. 
-2. Let $\boldsymbol{Y}=\boldsymbol{X}-\boldsymbol{\mu}$, and a spectra decompose exists that $\Sigma=\Gamma^T\Lambda\Gamma$ so that $\boldsymbol{Z}=\Gamma\boldsymbol{Y}\Sigma^{-1/2}$ satifies $\boldsymbol{Z}\sim N_n(0,I_n)$ since $\Sigma^{-1}=(\Gamma^T\Lambda\Gamma)^{-1}=\Gamma^T\Lambda^{-1}\Gamma$ and $\Gamma$ is a orthogonal matrix. On the other hand, $Q=\boldsymbol{Y}^T\Sigma^{-1}\boldsymbol{Y}=\boldsymbol{Z}^T\boldsymbol{Z}$ so that $Q\sim\chi^2(n)$.
+Furthermore, if $A^2=A$, then the eigenvalues of $A$ is $\lambda_i=1$ for $i=1,\dots, r$ where $r=\text{rank}(A)$. Put this but to the moment generate function above leads to the exact formula of moment generate function of $\chi^2(r)$ distribution. 
+2. Let $\boldsymbol{Y}=\boldsymbol{X}-\boldsymbol{\mu}$, and a spectra decompose exists that $\Sigma=\Gamma^T\Lambda\Gamma$ so that $\boldsymbol{Z}=\Gamma\boldsymbol{Y}\Sigma^{-1/2}$ satisfies $\boldsymbol{Z}\sim N_n(0,I_n)$ since $\Sigma^{-1}=(\Gamma^T\Lambda\Gamma)^{-1}=\Gamma^T\Lambda^{-1}\Gamma$ and $\Gamma$ is a orthogonal matrix. On the other hand, $Q=\boldsymbol{Y}^T\Sigma^{-1}\boldsymbol{Y}=\boldsymbol{Z}^T\boldsymbol{Z}$ so that $Q\sim\chi^2(n)$.
 3. Define $Z=\Sigma^{-1/2}(\boldsymbol{X}-\boldsymbol{\mu})$ then $Z\sim N_n(0,I_n)$. On the other hand, $Q=[\Sigma^{-1/2}(\boldsymbol{X}-\boldsymbol{\mu})]^T\Sigma^{1/2}A\Sigma^{1/2}[\Sigma^{-1/2}(\boldsymbol{X}-\boldsymbol{\mu})]$. Based on the 1st theorem, $Q\sim\chi^2(r)$ if and only if $\Sigma^{1/2}A\Sigma^{1/2}$ is idempotent which require $A\Sigma A=A$.
 4. To show the sufficiency, we assume $AB=0$ and let $\Gamma_A$ be a $r\times n$, where $r=\text{rank}(A)$, formed by non-trivial eigenvectors of $A$ normalized such that $\Gamma_A\Gamma_A^T=I_r$. So is $\Gamma_B$ of $B$. Then $A=\Gamma_A^T\Lambda_A\Gamma_A$ where $\Lambda_A$ is diagnol matrix with $r$ non-vanished elements. Let's do the transform $\boldsymbol{W}=\Gamma\boldsymbol{X}$ such that $W\sim N_n(0, \Sigma)$ where
 $$
@@ -45,7 +45,7 @@ I_r & \Gamma_A^T\Gamma_B\\
 \Gamma_B^T\Gamma_A & I_s
 \end{pmatrix}.
 $$
-Furthermore, $AB=(\Gamma_A^T\Lambda_A)\Gamma_A\Gamma_B^T(\Lambda_B\Gamma_B) = 0$ and $\Lambda_A\Gamma_AAB\Gamma_B\Lambda_B=0 =\Lambda_A^2\Gamma_A\Gamma_B^T\Lambda_B^2$ while the $\Lambda_A^2$ and $\Lambda_B^2$ are full rank wich implies that $\Gamma_A\Gamma_B^T=0$ which implies that $Q_A\perp Q_B$.
+Furthermore, $AB=(\Gamma_A^T\Lambda_A)\Gamma_A\Gamma_B^T(\Lambda_B\Gamma_B) = 0$ and $\Lambda_A\Gamma_AAB\Gamma_B\Lambda_B=0 =\Lambda_A^2\Gamma_A\Gamma_B^T\Lambda_B^2$ while the $\Lambda_A^2$ and $\Lambda_B^2$ are full rank which implies that $\Gamma_A\Gamma_B^T=0$ which implies that $Q_A\perp Q_B$.
 To prove the necessarity, assuming the $Q_A\perp Q_B$ then
 $$
 \begin{aligned}
@@ -135,7 +135,7 @@ A explicit solution: $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$
 
 
 
-It because the $(I_m-P_X)$ projects vector to the space perpendicular to the column space of $X$, and it is symmetry and idenpotent $(I_m-P_X)^2=(I_m-P_X)$, it derive the first expression immediately. To get the expectation, we have
+It because the $(I_m-P_X)$ projects vector to the space perpendicular to the column space of $X$, and it is symmetry and idempotent $(I_m-P_X)^2=(I_m-P_X)$, it derive the first expression immediately. To get the expectation, we have
 $$
 \begin{aligned}
 \mathbb{E}(R^2_0)&=\mathbb{E}[Y^T(I_m-P_x)Y],\\
