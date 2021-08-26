@@ -151,3 +151,4 @@ Mapping on the Borel algebra $f(\mathfrak{B})$ denotes the image of all the sets
 3. If $\mathfrak{R}$ is a B-algebra, $f^{-1}(\mathfrak{R})$ is a B-algebra.
 4. $\mathfrak{R}(f^{-1}(\mathfrak{M}) = f^{-1}(\mathfrak{R}(\mathfrak{M}))$ ( inverse mapping is permutable with the ring generation operation).
 5. $\mathfrak{B}(f^{-1}(\mathfrak{M}) = f^{-1}(\mathfrak{B}(\mathfrak{M}))$ ( inverse mapping is permutable with the B-algebra generation operation).
+

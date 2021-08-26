@@ -158,3 +158,9 @@ Given a random variable $H\boldsymbol{\theta}$, it is estimable if
 
 ## One-Way ANOVA
 ---
+
+Given a sequence of i.i.d. random variables $X_j,j=1,\dots,m$ $X_i\sim N(\mu_i,\sigma^2)$ and the samples draw for $X_j$ are denoted as $X_{ij}$ where $i=1,\dots, n_j$. The model for these samples are
+$$
+X_{ij}=\mu_j+e_{ij},\quad e\sim N(0,\sigma^2),
+$$ 
+and 
