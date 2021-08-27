@@ -51,7 +51,13 @@ module.exports = {
           label: 'Notes',
           //label: 'Tutorial',
         },
-
+		{
+		  type: 'doc',
+          position: 'left',
+		  docId: 'Projects/index',
+          label: 'Projects',
+          //label: 'Tutorial',
+        },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           //href: 'https://github.com/facebook/docusaurus',
