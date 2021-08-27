@@ -51,10 +51,10 @@ module.exports = {
           label: 'Notes',
           //label: 'Tutorial',
         },
-		{
-		  type: 'doc',
+        {
+          type: 'doc',
           position: 'left',
-		  docId: 'Projects/index',
+          docId: 'Projects/index',
           label: 'Projects',
           //label: 'Tutorial',
         },
