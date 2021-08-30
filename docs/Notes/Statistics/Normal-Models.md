@@ -92,13 +92,17 @@ The linear model under Gauss-Markov assumption is **estimable** for $\boldsymbol
 Given two $\boldsymbol{\theta}_1\ne\boldsymbol{\theta}_2$, non-trivial solution of $X(\boldsymbol{\theta}_1-\boldsymbol{\theta}_2)=0$ implies that column space of $X$ is not full ranked and $\boldsymbol{\theta}_1-\boldsymbol{\theta}_2$ are in the null space of $X$. So linear model is estimable only for those $\boldsymbol{\theta}\notin \text{Null}(X)$.
 
 ### The Best Linear Unbiased Estimator
+
 * The Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ for the linear model above is $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $\boldsymbol{\hat \theta}_{\text{LSE}}$ **least square estimator** for $\theta$:
 $$
-\boldsymbol{\hat y}_{\text{BLUE}}=X\boldsymbol{\hat \theta}_{\text{LSE}}=P_X\boldsymbol{y}=XX^+\boldsymbol{y}=X(X^TX)^{-1}\boldsymbol{y},
+\begin{aligned}
+\boldsymbol{\hat \theta}_{\text{LSE}} & = (X^TX)^{-1}X^T\boldsymbol{y},\\
+\boldsymbol{\hat y}_{\text{BLUE}}&=X\boldsymbol{\hat \theta}_{\text{LSE}}=P_X\boldsymbol{y},
+\end{aligned}
 $$
-where $X^+=(X^TX)^{-1}X^T$ is the Moore-Penrose inverse of $X$ and $P_X=XX^+$ is known as a projection matrix (symmetric and idempotent). 
+where $P_X=XX^+$ is known as a projection matrix (symmetric and idempotent) and $X^+=(X^TX)^{-1}X^T$ is the Moore-Penrose inverse of $X$.
 * Residual of the BLUE is defined as $R_0^2 = \Vert \boldsymbol{y}-\boldsymbol{\hat y}_{\text{BLUE}}\Vert= \Vert (I_m-P_X)\boldsymbol{y}\Vert$ then $R^2_0/\sigma^2\sim\chi^2(m-r)$ where $r$ is the rank of $X$. So that $\hat\Sigma_y=R^2_0/(m-r)$ is a unbiased estimator for the $\sigma^2$.
-
+* Suppose there's a constant term such that $\boldsymbol{y}=X\boldsymbol{\theta}+\beta\cdot \boldsymbol{1}_n$, then the equation can be reduced to $\boldsymbol{y}_0=X_0\boldsymbol{\theta}$ where $\boldsymbol{y}_0=\boldsymbol{y}-\overline{y}$ and $X_0=X-\overline{X}$.
 
 **Proof**: 
 1. It is unbiased since $\mathbb{E}(XX^+\boldsymbol{y})=XX^+X\boldsymbol{\theta}=X\boldsymbol{\theta} = \boldsymbol{y}$ where the last step comes from the property of Moore-Penrose inverse $A=AA^+A$. 
@@ -125,9 +129,24 @@ X^TX\boldsymbol{\theta} = X^T\boldsymbol{y},
 $$
 where the following equations are used
 $$
-\frac{\partial \boldsymbol{y}^T\boldsymbol{x}}{\partial\boldsymbol{x}}=\boldsymbol{y}^T,\quad \frac{\partial \boldsymbol{x}^T}{\partial\boldsymbol{x}}=I_n,\quad \frac{\partial \boldsymbol{x}^TA\boldsymbol{x}}{\partial\boldsymbol{x}}=(A+A^T)\boldsymbol{x}.
+\frac{\partial \boldsymbol{y}^T\boldsymbol{x}}{\partial\boldsymbol{x}}=\boldsymbol{y},\quad
+\frac{\partial \boldsymbol{y}^T\boldsymbol{x}}{\partial\boldsymbol{x}^T}=\boldsymbol{y}^T,\quad 
+\frac{\partial \boldsymbol{x}^T}{\partial\boldsymbol{x}}=I_n,\quad \frac{\partial \boldsymbol{x}^TA\boldsymbol{x}}{\partial\boldsymbol{x}}=(A+A^T)\boldsymbol{x}.
 $$
 2. Due to $P_X$ is the projection operator, then $I_m-P_X$ is symmetric and idempotent. Furthermore, $I_n=P_X+(I_m-P_X)$ and hence the Cochran's theorem shows that $\Vert \boldsymbol{y}\Vert/\sigma^2\sim \chi^2(r)$ while $R_0^2=\Vert I-P_X\Vert/\sigma^2\sim \chi^2(m-r)$. 
+3. To minimize the error, we have
+$$
+\frac{\partial}{\partial \boldsymbol{\theta}} (\boldsymbol{y}-X\boldsymbol{\theta}-\beta\cdot\boldsymbol{1}_n)^T(\boldsymbol{y}-X\boldsymbol{\theta}-\beta\cdot\boldsymbol{1}_n)=0,
+$$
+which leads to
+$$
+\begin{aligned}
+\beta &= \frac{1}{n}\left(\boldsymbol{1}^T_n\boldsymbol{y}-\boldsymbol{1}^T_nX\boldsymbol{\theta}\right)\\
+& = \overline{y}-\overline{X}\boldsymbol{\theta}.
+\end{aligned}
+$$
+Put this back to the formular leads to the reduction.
+
 
 :::info
 A explicit solution: $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$. But in practice, it is usually approximated by a gradient descent search to minimize the residual.
