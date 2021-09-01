@@ -83,7 +83,7 @@ $$
 which proved the conclusion. 
 :::
 
-#### Fisher's Exact Test
+### Fisher's Exact Test
 
 The fact that multinomial distribution approximates to normal distribution in large sample size makes the Chi-square test is not applicable to the case with limited sample size. The Fisher's exact test is introduced to small sample hypothesis test.
 
@@ -150,4 +150,17 @@ $$
 T=\frac{\overline{X}-\overline{Y}}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}},\quad S_p^2=\frac{(m-1)S^2_X+(n-1)S^2_Y}{m+n-2},
 $$
 where $S_p^2$ is also known as **pooled standard deviation**.
+:::
+
+### Z-Test
+
+Given a sample $\lbrace X_n\rbrace$ drawn from a distribution with mean $\mu$ and variance $\sigma$. When the $\sigma$ is known, we define the statistics $Z=(\overline{X}-\mu_0)/\sqrt{\sigma/n}$, which has $Z\sim N(0,1)$ assuming $\mu=\mu_0$. And it can be used to test the hypothesis below (with the $p$-value followed):  
+1. $H_0: \mu\ge \mu_0$, $p$-value: $\mathbb{P}(Z<z)=\Phi(z)$ (left side tail)
+2. $H_0: \mu\le \mu_0$, $p$-value: $\mathbb{P}(Z>z)=1-\Phi(z)=P(-z)$ (right side tail)
+3. $H_0: \mu=\mu_0$, $p$-value: $\mathbb{P}(|Z|<z)=2\Phi(-|z|)$ (two side tails)
+
+where $z$ is the value of $Z$ obtained from the sample, and $\Phi(z)$ is the cumulative function of standard normal distribution. The $p$-value stands for the extreme case of $Z$ assuming the null hypothesis is true. If $\mu\ge \mu_0$, then extreme case that having a large $Z$ should not be small. It means tha a small $p$-value means that null hypothesis is unlikely to be true. The $p$-values picked for other two hypothesises based on the similar logic.
+
+:::tip T-test vs Z-test
+Notice that, but if $\sigma$ is estimated from sample variance, a t-test should be more applicable for small sample size (30 or less). 
 :::
