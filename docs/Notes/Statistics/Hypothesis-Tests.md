@@ -162,5 +162,5 @@ Given a sample $\lbrace X_n\rbrace$ drawn from a distribution with mean $\mu$ an
 where $z$ is the value of $Z$ obtained from the sample, and $\Phi(z)$ is the cumulative function of standard normal distribution. The $p$-value stands for the extreme case of $Z$ assuming the null hypothesis is true. If $\mu\ge \mu_0$, then extreme case that having a large $Z$ should not be small. It means tha a small $p$-value means that null hypothesis is unlikely to be true. The $p$-values picked for other two hypothesises based on the similar logic.
 
 :::tip T-test vs Z-test
-Notice that, but if $\sigma$ is estimated from sample variance, a t-test should be more applicable for small sample size (30 or less). 
+Usually the variance is unknown and needs to be estimated by sample variance $S^2/(n-1)$. In this case, Z-test is an approximation to the t-test. Furthermore, the t-test is favored for the small sample size (30 or less) case. 
 :::
