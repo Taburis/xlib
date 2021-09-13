@@ -96,7 +96,7 @@ To apply these metrics for continuous features, the feature ranges are needed to
 
 For regression problem, the input features are supposed to be continuous. For the regression tree, a linear approximation, mostly the constant approximation, is driven by using the data in the feature boundary $B$, so that a more fine partition will leads to a better approximation. Let the $\hat y_j(x)$ be the $j$-th of the output from the regression tree, then $\hat y_j(x)=C_{B_x}$ where $C_{B_x}$ is a constant and $B_x$ is the finest feature boundary contained the $x$. A residual error $R^2$ is often used to measure the performance:
 $$
-R^2(S_B) = \frac{1}{|S_B|}\sum_{j}\sum_{(x,y)\in S}(y_j-\hat y_j(x))^2,
+R^2(S_B) = \frac{1}{|S_B|}\sum_{j}\sum_{(x,y)\in S_B}(y_j-\hat y_j(x))^2,
 $$
 where $S_B$ is the sample sets contained in the feature boundary $B$ and the element is $S_B$ is the pair $(x_i,y_i)$, and $|S_B|$ is the number of elements in $S_B$. For a split $B\to (B_L,B_R)$, the variance reduction gain $G(S_B, S_{B_L}, S_{B_R})$ is defined as 
 $$
@@ -109,3 +109,29 @@ A splitting threshold $G_0$ is set to prevent over splitting. Only the gain larg
 ## Gradient Boosting
 ---
 
+Gradient boosting is an algorithm designed to get a better model by enhancing a given model, iteratively. To state this algorithm, let $\hat y^{(k)}_i=f_k(x)$ be a model obtained at the $k$-th iteration (where $i$ stands for the possible components of labels). The iteration relation is
+$$
+\hat y^{(k+1)} = y^{(k)}+f_{k+1}(x) = \sum_{j=1}^kf_j(x),\quad r_{k} = y - \hat y^{(k)},
+$$  
+where $y$ is the truth, and $f_{k+1}(x)$ is the $k+1$-th model learned from the residual $r_k$. The learning loss function $\mathcal{L}_k$ is defined as
+$$
+\mathcal{L}\left(y, \hat y^{(k)}\right) = \mathcal{L}\left(y, \hat y^{(k-1)}+f_k(x)\right)+\Omega(f_k),
+$$ 
+where $\Omega(f_k)$ stands for a regulation term to constraint the complexity of the model $f_k$. It can be either $L_1$ or $L_2$ regulation. Expending the loss function as Taylor series:
+$$
+\mathcal{L}\left(y, \hat y^{(k)}\right)\approx \mathcal{L}\left(y, \hat y^{(k-1)}\right)+g^{(k)}_if_{k,i}(x)+\frac{1}{2}h_i^{(k)}f_{k,i}^2(x)+\Omega(f_k),
+$$
+where $f_{k,i}(x)$ is the $i$-th component of the function, and
+$$
+g_i^{(k)}(x)=\partial_{\hat y^{(k-1)}_i}\mathcal{L}\left(y, \hat y^{(k-1)}\right),\quad h_i^{(k)}(x)=\partial^2_{\hat y^{(k-1)}_i}\mathcal{L}\left(y, \hat y^{(k-1)}\right).
+$$
+
+Let the $B_i$ be the decision boundary (the finest feature boundary in the model), the tree model can be expressed as
+$$
+f_k(x) = \sum_iw_{i}I_{B_i}(x), 
+$$
+where $I_{B_i}$ is the indicate function ($I_{B_i}(x)=1$ only if $x\in B_i$ and $I_{B_i}(x)=0$ otherwise), and the $w_i$ is the leaf score for the corresponding decision boundary $B_i$. For a tree model, the loss function with the $L_2$ regulation can be further reduced into
+$$
+\mathcal{L}\left(y, \hat y^{(k)}\right)\approx g^{(k)}_i(x)f_{k,i}(x)+\frac{1}{2}\left(h_i^{(k)}(x)+\lambda\right)f_{k,i}^2(x)+\mathcal{L}\left(y, \hat y^{(k-1)}\right)+C,
+$$
+where the last two terms are constant at the iteration, the regulation $\Omega(f_k)=\frac{1}{2}\sum_i\lambda w_i^2+C$ is used. A explicit solution for $w_i$ can be obtained under this approximation.
