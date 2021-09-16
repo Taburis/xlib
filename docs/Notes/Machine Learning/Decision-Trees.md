@@ -104,7 +104,11 @@ G(S_B, S_{B_L}, S_{B_R}) = R^2(S_B)-\alpha\cdot R^2(S_{B_L})-(1-\alpha)\cdot R^2
 $$
 where $\alpha = |S_{B_L}|/|S_B|$ is the fraction of the sample in $S_{B_L}$ relative to $S_B$.
 
-A splitting threshold $G_0$ is set to prevent over splitting. Only the gain larger than the threshold, $G(S_B, S_{B_L},S_{B_R})\ge G_0$, will leads to a new split. 
+A splitting threshold $G_0$ is set to prevent over splitting. Only the gain larger than the threshold, $G(S_B, S_{B_L},S_{B_R})\ge G_0$, will leads to a new split.
+
+### Pruning
+
+Pruning is a term referring to remove subtrees or leaves from a trained decision tree to advance the speed and simplicity. To carry out the pruning, a complexity measure for a tree is needed. It run through all the nodes in a either top-down or bottom up order, removing the subtrees if the complexity reduction is worth comparing to the accuracy lost. 
 
 ## Gradient Boosting
 ---
@@ -135,3 +139,8 @@ $$
 \mathcal{L}\left(y, \hat y^{(k)}\right)\approx g^{(k)}_i(x)f_{k,i}(x)+\frac{1}{2}\left(h_i^{(k)}(x)+\lambda\right)f_{k,i}^2(x)+\mathcal{L}\left(y, \hat y^{(k-1)}\right)+C,
 $$
 where the last two terms are constant at the iteration, the regulation $\Omega(f_k)=\frac{1}{2}\sum_i\lambda w_i^2+C$ is used. A explicit solution for $w_i$ can be obtained under this approximation.
+
+:::tip Boosting as a Decision Tree
+The Gradient Boosting algorithm can also be used standalone by setting the initial model $\hat y^{(0)}=0$.
+:::
+
