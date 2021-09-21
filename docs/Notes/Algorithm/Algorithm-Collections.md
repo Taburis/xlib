@@ -8,7 +8,7 @@ $$
 t = \lbrace 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4\rbrace
 $$
 
-where the number means the days ahead of the Monday for each month. For instance, the 1st Jan is Monday so it is marked as 0 as the first element in the array and the 1st Feb is $31\mid 7 = 3$ and the 1st May is 2 comes from $29%4 = 1$ so that delayed 3 by 1 day and get the final result 2. Since $365\mid 7 = 1$, this array will needs to shifted by 1 every year. However, the leap year makes it complicate. A year $y$ is a leap year if and only if $y\mid 4 = 0 $ and $y\mid 100 \ne 0$ (except the special case that $y\mid 400 = 0$). Taking this into account, we got the pseudo-codes for the Sakamoto's algorithm as follow:
+where the number means the days ahead of the Monday for each month. For instance, the 1st Jan is Monday so it is marked as 0 as the first element in the array and the 1st Feb is $31\mid 7 = 3$ and the 1st May is 2 comes from $29%4 = 1$ so that delayed 3 by 1 day and get the final result 2. Since $365\mid 7 = 1$, this array will needs to shifted by 1 every year. However, the leap year makes it complicate. A year $y$ is a leap year if and only if $y \mid 4 =0$ and $y \mid 100 \ne 0$ (except the special case that $y\mid 400 = 0$). Taking this into account, we got the pseudo-codes for the Sakamoto's algorithm as follow:
 
 ```py
 def Sakamoto(int year, int month, int day):
