@@ -1,6 +1,6 @@
 # Hypothesis Tests
 
-A **null hypothesis** $H_0$ is a statement exclusive to the **alternative hypotheses** $H_1$. A test is based on the samples $\boldsymbol{X}=(X_1,\dots, X_n)$ from a random variable $X$ defined on a probability space $(\Omega, \mathfrak{R},\mathbb{P})$ and the support of $X$ is $\mathcal{S}\subset\Omega$. The test rule is 
+A **null hypothesis** $H_0$ is a statement exclusive to the **alternative hypotheses** $H_1$. The hyperthesis test is designed to ansewr the question that should the null hyperthesis be rejected? A test is based on the samples $\boldsymbol{X}=(X_1,\dots, X_n)$ from a random variable $X$ defined on a probability space $(\Omega, \mathfrak{R},\mathbb{P})$ and the support of $X$ is $\mathcal{S}\subset\Omega$. The test rule is 
 $$
 \begin{aligned}
 &\text{Reject } H_0 (\text{Accept } H_1),\quad \text{if } \boldsymbol{X}\in C\\
@@ -8,12 +8,12 @@ $$
 \end{aligned}
 $$
 where $C\subset \mathcal{S}$ is called **critical region**. The possible error is classified as
-* **Type I** error: $H_0$ is rejected while it is true. It is quantified as the **significance level** or **szie** $\alpha$:
+* **Type I** error: $H_0$ is rejected while it is true (false positive). It is quantified as the **significance level** or **szie** $\alpha$:
 $$
 \alpha=\max_{H_0}\mathbb{P}_{H_0}(\boldsymbol{X}\in C),
 $$
 The upper bound of the probability that $\boldsymbol{X}\in C$ (rejecting $H_0$) assuming $H_0$ holds.
-* **Type II** error: $H_0$ is retained while it is false. It is quantified by $1-\max_{H_1}\gamma_C(H_1)$ where $\gamma_C(H_1)$ is the **power function** of the critical region $C$ for $H_1$:
+* **Type II** error: $H_0$ is retained while it is false (false negative). It is quantified as $\beta=1-\max_{H_1}\gamma_C(H_1)$ where $\gamma_C(H_1)$ is the **power function** of the critical region $C$ for $H_1$:
 $$
 \gamma_C(H_1)=\mathbb{P}_{H_1}(\boldsymbol{X}\in C).
 $$
@@ -123,13 +123,17 @@ H_0: \mu_X = \mu_Y\quad H_1: \mu_X\ne \mu_Y.
 $$
 * With a presumption that $\sigma_X=\sigma_Y$, the statistics $T$ for testing is defined as 
 $$
-T=\frac{\overline{X}-\overline{Y}}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}}, \quad S_p^2=\frac{(m-1)S^2_X+(n-1)S^2_Y}{m+n-2},\quad T\sim\chi^2(m+n-2).
+T\sim t(m+n-2),\quad T=\frac{\overline{X}-\overline{Y}}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}}, \quad S_p^2=\frac{(m-1)S^2_X+(n-1)S^2_Y}{m+n-2}.
 $$
-* Suppose $\sigma_X\ne\sigma_Y$, the statistics $T$ is defined for testing is defined as
+* Suppose $\sigma_X\ne\sigma_Y$, the statistics $T$ defined for testing is defined as
 $$
-T=\frac{\overline{X}-\overline{Y}}{\sqrt{s^2_{\overline{X}}+s^2_{\overline{Y}}}},
+ T\sim t(\nu),\quad T=\frac{\overline{X}-\overline{Y}}{\sqrt{s^2_{\overline{X}}+s^2_{\overline{Y}}}}, \quad s_{\overline{X}} = \frac{S_X}{\sqrt{n}}
 $$
-where $s_{\overline{X}}$ is the standard error. This test is also known as **Welch's $t$-test**.
+where $s_{\overline{X}}$ is the standard error of the mean $\overline{X}$, $S_X^2$ is the sample variance of $X$, and the degree of freedom $\nu$ is defined as
+$$
+\nu = \frac{\left(\frac{S^2_X}{m}+\frac{S^2_Y}{n}\right)^2}{\frac{S_X^4}{m^2(m-1)}+\frac{S^4_Y}{n^2(n-1)}}
+$$
+This test is also known as **Welch's $t$-test**.
 
 :::note Mathematical Foundation 
 From the [student's theorem](Special-Distributions.md#t-distributions) we know that following facts:
