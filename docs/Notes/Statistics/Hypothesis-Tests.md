@@ -168,3 +168,11 @@ where $z$ is the value of $Z$ obtained from the sample, and $\Phi(z)$ is the cum
 :::tip T-test vs Z-test
 Usually the variance is unknown and needs to be estimated by sample variance $S^2/(n-1)$. In this case, Z-test is an approximation to the t-test. Furthermore, the t-test is favored for the small sample size (30 or less) case. 
 :::
+
+
+## Nonparametric Hypothesis Test
+
+Comparing to the parametirc test, the nonparametric tests are more robust: no presumption on the underlying distributions. But for the case which accesses to both parametric and nonparametric tests, the parametric tests have generally higher testing power with good significance level: better performance. 
+
+### Sign Tests
+
