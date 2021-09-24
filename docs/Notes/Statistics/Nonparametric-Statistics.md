@@ -55,8 +55,4 @@ A random variable $Y$ follows a **location Model** $L_X=T[F_X]$ where $T$ is a l
 $$
 Y=L_X+\epsilon,
 $$ 
-where $\epsilon$ is a random variable with pdf $f$ and CDF $F$. Given a i.i.d. sample represented by $\lbrace X_n\rbrace$, the distance between the $X_i$ and $X$ is defined by the variable $\epsilon_i=X_i-L_X$. Then $\epsilon_i$ are iid with PDF $f$ and CDF $F$. A **sign statistics** $S(\ell)$ is defined as
-$$
-S(\ell)=\sum_{i=1}^n I(X_i>\ell),
-$$
-where $I(X>\ell)$ is a indicator function that only 1 for the inequation $X_i>\ell$ holds (0 elsewhere).
+where $\epsilon$ is a random variable with pdf $f$ and CDF $F$. Given a i.i.d. sample represented by $\lbrace X_n\rbrace$, the distance between the $X_i$ and $X$ is defined by the variable $\epsilon_i=X_i-L_X$. Then $\epsilon_i$ are iid with PDF $f$ and CDF $F$. 

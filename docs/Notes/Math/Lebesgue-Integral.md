@@ -82,7 +82,7 @@ $$
 $$
 :::
 
-:::note Proof
+**Proof**
 1. This comes from the factor that scaling a seuqnce by a constant won't change the convergence.
 2. Notice that this conclusion holds for simple functions, this is a straightforward conclusion from passing the limit to the approximation sequence.
 3. If $f$ is bounded and a sequence of simple functions $f_n$ convergent to $f$ uniformly, then $f_n$ is bounded and integrable. The uniformly convergence of $f_n\to f$ implies that $\int_Af_n(x)d\mu\to \int_Af(x)d\mu$ which conclude the proof.
@@ -105,11 +105,12 @@ $$
 $$
 \int_A \varphi(x)d\mu = \left (\int_{A\setminus B} +\int_B\right)\varphi(x)d\mu\ge \int_B\varphi(x)d\mu\ge c\mu(B).
 $$
-:::
+
 
 
 ## Lebesgue Integral in Limitations
 
+:::info Properties
 1. If a sequence $f_n(x)$ converge to $f(x)$ on $A$ and $|f_n(x)|\le \varphi(x)$ for all $n$, where $\varphi(x)$ is a integrable function on $A$, then the limit function $f(x)$ is integrable over $A$ and
 $$
 \lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
@@ -153,6 +154,8 @@ $$
 \int_a^bf(x)dx,
 $$
 exists for $f(x)$, then $f$ is Lebesgue integrable on $[a,b]$ and the integral is the same as its Reimann integral.
+:::
+
 
 **Proof**
 1. Since $|f_n(x)|\le \varphi(x)$, then $f_n(x)$ is integrable. The integrable of $\varphi(x)$ implies that exists a $A_m=\lbrace x: \varphi(x) > m\rbrace$ such that
