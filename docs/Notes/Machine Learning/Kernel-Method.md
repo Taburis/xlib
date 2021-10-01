@@ -124,3 +124,39 @@ $$
 where the $\varphi$ is a loss function customizable. In the case of $\varphi(x)=x^2$, it leads to a least square estimation with a L2 regularization. It could also be $\varphi(x)=\text{max}(0, |x|-\epsilon)$ that penalty only comes from the points outside the boundary. 
 
 ### Nonlinear Extension: Kernel Trick
+
+
+## Kernel Models
+
+A kernel model is the model $f(x)$ with form
+$$
+f(x)=\sum_{i=1}^D\alpha_i K(x, x_i),
+$$
+where $D$ stands for the kernel dimensions and $x_i$ can be the support of the kernel $K(x,y)$. A kernel model may or may not needs to be trained. For some cases, the model is the samples itself, like $k$-mean. Others might need to extract the supports from the samples, like the mixture models.
+
+### Density Estimation
+
+Given the samples $\lbrace X_n\rbrace$ drawn from a random variable $X$ with PDF $f(X)$, a natrual point estimation of $f(x)$ comes from a extension of empirical PDF:
+$$
+\hat f(x)= \frac{|\lbrace X_i\in B_\delta (x)\rbrace|}{n\cdot V[B_\delta(x)]},
+$$
+where $B_\delta (x)$ is a ball with radius $\delta$ centered at $x$, $|\lbrace X_i\in B_\delta (x)\rbrace|$ is the number of samples falling in the ball, $V[B_\delta(x)]$ is the volumn of the ball, and $n$ is the sample size. This estimation can be smoothed with a kernel estimation:
+$$
+\hat f(x)=\frac{1}{n\lambda}\sum_{i=1}^nK_\lambda(x,x_i),
+$$
+where $K_\lambda$ is a kernel with a parameter $\lambda$ as the size. For instance, if we adpat a normal Gaussian as the kernel, we have
+$$
+\begin{aligned}
+\hat f(x)&=\frac{1}{n}\sum_{i=1}^n\varphi_\lambda(x-x_i),\\
+&=(\hat f_n\circ \varphi_\lambda)(x)
+\end{aligned}
+$$
+where $\varphi(x)$ stands for a Gaussian with width $\lambda$, $\hat f_n(x)$ is the empirical distribution with szie $n$, and the $\hat f_n\circ \varphi_\lambda$ stands for the convolution between $\hat f_n$ and $\varphi(x)$. No training is needed for this estimator.
+
+### Gaussian Mixture Model
+
+One of most popular mixture models is the Gaussian mixture model (GMM) $f(x)$ that
+$$
+f(x)=\sum_{i=1}^D\alpha_i\phi(x, \mu_i,\Sigma_i),\quad \sum_{i=1}^D\alpha_i = 1.
+$$
+where $\phi(x,\mu_i,\Sigma_i)$ is the a (multivariate) Gaussian with mean and varaince $\mu_i, \Sigma_i$. These variables $\mu_i,\Sigma_i$ not known is called **latent variables**. If the covariance matrix can be expressed as $\Sigma_i=\sigma_i\cdot I$, then the Gaussian Mixture Model reduced to the kernel of Radial Bias Functions. 

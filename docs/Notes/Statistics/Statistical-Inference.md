@@ -44,3 +44,11 @@ $\tilde{\mu}_1=0$ and $\tilde{\mu}_2=1$ by definition for all random variables. 
 * **Kurtosis**: The kurtosis describes the spread of the distribution. A higher kurtosis implies the PDF is wider spread. Smaller kurtosis means more concentrated distribution around the mean.
 
 ### Boxplot
+
+The quartiles are used to illustrate the distribution of samples: $Q_0=\xi_{0}$, $Q_1=\xi_{0.25}$, $Q_2=\xi_{0.5}$, $Q_3=\xi_{0.75}$, and $Q_4=\xi_{1}$. The $Q_0$ and $Q_1$ is the minimum and maximum of the samples. The difference of $I=Q_3-Q_1$ is called the **interquanrtile range**. Based on this, the term is defined the fence as:
+* **Inner fence**: $[Q_1-1.5I, Q_3+1.5I]$
+* **Outer fence**: $[Q_1-3I, Q_3+3I]$
+* **Outlier** is the region outside the inner fence. The region between the inner fence and outter fence is called **mild outlier** and the region outside the outer fence is called **extreme outlier**.
+
+The boxplot is a summary plot for showing the quartiles and each of outliers are usually needs to be plot as dots. The example of boxplot is shown below:
+![boxplot](/img/docs/Image_boxplot.png)

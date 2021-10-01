@@ -81,9 +81,9 @@ $$
 where $D=\Gamma B\Gamma^T$ and $\Lambda_A$ can exactly $r_A$ non-vanishing diagonal elements. It shows that $D$ has to be non-vanished in the complement of the column space of $A$ and hence $A$ and $B$ are idempotent. For general case, it can be reduced to $I=A+B$ and with $B=C+D$. But since $B$ is idmpotent, the similar procedure carried in $B$'s invariant subspace will leads to the same result that $C,D$ are idempotent and so on so forth.
 This shows that $A_iA_j=0$ if $i\ne j$ and hence $Q_i\perp Q_j$ and hence $Q_j/\sigma^2\sim \chi^2(r_j)$.
 
-## Gauss-Markov Model
+## Linear Gauss-Markov Model
 ---
-A **Gauss-Markov Assumption** for a $m$-dimensional random variable $\boldsymbol{y}$ is that $\boldsymbol{y}\sim N(X\boldsymbol{\theta},I_m\sigma^2)$: assuming the mean of the $y$ can be expressed as a linear combination of a $n$-dimension vector $\boldsymbol{\theta}$ with a $m\times n$ matrix $X$ as the function
+A **Gauss-Markov Assumption** for a $m$-dimensional random variable $\boldsymbol{Y}\sim N(\boldsymbol{\mu}_Y, I_m\sigma^2)$ can be expressed as a location model $\boldsymbol{Y}=\boldsymbol{\mu}_Y+\boldsymbol{\epsilon}$ with assumption that $\boldsymbol{\epsilon}\sim N(0,I_m\sigma^2)$. The linear model further assume that $\boldsymbol{\mu_Y}=X\boldsymbol{\theta}$ so that we have
 $$
 \boldsymbol{y}=X\boldsymbol{\theta}+\epsilon,\quad \epsilon\sim N(0,I_m\sigma).
 $$
@@ -93,7 +93,13 @@ Given two $\boldsymbol{\theta}_1\ne\boldsymbol{\theta}_2$, non-trivial solution 
 
 ### The Best Linear Unbiased Estimator
 
-* The Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ for the linear model above is $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $\boldsymbol{\hat \theta}_{\text{LSE}}$ **least square estimator** for $\theta$:
+To quantify the quality of the regression, let $\hat\boldsymbol{y}$ be an estimator for $\boldsymbol{y}$, then we have the following term:
+* The Sum of Square of Total (SST): $\Vert\boldsymbol{y}-\bar y\Vert^2 = \sum_i(y_i-\bar y)^2$.
+* The Sum of Square of Regression (SSR): $\Vert\boldsymbol{\hat y}-\bar y\Vert^2=\sum_i(\hat y_i-\bar y)^2$.
+* The Sum of Square of Error (SSE): $\Vert\boldsymbol{y}-\boldsymbol{\hat y}\Vert^2=\sum_i(y_i-\hat y_i)^2$.
+
+A Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ is a linear unbiased estimator that minimize the SSE. Furthermore, we have:
+1. The BLUE of $\boldsymbol{y}$ for the linear model above is $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $\boldsymbol{\hat \theta}_{\text{LSE}}$ **least square estimator** for $\theta$:
 $$
 \begin{aligned}
 \boldsymbol{\hat \theta}_{\text{LSE}} & = (X^TX)^{-1}X^T\boldsymbol{y},\\
@@ -101,8 +107,10 @@ $$
 \end{aligned}
 $$
 where $P_X=XX^+$ is known as a projection matrix (symmetric and idempotent) and $X^+=(X^TX)^{-1}X^T$ is the Moore-Penrose inverse of $X$.
-* Residual of the BLUE is defined as $R_0^2 = \Vert \boldsymbol{y}-\boldsymbol{\hat y}_{\text{BLUE}}\Vert= \Vert (I_m-P_X)\boldsymbol{y}\Vert$ then $R^2_0/\sigma^2\sim\chi^2(m-r)$ where $r$ is the rank of $X$. So that $\hat\Sigma_y=R^2_0/(m-r)$ is a unbiased estimator for the $\sigma^2$.
-* Suppose there's a constant term such that $\boldsymbol{y}=X\boldsymbol{\theta}+\beta\cdot \boldsymbol{1}_n$, then the equation can be reduced to $\boldsymbol{y}_0=X_0\boldsymbol{\theta}$ where $\boldsymbol{y}_0=\boldsymbol{y}-\overline{y}$ and $X_0=X-\overline{X}$.
+2. The (SSE) denoted as $R_0^2$ satisfies $R^2_0/\sigma^2\sim\chi^2(m-r)$ where $r$ is the rank of $X$. And $\hat\Sigma_y=R^2_0/(m-r)$ is a unbiased estimator for the $\sigma^2$.
+3. Suppose there's a constant term such that $\boldsymbol{y}=X\boldsymbol{\theta}+\beta\cdot \boldsymbol{1}_n$, then the equation can be reduced to $\boldsymbol{y}_0=X_0\boldsymbol{\theta}$ where $\boldsymbol{y}_0=\boldsymbol{y}-\overline{y}$ and $X_0=X-\overline{X}$.
+4. $\text{SSR}\perp\text{SSE}$ and $\text{SST}=\text{SSR}+\text{SSE}$.
+
 
 **Proof**: 
 1. It is unbiased since $\mathbb{E}(XX^+\boldsymbol{y})=XX^+X\boldsymbol{\theta}=X\boldsymbol{\theta} = \boldsymbol{y}$ where the last step comes from the property of Moore-Penrose inverse $A=AA^+A$. 
@@ -133,7 +141,7 @@ $$
 \frac{\partial \boldsymbol{y}^T\boldsymbol{x}}{\partial\boldsymbol{x}^T}=\boldsymbol{y}^T,\quad 
 \frac{\partial \boldsymbol{x}^T}{\partial\boldsymbol{x}}=I_n,\quad \frac{\partial \boldsymbol{x}^TA\boldsymbol{x}}{\partial\boldsymbol{x}}=(A+A^T)\boldsymbol{x}.
 $$
-2. Due to $P_X$ is the projection operator, then $I_m-P_X$ is symmetric and idempotent. Furthermore, $I_n=P_X+(I_m-P_X)$ and hence the Cochran's theorem shows that $\Vert \boldsymbol{y}\Vert/\sigma^2\sim \chi^2(r)$ while $R_0^2=\Vert I-P_X\Vert/\sigma^2\sim \chi^2(m-r)$. 
+2. Due to $P_X$ is the projection operator, then $I_m-P_X$ is symmetric and idempotent. Furthermore, $I_n=P_X+(I_m-P_X)$ and hence the Cochran's theorem shows that $\Vert P_X\boldsymbol{y}\Vert^2/\sigma^2\sim \chi^2(r)$ while $R_0^2=\Vert (I-P_X)\boldsymbol{y}\Vert^2/\sigma^2\sim \chi^2(m-r)$. 
 3. To minimize the error, we have
 $$
 \frac{\partial}{\partial \boldsymbol{\theta}} (\boldsymbol{y}-X\boldsymbol{\theta}-\beta\cdot\boldsymbol{1}_n)^T(\boldsymbol{y}-X\boldsymbol{\theta}-\beta\cdot\boldsymbol{1}_n)=0,
@@ -146,7 +154,15 @@ $$
 \end{aligned}
 $$
 Put this back to the formular leads to the reduction.
-
+4. By the 3rd point, the model estimator is $\hat\boldsymbol{y}=P_X(\boldsymbol{y}-\bar\boldsymbol{y})$ where $X$ is the $X_0$ in the 3rd point. The explicity expand SST shows that
+$$
+\begin{aligned}
+\Vert \boldsymbol{y}-\bar \boldsymbol{y}\Vert^2&= \Vert (\boldsymbol{y}-\bar\boldsymbol{y})-(\hat \boldsymbol{y}-\bar\boldsymbol{y})+\hat\boldsymbol{y}-\bar y\Vert^2\\
+&=\Vert \hat \boldsymbol{y}-\bar \boldsymbol{y}\Vert^2+\Vert(\boldsymbol{y}-\bar\boldsymbol{y})-(\hat \boldsymbol{y}-\bar\boldsymbol{y})\Vert^2+2[(\boldsymbol{y}-\bar\boldsymbol{y})-(\hat \boldsymbol{y}-\bar\boldsymbol{y})]^T(\hat \boldsymbol{y}-\bar\boldsymbol{y}),\\
+&=\Vert \hat \boldsymbol{y}-\bar \boldsymbol{y}\Vert^2+\Vert\boldsymbol{y}-\hat \boldsymbol{y}\Vert^2+2(\boldsymbol{y}-\bar\boldsymbol{y})^T(I-P_X)P_X(\boldsymbol{y}-\bar\boldsymbol{y}).
+\end{aligned}
+$$
+where the last term vanishes. It means $(\boldsymbol{y}-\bar y)\perp (\boldsymbol{y}-\hat\boldsymbol{y})$.
 
 :::info
 A explicit solution: $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$. But in practice, it is usually approximated by a gradient descent search to minimize the residual.

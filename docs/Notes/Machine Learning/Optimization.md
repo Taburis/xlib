@@ -32,40 +32,37 @@ Another SGD variantion is specific for the case that $\mathcal{L}$ is a summatio
 $$
 \mathcal{L}=\sum_iL(\boldsymbol{x}_i | \boldsymbol{\theta}),
 $$
-where $\boldsymbol{x}_i$ stands for the inputs from a samples. Since the similarity, the graident of $\nabla_\theta\mathcal{L}$ is approximated by $\nabla_\theta L$ at a randomly picked sample $\boldsymbol{x}_i$. 
+where $\boldsymbol{x}_i$ stands for the inputs from a samples. Since the similarity, the gradient of $\nabla_\theta\mathcal{L}$ is approximated by $\nabla_\theta L$ at a randomly picked sample $\boldsymbol{x}_i$. 
 
 ### Momentum Estimation
 The algorithm of the momentum estimation updating the parameters based on
 $$
-\begin{aligned}
-\boldsymbol{\theta} &= \boldsymbol{\theta} +\alpha \Delta\boldsymbol{\theta},\\
-\Delta\boldsymbol{\theta} &= \Delta\boldsymbol{\theta} - r\nabla_\theta \mathcal{L}_t,
-\end{aligned}
+\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t + \Delta\boldsymbol{\theta}_{t+1},\quad \Delta\boldsymbol{\theta}_{t+1} = \alpha\Delta\boldsymbol{\theta}_t - r\nabla_\theta \mathcal{L}_t,
 $$
-where $\Delta\boldsymbol{\theta}$ is 0 at the very begining, $\nabla_\theta \mathcal{L}_t$ is the graident with the parameter $\boldsymbol{\theta}_t$, and $\alpha$ is a decay parameter in $[0,1]$.
-The idea comes from imaging the searching as a point moving in parameter space at a velocity $\Delta\boldsymbol{\theta}$ with a friction decay parameter $\alpha$, while $\mathcal{L}$ is a potential function so that $\nabla_\theta \mathcal{L}$ play the role of force to change the velocity of $\Delta\boldsymbol{\theta}$. This method can supressed the disturbs from gradient fluctuation effectively so that $\mathcal{L}$ may decrease smoothly.
+where $\Delta\boldsymbol{\theta}$ is 0 at the very beginning, $\nabla_\theta \mathcal{L}_t$ is the graident with the parameter $\boldsymbol{\theta}_t$, and $\alpha$ is a decay parameter in $[0,1]$ (usually $\alpha=0.9$).
+The idea comes from imaging the searching as a point moving in parameter space at a velocity $\Delta\boldsymbol{\theta}$ with a friction proportional to the velocity, with a friction parameter $\alpha$. The velocity will be exhausted by the friction and leads to a minimum position. This method can suppress the disturbs from gradient fluctuation effectively so that $\mathcal{L}$ may decrease smoothly.
 
 ### Adaptive Gradient Descent
 
-The adaptive gradient descent (AdaGD) introduced a variating learning step defined by the inverse of the length of the gradient. The algorithm is similar to SGD except moving parameters as
+The adaptive gradient descent (AdaGD) introduced a variation learning step defined by the inverse of the length of the gradient. The algorithm is similar to SGD except moving parameters as
 $$
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{S_{t+1}}}\nabla_\theta\mathcal{L}_t,\quad S_{t+1}=S_t+\Vert\nabla_\theta\mathcal{L}_t\Vert^2.
+\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{S_{t+1}}+\epsilon}\nabla_\theta\mathcal{L}_t,\quad S_{t+1}=S_t+\Vert\nabla_\theta\mathcal{L}_t\Vert^2.
 $$
-The gradient will be shrinked by a factor of $1/\sqrt{S_t}$ at $t$-th step. The $S_t$ increase monotonically which leads to the learning step are decreasing as the iteration number increase. 
+The gradient will be shrinked by a factor of $1/\sqrt{S_t}$ at $t$-th step. The $S_t$ increase monotonically which leads to the learning step are decreasing as the iteration number increase. The $\epsilon$ is a small value to avoid singularity.
 
 ### Root Mean Square Propagation
 
-The Root Mean Square Propagation (RMSProp) is a similar algorithm like AdaGD by variating the learning step according to the length of the gradient. Unlike the AdaGD which has a monotonic decrasing learning step, RMSProp adjust the learning rate as:
+The Root Mean Square Propagation (RMSProp) is a similar algorithm like AdaGD by varying the learning step according to the length of the gradient. Unlike the AdaGD which has a monotonic deceasing learning step, RMSProp adjust the learning rate as:
 
 $$
 \boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\frac{r}{\sqrt{v_{t+1}}+\epsilon}\nabla_\theta\mathcal{L}_t,\quad v_{t+1}=\gamma v_t+(1-\gamma)\Vert\nabla_\theta\mathcal{L}_t\Vert^2,
 $$
-where $\gamma\in [0, 1]$ is called "forgetting factor" as the history sum of gradient length will decay by a factor of $\gamma$ for each iteraction. The small $\epsilon$ constant is added here to avoid singularity.
+where $\gamma\in [0, 1]$ is called "forgetting factor" as the history sum of gradient length will decay by a factor of $\gamma$ for each iteration. The small $\epsilon$ constant is added here to avoid singularity.
 
 ### Adaptive Momentum Estimation
 [Reference](https://arxiv.org/pdf/1412.6980.pdf)
 
-The momentum estimation reliably reduces the flucuation by introduced a "inertial" and "friction" for searching. The Adaptive Momentum (Adam) estimation extended the momentum estimation algorithm by introduce an adaptive learning step similar to the RMSProp. It updates the parameters based on the formula:
+The momentum estimation reliably reduces the fluctuation by introduced a "inertial" and "friction" for searching. The Adaptive Momentum (Adam) estimation extended the momentum estimation algorithm by introduce an adaptive learning step similar to the RMSProp. It updates the parameters based on the formula:
 $$
 \begin{aligned}
 m_{t+1} &= \beta_1 m_t+(1-\beta_1)\nabla_\theta\mathcal{L}_t,\\
@@ -75,12 +72,12 @@ v &= \frac{v_{t+1}}{1-\beta_2^{t+1}},\\
 \boldsymbol{\theta}_{t+1} &= \boldsymbol{\theta}_t-r\frac{m}{\sqrt{v}+\epsilon},
 \end{aligned}
 $$
-where $\beta_1,\beta_2$ is the decay parameter for the learning step and the momentum, respectively. The value range is suppose to be $0\le\beta\le 1$ and the default values are $\beta_1=0.9,\beta_2=0.99$. The 3rd and 4th equations are **bias correction** since a moving average $m = \beta m +(1-\beta)G$ can be expressed as
+where $\beta_1,\beta_2$ is the decay parameter for the learning step and the momentum, respectively. The value range is suppose to be $0\le\beta\le 1$ and the default values are $\beta_1=0.9,\beta_2=0.99$. The 3rd and 4th equations are **bias correction**. To illustrate this bias, let's assume the gradient $G_t$ for the $t$-th iterations and $m_1=0$ (**initial bias**). Updating $m_t$ according to the rule $m_{t+1} = \beta m_t +(1-\beta)G_{t}$ can be expressed as
 $$
-m = 1-\beta\sum_{i=1}^N\beta^{N-i}G
+m_N = (1-\beta)\sum_{i=1}^N\beta^{N-i}G^2_i.
 $$ 
-and the expectation of this quantity is
+Assuming the the expectation of $G_t$ is the same for all iterations, then we have
 $$
-\mathbb{E}(m)= \mathbb{E}(G)(1-\beta^N),
+\mathbb{E}(m)= (1-\beta^N)\mathbb{E}(G^2),
 $$
-indicates that $\hat m = m/(1-\beta^N)$ is an unbiased estimator for $G$.
+and this indicates that $\hat m = m/(1-\beta^N)$ is an unbiased estimator for $G_t$.
