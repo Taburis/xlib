@@ -1,5 +1,23 @@
 # Nonparametric Statistics
 
+## Empirical Distributions
+
+Given a random variable with CDF $F(x)$, a sample $\lbrace X_n\rbrace$ from the $X$ forms a distribution $\hat F_n(x)$ known as **empricial distribution** (ECDF) defined as
+$$
+\hat F(x)=\frac{1}{n}\sum_{i=1}^nI(X_i\le x),
+$$
+where $I(X\le x)$ is an indicator function for the set satisfying the condition $X\le x$. Since the distribution of $X\le x$ is $F(x)$ which is the probability of $I(X\le x)=1$, the distribution of $n\hat F_n(x)$ is a binomial distribution $b(n,F(x))$ for any fixed $x$. By the central limit theory, we have
+$$
+\sqrt{n}\left[\hat F_n(x)-F(x)\right]\xrightarrow{d} N\left(0, F(x)(1-F(x))\right).
+$$
+
+* **Mean** of $\hat F_n(x)$ is the $\bar x$, sample mean.
+* **Variance** of $\hat F_n(x)$ is 
+$$
+\text{Var}(X)=\frac{1}{n}\sum_{i=1}^n(x_i-\bar x)^2,
+$$
+which is $\frac{n-1}{n}S^2$, where $S$ is the sample variance.
+
 ## Order Statistics
 
 Given a sample $\lbrace X_n\rbrace$ draw from a PDF $f(x)$ for random variable $X$, let $\lbrace Y_n\rbrace$ represents the statistics of $\lbrace X_n\rbrace$ with the order that $Y_1<Y_2<\dots<Y_n$. 
@@ -24,7 +42,7 @@ Let $\gamma= \mathbb{P}(Y_i < \xi_p < Y_j)$, then $(Y_i,Y_j)$ formed the $100\cd
 
 **Proof**
 1. There are $n!$ possible ways to get the order $y_1<\dots<y_n$ from the samples $\lbrace x_n\rbrace$, which are drawn at the probability $\prod_if(x_i)$.
-2. To show if $Y_k$ is an unbiased estimator for $\xi_p$, we need to show that $\mathbb{E}(Y_k)=\xi_p$. In fact, the expected CDF is given by
+2. To show if $Y_k$ is an unbiased estimator for $\xi_p$, we show $\mathbb{E}[F(Y_k)]=p$ based on the definition of $\xi_p$. In fact, the expected CDF is given by
 $$
 \begin{aligned}
 \mathbb{E}[F(Y_k)]&=\int_a^bg_k(y)F(y)dy\\

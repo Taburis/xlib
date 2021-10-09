@@ -52,3 +52,23 @@ The quartiles are used to illustrate the distribution of samples: $Q_0=\xi_{0}$,
 
 The boxplot is a summary plot for showing the quartiles and each of outliers are usually needs to be plot as dots. The example of boxplot is shown below:
 ![boxplot](/img/docs/Image_boxplot.png)
+
+
+## Bootstrap Resampling
+
+A bootstrap resampling is an statistics augmentation method. It treat a given sample as population, repeatly draw samples with replacement from that population to generate new bootstrap samples. 
+
+### Percentile Bootstrap Confidence Intervals
+
+Let $\lbrace X_n\rbrace$ be a sample with size $n$ and $\hat \theta(\boldsymbol{X})$ is an estimator, the bootstrap bootstrap confidence interval is obtained from the following procedure:
+1. Draw a size $n$ sample $\lbrace X_n^*\rbrace$ from the sample $\lbrace X_n\rbrace$ with replacement.
+2. Obtained the estimated value $\hat \theta = \hat \theta(\boldsymbol{X}^*)$.
+3. Repeat the step 1 and 2 $N$ times to form the order statistics $\hat\theta^*_1\le \dots\le\hat \theta_N^*$, and $m=\lfloor N\alpha/2\rfloor$, then the interval:
+$$
+(\hat \theta^*_m, \hat\theta^*_{N+1-m})
+$$
+is the $\alpha/2\times 100%$ confidence interval for $\theta$. $N$ should be a large number ($N >3000$ usually).
+
+:::note Explanation
+The bootstrap samples $\lbrace X^*_n\rbrace$ follows the empirical distribution $\hat F_n(x)$ from the sample $\lbrace X_n\rbrace$. 
+:::

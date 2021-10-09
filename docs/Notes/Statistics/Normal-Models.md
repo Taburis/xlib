@@ -91,12 +91,12 @@ $$
 The linear model under Gauss-Markov assumption is **estimable** for $\boldsymbol{\theta}$ only if the column space of $X$ samples is full ranked. The estimable of $\boldsymbol{\theta}$ is that if $\theta_1\ne \theta_2$, then $f(\theta_1)\ne f(\theta_2)$. This property of $f(\theta)$ is also known as **identifiable**. 
 Given two $\boldsymbol{\theta}_1\ne\boldsymbol{\theta}_2$, non-trivial solution of $X(\boldsymbol{\theta}_1-\boldsymbol{\theta}_2)=0$ implies that column space of $X$ is not full ranked and $\boldsymbol{\theta}_1-\boldsymbol{\theta}_2$ are in the null space of $X$. So linear model is estimable only for those $\boldsymbol{\theta}\notin \text{Null}(X)$.
 
-### The Best Linear Unbiased Estimator
-
 To quantify the quality of the regression, let $\hat\boldsymbol{y}$ be an estimator for $\boldsymbol{y}$, then we have the following term:
 * The Sum of Square of Total (SST): $\Vert\boldsymbol{y}-\bar y\Vert^2 = \sum_i(y_i-\bar y)^2$.
 * The Sum of Square of Regression (SSR): $\Vert\boldsymbol{\hat y}-\bar y\Vert^2=\sum_i(\hat y_i-\bar y)^2$.
 * The Sum of Square of Error (SSE): $\Vert\boldsymbol{y}-\boldsymbol{\hat y}\Vert^2=\sum_i(y_i-\hat y_i)^2$.
+
+### The Best Linear Unbiased Estimator
 
 A Best Linear Unbiased Estimator (BLUE) of $\boldsymbol{y}$ is a linear unbiased estimator that minimize the SSE. Furthermore, we have:
 1. The BLUE of $\boldsymbol{y}$ for the linear model above is $X\boldsymbol{\hat \theta}_{\text{LSE}}$ where $\boldsymbol{\hat \theta}_{\text{LSE}}$ **least square estimator** for $\theta$:
@@ -184,18 +184,70 @@ $$
 $$
 and the trace of $P_X$ is the rank of $X$. 
 
-### Linear Estimation
+### Linear Estimation and Test
 
-Given a random variable $H\boldsymbol{\theta}$, it is estimable if
+Given a linear model with weight $\boldsymbol{\theta}$, an arbitrary linear estimator of $H\boldsymbol{\theta}$ is estimable if
 1. $\mathcal{C}(H^T)\subset \mathcal{C}(X^T)$, where $\mathcal{C}(X^T)$ stands for the column space of $X$.
 2. The rank of the column space of $H$ is the same of the rank of $H$. 
 
+For a estimable linear combination $H\boldsymbol{\theta}$, $H\in \mathbb{R}^{k\times h}$ where $h$ is the dimension of the $\boldsymbol{\theta}$, one can form a hypothesis test:
+$$
+H_0: H\boldsymbol{\theta} = \boldsymbol{a} \quad H_1: H\boldsymbol{\theta}\ne \boldsymbol{a}.
+$$
+We have the following properties:
+1. $R_0^2\perp R^2_0-R^2_1$ where 
+$$
+R_1^2=\min_{\lbrace\boldsymbol{\theta}: H\boldsymbol{\theta}=\boldsymbol{a}\rbrace} \Vert \boldsymbol{y}-X\boldsymbol{\theta}\Vert ^2
+$$
+2. For different hypothesis assumption, we have:
+$$
+H_0: \frac{R_1^2-R_0^2}{\sigma^2}\sim \chi^2(k),\quad H_1:  \frac{R_1^2-R_0^2}{\sigma^2}\sim \chi^2_\delta(k),
+$$
+where $\chi_\delta^2(k)$ is a non-central chi square distribution with 
+$$
+\delta = \frac{1}{\sigma^2}(H\boldsymbol{\theta}-\boldsymbol{a})^TV^{-1}(H\boldsymbol{\theta}-\boldsymbol{a}),\quad V=H(X^TX)^-H^T.
+$$
+3. $F$-statistics for hypothesis
+$$
+F = \frac{(R^2_1-R^2_0)/k}{R^2_0/(n-r)},\quad H_0: F\sim F(k,m-r),\quad H_1:F\sim F_\delta(k,m-r).
+$$
+
+:::note Mathematical Foundation
+With these requirement above, the estimable linear combination of BLUE $\boldsymbol{\hat \theta}$ has the form $H\boldsymbol{\hat\theta}=TX\boldsymbol{\hat\theta}$ where $T\in\mathbb{R}^{k\times m}$ hence
+$$
+H\boldsymbol{\hat\theta}\sim N_k(H\boldsymbol{\theta}, HH^T\sigma^2),\quad V^{-1/2}H(\boldsymbol{\hat\theta}-\boldsymbol{\theta})/\sigma\sim N_k(0, I_k),
+$$ 
+where $V=H(X^TX)^-H^T$ because $H\boldsymbol{\hat \theta}=H(X^TX)^-X^T\boldsymbol{y}$. It means that
+$$
+U\sim \chi^2(k), \quad U = \frac{1}{\sigma^2}(H\boldsymbol{\hat\theta}-H\boldsymbol{\theta})^TV^{-1}(H\boldsymbol{\hat\theta}-H\boldsymbol{\theta}).
+$$
+Notice that $U\perp R^2_0$ since 
+
+To show the $R^2_0\perp R^2_1-R^2_0$, notice that the $R^2_0=\Vert \boldsymbol{y}-X\boldsymbol{\hat\theta}\Vert^2=\Vert (I-P_X)\boldsymbol{y}\Vert^2$, then
+$$
+\begin{aligned}
+R^2_1&=\min_{\lbrace\boldsymbol{\theta}: H\boldsymbol{\theta}=\boldsymbol{a}\rbrace}\Vert \boldsymbol{y}-X\boldsymbol{\hat \theta}+X\boldsymbol{\hat \theta}-X\boldsymbol{\theta}\Vert^2\\
+&=\Vert \boldsymbol{y}-X\boldsymbol{\hat \theta}\Vert^2+\min_{\lbrace\boldsymbol{\theta}: H\boldsymbol{\theta}=\boldsymbol{a}\rbrace}\Vert X\boldsymbol{\hat \theta}-X\boldsymbol{\theta}\Vert^2
+\end{aligned}
+$$
+The last step comes from that $(\boldsymbol{y}-X\boldsymbol{\hat \theta})^TX(\boldsymbol{\hat\theta}-\boldsymbol{\theta})=0$ which means that $R^2_0\perp R^2_1-R^2_0$. Further more, we have $P_X\boldsymbol{y}-X\boldsymbol{\theta} = P_X(\boldsymbol{y}-X\boldsymbol{\theta})$, then $R^2_1-R^2_0=\Vert P_X(\boldsymbol{y}-X\boldsymbol{\theta})\Vert^2$. By the 3rd theorem in the [section](Normal-Models.md#mathematical-foundation), $R^2_1-R^2_0\sim \chi^2(k)$ under the $H_0$. Otherwise, it is a skewed chi2 distribution. This proved the 2nd point. Actually, we can prove that this $R^2_1-R^2_0\perp R^2_0$ for arbitrary $\theta$. In fact, $H\boldsymbol{\theta}=TX\boldsymbol{\theta}=TP_XX\boldsymbol{\theta}$, then we have
+$$
+\begin{aligned}
+H\boldsymbol{\hat \theta}-H\boldsymbol{\theta}&=H(X^TX)^-X^T(\boldsymbol{y}-X\boldsymbol{\theta})\\
+&=TP_X(\boldsymbol{y}-X\boldsymbol{\theta}).
+\end{aligned}
+$$
+Basaed on this, we have
+$$
+U=(\boldsymbol{y}-X\boldsymbol{\theta})^TA(\boldsymbol{y}-X\boldsymbol{\theta}),\quad A=P_XT^T(TP_XT^T)^{-1}TP_X,
+$$
+where we used the equation $H(X^TX)^-H^T=TP_XT^T$. Futhermore, $A(I-P_X)=0$ which means that $U\perp R^2_0$. Then $U/\sigma^2\sim \chi^2(k)$ and $R^2_0/\sigma^2\sim \chi^2(m-r)$ follows from the Cochram's theorem. The 3rd point follows from the definition of the $F$-distribution.
+:::
 
 ## One-Way ANOVA
 ---
 
-Given a sequence of i.i.d. random variables $X_j,j=1,\dots,m$ $X_i\sim N(\mu_i,\sigma^2)$ and the samples draw for $X_j$ are denoted as $X_{ij}$ where $i=1,\dots, n_j$. The model for these samples are
+Given a sequence of i.i.d. random variables $X_j,j=1,\dots,m$ $X_i\sim N(\mu_i,\sigma^2)$ and the samples draw for $X_j$ are denoted as $X_{ij}$ where $i=1,\dots, n$. The model for these samples are
 $$
-X_{ij}=\mu_j+e_{ij},\quad e\sim N(0,\sigma^2),
+X_{ij}=\mu_j+e_{ij},\quad e\sim N(0,\sigma^2).
 $$ 
-and 

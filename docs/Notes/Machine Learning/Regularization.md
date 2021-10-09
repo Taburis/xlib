@@ -8,10 +8,16 @@ A typical loss function $\mathcal{L}$ usually has two terms
 $$
 \mathcal{L}=\sigma(x, y|\hat \theta) + \lambda R(f),
 $$ 
-where $x,y$ stands for the inputs and targets, respectively. The first term $\sigma(x,y|\hat\theta)$ usually measure the variance or the cost of prediction from the model $f$, under the assumption $\theta$ and the second regularization term $R(f)$ represents the penalty from the complexity of the model $f$. A parameter $\lambda$ added here to adjust the weight of the regularization. 
+where $x,y$ stands for the inputs and targets, respectively. The first term $\sigma(x,y|\hat\theta)$ usually measure the variance or the cost of prediction from the model $f$, under the assumption $\theta$ and the second regularization term $R(f)$ represents the penalty from the complexity of the model $f$. A parameter $\lambda$ added here to adjust the weight of the regularization. The philosophy here is that adding extra degree of freedom into the model should only for the case that it leads to significant improve the fitting. But the standard of the "significant improvement" is measured by the regularization term.
 
-The philosophy here is that adding extra degree of freedom into the model should only for the case that it leads to significant improve the fitting. But the standard of the "significant improvement" is measured by the regularization term. Form a linear model $f(x)=\theta\cdot x$ where $\theta$ could be a matrix, L1 and L2 regularization terms are mostly used:
-* **L0 regularization**: $R(f)=\sum_iI(\theta_i)$, where $I(theta) = 1$ if $\theta\ne 0$ and $I(\theta)=0$ otherwise.
+### Lp Regularizations
+
+The $Lp$ regulariation term is
+$$
+R(f) = \sum_i|\theta_i|^p,
+$$
+where $\theta_i$ are the parameters in the model $f(x,\boldsymbol{\theta})$. For a linear model $f(x)=\theta\cdot x$ where $\theta$ could be a matrix, L1 and L2 regularization terms are mostly used:
+* **L0 regularization**: $R(f)=\sum_iI(\theta_i)$, where $I(\theta) = 1$ if $\theta\ne 0$ and $I(\theta)=0$ otherwise.
 * **L1 regularization**: $R(f)=\sum_i|\theta_i|$.
 * **L2 regularization**: $R(f)=\sum_i\theta_i^2$.
 
