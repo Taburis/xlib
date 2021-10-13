@@ -187,15 +187,17 @@ and the trace of $P_X$ is the rank of $X$.
 ### Linear Estimation and Test
 
 Given a linear model with weight $\boldsymbol{\theta}$, an arbitrary linear estimator of $H\boldsymbol{\theta}$ is estimable if
-1. $\mathcal{C}(H^T)\subset \mathcal{C}(X^T)$, where $\mathcal{C}(X^T)$ stands for the column space of $X$.
+1. $\mathcal{C}(H^T)\subset \mathcal{C}(X^T)$, where $\mathcal{C}(X^T)$ stands for the column space of $X^T$.
 2. The rank of the column space of $H$ is the same of the rank of $H$. 
+
+The reason for the linear estimable conditions above is that the estimator $\boldsymbol{\hat\theta}=A\boldsymbol{y}$, a linear estimation from $\boldsymbol{y}$. Then the estimable means that $\forall \boldsymbol{\theta},\exists B: H\boldsymbol{\theta}=B\boldsymbol{y}$ which means that $\mathcal{C}(H^T)\subset \mathcal{C}(X^T)$. The second point is a minimum requirement for $H$ since if $H$ is a $k\times m$ matrix while $k\le \text{rank}{H}$, then $H$ can be reduced to a smaller matrix which is full rank of column.
 
 For a estimable linear combination $H\boldsymbol{\theta}$, $H\in \mathbb{R}^{k\times h}$ where $h$ is the dimension of the $\boldsymbol{\theta}$, one can form a hypothesis test:
 $$
 H_0: H\boldsymbol{\theta} = \boldsymbol{a} \quad H_1: H\boldsymbol{\theta}\ne \boldsymbol{a}.
 $$
 We have the following properties:
-1. $R_0^2\perp R^2_0-R^2_1$ where 
+1. $R_0^2\perp R^2_1-R^2_0$ where 
 $$
 R_1^2=\min_{\lbrace\boldsymbol{\theta}: H\boldsymbol{\theta}=\boldsymbol{a}\rbrace} \Vert \boldsymbol{y}-X\boldsymbol{\theta}\Vert ^2
 $$
@@ -209,8 +211,15 @@ $$
 $$
 3. $F$-statistics for hypothesis
 $$
-F = \frac{(R^2_1-R^2_0)/k}{R^2_0/(n-r)},\quad H_0: F\sim F(k,m-r),\quad H_1:F\sim F_\delta(k,m-r).
+F = \frac{U/k}{R^2_0/(m-r)},\quad U=(H\boldsymbol{\hat\theta}-\boldsymbol{a})^TV^{-1}(H\boldsymbol{\hat\theta}-\boldsymbol{a}),\quad U/\sigma^2\sim \chi^2(k)
 $$
+which satisfies the distribution:
+$$
+H_0: F\sim F(k,m-r),\quad H_1:F\sim F_\delta(k,m-r),
+$$
+where $k=\text{rank}{H}$.
+
+With this hypothesis test method, one can use this to test the importance of the $i$-th component in $\boldsymbol{\theta}$ by setting $H\boldsymbol{\theta}=\theta_i$ with the associated $H_0:H\boldsymbol{\theta}=0$.
 
 :::note Mathematical Foundation
 With these requirement above, the estimable linear combination of BLUE $\boldsymbol{\hat \theta}$ has the form $H\boldsymbol{\hat\theta}=TX\boldsymbol{\hat\theta}$ where $T\in\mathbb{R}^{k\times m}$ hence
@@ -237,17 +246,75 @@ H\boldsymbol{\hat \theta}-H\boldsymbol{\theta}&=H(X^TX)^-X^T(\boldsymbol{y}-X\bo
 &=TP_X(\boldsymbol{y}-X\boldsymbol{\theta}).
 \end{aligned}
 $$
-Basaed on this, we have
+Based on this, we have
 $$
 U=(\boldsymbol{y}-X\boldsymbol{\theta})^TA(\boldsymbol{y}-X\boldsymbol{\theta}),\quad A=P_XT^T(TP_XT^T)^{-1}TP_X,
 $$
-where we used the equation $H(X^TX)^-H^T=TP_XT^T$. Futhermore, $A(I-P_X)=0$ which means that $U\perp R^2_0$. Then $U/\sigma^2\sim \chi^2(k)$ and $R^2_0/\sigma^2\sim \chi^2(m-r)$ follows from the Cochram's theorem. The 3rd point follows from the definition of the $F$-distribution.
+where we used the equation $H(X^TX)^-H^T=TP_XT^T$. Furthermore, $A(I-P_X)=0$ which means that $U\perp R^2_0$. Then $U/\sigma^2\sim \chi^2(k)$ and $R^2_0/\sigma^2\sim \chi^2(m-r)$ follows from the Cochram's theorem. The 3rd point follows from the definition of the $F$-distribution.
 :::
 
-## One-Way ANOVA
----
+### One-Way ANOVA
 
-Given a sequence of i.i.d. random variables $X_j,j=1,\dots,m$ $X_i\sim N(\mu_i,\sigma^2)$ and the samples draw for $X_j$ are denoted as $X_{ij}$ where $i=1,\dots, n$. The model for these samples are
+Analysis of Variance (ANOVA) is a method to analyze the mean between the data groups. Given a sequence of i.i.d. random variables $X_j,j=1,\dots,b$ $X_i\sim N(\mu_i,\sigma^2)$ and the samples draw for $X_j$ are denoted as $X_{ij}$ where $i=1,\dots, a$. The model for these samples are
 $$
 X_{ij}=\mu_j+e_{ij},\quad e\sim N(0,\sigma^2).
 $$ 
+This model isolated the single factor $\mu$ from variance $e_{ij}$ for data, and is called the $b$-level (the sample size for each group) ANOVA model. Here list several usual inference about this model:
+1. The BLUE $\hat\mu_j=\bar y_{.j}$ where $\bar y_{.j}=\sum_{i=1}^by_{ij}/a$.
+2. Let $W_j = \bar X_{.j}-\mu_j$, then $W_j\sim N(0,\sigma^2/a)$ and
+$$
+t_j \sim t(ab-b),\quad t_j=\frac{\sqrt{a}W_j}{\sqrt{R^2_0/(ab-b)}},
+$$
+where $R^2_0 /\sigma^2= \sum_{ij}(X_{ij}-\bar X_{.j})^2/\sigma^2\sim \chi^2(ab-b)$.
+3. Mean test hypothesis:
+$$
+H_0: \mu_1=\dots = \mu_b = \mu, \quad H_1: \mu_i\ne \mu
+$$ 
+the $F$-statistics can be used to test the hypothesis:
+$$
+\frac{(R^2_1-R^2_0)/(b-1)}{R^2_0/(ab-b)}\sim F(b-1, ab-b),
+$$
+where $R^2_1-R^2_0=a\sum_{j}(\bar X_{.j}-\bar X_{..})^2$ where $\bar X_{..}=\sum_{ij}X_{ij}/ab$.
+
+
+:::note Mathematical Foundation
+1. The ANOVA model is a special case of linear regression by flatten the $y_{ij}$ into $y_i$ where $i=1,\dots, bm$. So that we have
+$$
+X=\begin{pmatrix}
+1_{a\times 1} &&\\
+&\ddots & \\
+&& 1_{a \times 1}
+\end{pmatrix},\quad \boldsymbol{\theta}=\begin{pmatrix}\mu_1 \\ \vdots \\ \mu_b \end{pmatrix}
+$$
+where $1_{a \times 1}$ is a $a\times 1$ matrix ($a$ dimensional column vector) with all elements are 1, the subscripts here refers the row$\times$\column number, and the elements absence in the matrix above are 0. Notice that $1_{1\times a}\cdot 1_{a\times 1} = a$. The BLUE comes from the formula
+$$
+\begin{aligned}
+\hat \boldsymbol{\theta}&= (X^TX)^{-1}X^T\boldsymbol{y}\\
+&=\frac{1}{b}
+\begin{pmatrix}
+1_{1\times a} &&\\
+&\ddots & \\
+&& 1_{1 \times a}
+\end{pmatrix}\cdot
+\begin{pmatrix}
+y_{1}\\ \vdots \\ y_{ab} 
+\end{pmatrix}
+\\
+&=\begin{pmatrix}
+\bar y_{.1} & \dots \bar y_{.b}
+\end{pmatrix}^T,
+\end{aligned}
+$$
+here it is easy to verify $(X^TX)^{-1}=I_{b\times b}/b$. 
+2. $R^2_0\sim \chi(ab-b)$ since $\text{rank}(X)=b$. The rest follows from student's theorem.
+3. The $H_0$ hypothesis can be rephrased into the test that $\mu_1-\mu_j=0$ for all $j=2,\dots,b$. It hence can be expressed as $H\boldsymbol{\mu}=0$ where 
+$$
+H=\begin{pmatrix} 
+1 & -1 & & &\\
+1 &  &-1 & &\\
+\vdots & & & \ddots &\\
+1 &  & & &-1
+\end{pmatrix}_{(b-1)\times b},\quad \text{rank}(H)=b-1.
+$$
+The empty place is 0 in the matrix above. Assuming the $H_0$ is true, the best estimation of mean is $\mu=\bar X_{..}=\sum_{ij}X_{ij}/ab$. So that $U=R^2_1-R^2_0$ and $U/\sigma^2\sim\chi^2(b-1)$. Since $R^2_0\perp (R^2_1-R^2_0)$, it leads to the $F$-distributions of the ratio.
+:::
