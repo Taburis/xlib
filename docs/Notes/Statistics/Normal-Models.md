@@ -154,7 +154,7 @@ $$
 \end{aligned}
 $$
 Put this back to the formular leads to the reduction.
-4. By the 3rd point, the model estimator is $\hat\boldsymbol{y}=P_X(\boldsymbol{y}-\bar\boldsymbol{y})$ where $X$ is the $X_0$ in the 3rd point. The explicity expand SST shows that
+4. By the 3rd point, the model estimator is $\hat\boldsymbol{y}-\bar\boldsymbol{y}=P_X(\boldsymbol{y}-\bar\boldsymbol{y})$ where $X$ is the $X_0$ in the 3rd point. The explicity expand SST shows that
 $$
 \begin{aligned}
 \Vert \boldsymbol{y}-\bar \boldsymbol{y}\Vert^2&= \Vert (\boldsymbol{y}-\bar\boldsymbol{y})-(\hat \boldsymbol{y}-\bar\boldsymbol{y})+\hat\boldsymbol{y}-\bar y\Vert^2\\
@@ -162,7 +162,7 @@ $$
 &=\Vert \hat \boldsymbol{y}-\bar \boldsymbol{y}\Vert^2+\Vert\boldsymbol{y}-\hat \boldsymbol{y}\Vert^2+2(\boldsymbol{y}-\bar\boldsymbol{y})^T(I-P_X)P_X(\boldsymbol{y}-\bar\boldsymbol{y}).
 \end{aligned}
 $$
-where the last term vanishes. It means $(\boldsymbol{y}-\bar y)\perp (\boldsymbol{y}-\hat\boldsymbol{y})$.
+where the last term vanishes. It means $(\boldsymbol{\hat y}-\bar y)\perp (\boldsymbol{y}-\hat\boldsymbol{y})$.
 
 :::info
 A explicit solution: $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$. But in practice, it is usually approximated by a gradient descent search to minimize the residual.

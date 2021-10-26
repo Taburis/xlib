@@ -21,6 +21,15 @@ $$
 $$
 The whole machine learning is about to solve this equation for the given loss function $\mathcal{L}$ and the support $S$.
 
+## Variation of Functions
+
+One practical way to implement the variation of functions $\delta f$ is the function parameterization. The idea is that the function $f(x,\boldsymbol{\theta})$ contained undetermined parameters $\boldsymbol{\theta} =(\theta_1,\dots, \theta_m)$ so that the function structure can be manipulated by assigning different parameters to the function. In this method, the structure of $f(x,\boldsymbol{\theta})$ itself set up a limitation for probing. Like a linear function $f(x,\boldsymbol{\theta}) = \sum_ix_i\\theta_i$ can't capture the non-linear behavior no matter how you choose the parameters. The more flexible function you input, the better learning performance you may reach. But the trade off is that flexibility usually means complexity which may cause difficulty on optimizing. For instance, a neural network can be very flexible with a high enough layers and cells, but it leads to great challenge to optimize (more local minimum, long training iterations, and over-fit handling). The prototype function $f(x,\boldsymbol{\theta})$ also know as the "model". So choose your model wisely.
+
+With the parameterization method, the supervised problem reduced to a optimization problem:
+$$
+\frac{\delta\mathcal{L}}{\delta f}=\frac{\partial\mathcal{L}(f)}{\partial f}\frac{\partial f}{\partial \theta}=0.
+$$ 
+
 ## Loss Functions
 
 Loss functions are supposed to quantify the difference between the predicted labels $\hat Y = f(X)$ and the truth $Y$. On the other side, it could also be used to evaluate the model to prevent the over fitting. 

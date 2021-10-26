@@ -163,7 +163,7 @@ A **chi square distribution** $\chi^2(r)$ is defined as $\chi^2(r)=\Gamma(r/2,2)
 
 :::info Properties:
 1. Suppose $X_i\sim \Gamma(\alpha_i,\beta)$ are independent variables and $Y=\sum_iX_i$, then $Y\sim\Gamma(\sum_i\alpha_i,\beta)$. 
-2. Suppose $X\sim\chi^2(r)$, then $\mathbb{E}(X)= r$ and $\text{Var}(X)=2r$, futhermore, $\mathbb{E}(X^k)=2^k\Gamma(r/2+k)/\Gamma(r/2)$ if $k>-r/2$..
+2. Suppose $X\sim\chi^2(r)$, then $\mathbb{E}(X)= r$, $\text{Var}(X)=2r$, and $\mathbb{E}(X^k)=2^k\Gamma(r/2+k)/\Gamma(r/2)$ if $k>-r/2$..
 3. Let $X_i\sim N(0,1)$ are mutually independent variables, then $X^2\sim \chi^2(1)$. Let $Y=\sum_{i=1}^rX_i^2$ then $Y\sim \chi^2(r)$.
 :::
 
