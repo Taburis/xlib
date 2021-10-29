@@ -152,7 +152,7 @@ std::vector<int> data;
 stack.pop(data);
 ```
 2. Move constructor: If the data popped out has a move constructor or a constructor don't throw exception. Using them during pop(). This is because the exception is the only problem interupt the `pop()` in the middle.
-3. A pointer to the item: The pointer can be copied without throwing an exception. To simplify the memory management, one can use the `std::shared_ptr` as the object will be delete automatically if the last pointer to the object is delete.
+3. A pointer to the item: The pointer can be copied without throwing an exception. To simplify the memory management, one can use the `std::shared_ptr` as the object will be delete automatically if the last pointer to the object is delete. So the basic solution is to **adjust the granlarity of lock on data**. Many of the problems above can be classified a too small lock granularity. But the trade off increasing the granularity can be the concurrency performance degeneration. 
 
 Here is a example of thread safe stack
 ```cpp
@@ -199,5 +199,12 @@ class threadsafe_stack{
             value = data.top();
             data.pop();
         }
+        // this empty function might be redundant in this threadsafe stack
+        bool empty() const {
+            std::lock_guard<std::mutex> lock(m);
+            return data.empty();
+        }
 };
 ```
+
+A **dead lock** can also happen: Suppose two threads are locked and their next destiny is the data hold by each other. They will have to wait the other to release so to proceed. But this won't happen and caused the dead lock.
