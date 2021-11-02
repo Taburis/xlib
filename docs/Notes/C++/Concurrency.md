@@ -124,8 +124,18 @@ Each thread has a unique `std::thread::id` can be obtained by `get_id()`. The ID
 The **race condition** is a case that multi-threads can access data in a undefined orders. It may reasults undefined behaviors. For instance, there is a data with a structure containing part A and B that correlated with each other. It is possible that one thread modified the part A while another thread modified the part B under a race condition. It may decorrelated the A and B which causes problem. A conception called **invariant** from the race condition is that the structure of the data is unchanged after an operation performed even in a race condition. For instance, a bi-directional list is still a bi-directional list after the thread modify the node under a race condition.
 
 Several ideas can be used to avoid the problem in a race condition:
-1. Lock-free programming: Grouping the data together, make it invisible to other threads while one thread is accessing to it.
-2. Transaction: Recording all data reading and modification opeartors from different threads in a transaction log. Updateing the data in one step. Restart the transaction if any conflicts happen.
+1. Lock: Using a lock to protect the data accessing by one thread from others.
+2. Lock-free programming: Grouping the data together, make it invisible to other threads while one thread is accessing to it.
+3. Transaction: Recording all data reading and modification opeartors from different threads in a transaction log. Updateing the data in one step. Restart the transaction if any conflicts happen.
+
+Lock-related methods provided by C++ STL:
+* `std::mutex`: A lock object provided `lock()`, `unlock()` functions to hold and release the data accessing by the scoped function.
+* `std::shared_mutex`: Similar as the `std::mutex`, but can provide read-only accessibility for many threads with `std::shared_lock<std::shared_mutex>`. It also can provide the exclusive accessibility with `std::lock_guard<std::shared_mutex>` or `std::unique_lock<std::shared_mutex>`. 
+* `std::lock_guard<typename T>`: A guard object can accept `std::mutex` and `std::shared_mutex` to provide a exclusive accessibility. It unlocks the data when it is going to be destructed.
+* `std::unique_lock<typename T>`: A object similar to the `std::lock_guard<typename T>` with a unique semantics. It is moveable but not copyable. It can be used to transfer the mutex ownership between scopes.
+* `std::shared_lock<typename T>`: A guard provides the read-only multi-accessibility with `std::shared_lock<std::shared_mutex>`.
+* `std::lock(...)`: A function can lock multi-mutex at once without deadlock risk.
+
 
 Locking the data accessed by a function `func` using `mutex`:
 ```cpp
