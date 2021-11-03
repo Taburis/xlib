@@ -128,21 +128,23 @@ Several ideas can be used to avoid the problem in a race condition:
 2. Lock-free programming: Grouping the data together, make it invisible to other threads while one thread is accessing to it.
 3. Transaction: Recording all data reading and modification opeartors from different threads in a transaction log. Updateing the data in one step. Restart the transaction if any conflicts happen.
 
-Besides of problematic race condition, a **dead lock** can also happen: Suppose two threads are locked and their next destiny is the data hold by each other. They will have to wait the other to release so to proceed. But this won't happen and caused the dead lock. 
-
-The following methods can be used to safely share data between threads.
+Besides of problematic race condition, a **dead lock** can also happen: Suppose two threads are locked and their next destiny is the data hold by each other. They will have to wait the other to release so to proceed. But this won't happen and caused the dead lock. The following methods can be used to safely share data between threads.
 
 ### Lockable Objects
 A value `m` is a lockable type if the following functions are defined: `m.lock()`, `m.unlock()`, and `m.try_lock()`. 
 
-Lockable objects provided by C++ STL:
+Lockable objects provided by C++ STL `<mutex>` header:
 * `std::mutex`: A lock object provided `lock()`, `unlock()` functions to hold and release the data accessing by the scoped function.
-* `std::shared_mutex`: Similar as the `std::mutex`, but can provide read-only accessibility for many threads with `std::shared_lock<std::shared_mutex>`. It also can provide the exclusive accessibility with `std::lock_guard<std::shared_mutex>` or `std::unique_lock<std::shared_mutex>`. 
+* `std::shared_mutex`: Similar as the `std::mutex`, but can provide read-only accessibility for many threads with `std::shared_lock<std::shared_mutex>`. It also can provide the exclusive accessibility with `std::lock_guard<std::shared_mutex>` or `std::unique_lock<std::shared_mutex>`.
+* `std::recursive_mutex`: Similar as the `std::mutex`, but this one can call `lock()` multiple times. But release the object will need the same times of calling `unlock()`.  
 * `std::lock_guard<typename T>`: A guard object can accept `std::mutex` and `std::shared_mutex` to provide a exclusive accessibility. It unlocks the data when it is going to be destructed.
 * `std::unique_lock<typename T>`: A object similar to the `std::lock_guard<typename T>` with a unique semantics. It is moveable but not copyable. It can be used to transfer the mutex ownership between scopes.
 * `std::shared_lock<typename T>`: A guard provides the read-only multi-accessibility with `std::shared_lock<std::shared_mutex>`.
 * `std::lock(...)`: A function can lock multi-mutex at once without deadlock risk.
 
+::: tip
+The shared_mutex can be used to lock the data rarely be updated by using `std::shared_lock<std::shared_mutex>`. This provides read-only multi-threads accessibility. It also can provides the exclusive accessibility when the data needs to be updated by using `std::unqiue_lock<std::shared_mutex>` or `std::lock_guard<std::shared_mutex>`. 
+:::
 
 Usage of the lockable object `mutex` with `std::lock_guard<std::mutex>` or `std::unqiue_lock<std::mutex>`:
 ```cpp
@@ -160,6 +162,21 @@ A `scoped_lock` guard is avaliable in C++17 compiler.
 :::danger 
 Don't pass pointer or reference to protected data outside the scope of the lock, wether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions. Programs can still access the data by these pointers or references, which makes the lock nonsense. 
 :::
+
+The ownership of the `std::unique_lock` can be transferred due to the unique semantics (move semantics but not copyable). The function own the lock can access the data blocked by the lock:
+```cpp
+std::unique_lock<std::mutex> get_lock(){
+    extern std::mutex m; // due to the mutex is neither copyable nor movable.
+    std::unique_lock<std::mutex> lk(m);
+    prepare_data();
+    return lk; 
+}
+void process_data(){
+    std::unique_lock<std::mutex> lk(get_lock());
+    do_something_with_data();
+}
+```
+Here the `unqiue_lock` serves like a gateway to access the data.
 
 ### Block Multiple Locks
 
@@ -272,6 +289,84 @@ void foo(){
 ```
 The code above presents the logic but it has potential problematic racing: The race can happen after checked the `if` statement. One double-checked locking is still not perfect solution. A `std::call_once` can be used to solve this problem:
 ```cpp
+class X{
+    private:
+        data_format data;
+        std::once_flag init_flag;
+        void init(){ data = create_data();} // func to initialize the data
+    public :
+        X(){}
+        void call(){
+            std::call_once(init_flag, &X::init, this);
+            do_something(data);
+        }
+}
 ```
+The `std::call_once(std::once_flag, Callable&& f, Args && ...)` will call the function `f` with the arguments `arg` is the `once_flag` indicate no call previously. `std::once_flag` can't be copy or move.  
 
-### Ownership of Locks
+### Locking Order and Lock Hierarchy
+
+One of the most efficient way to prevent dead lock is to fix the order of locking and unlocking. A concept of hierarchy lock is a lock assigned a hierachy so that a lock can only happen if the lock hierachy is lower than the current hierachy held. 
+```cpp
+hierachical_mutex high_level_m(1000), low_level_m(500), other_level_m(600);
+int do_low_level_stuff();
+int low_level_func(){
+    // the function be called by other functions should have lower hierarchy;
+    std::lock_guard<hierarchical_mutex> lk(low_level_m);
+    return do_low_level_stuff();
+}
+int high_level_func(){
+    // the high hierarchcial lock used for high level function;
+    std::lock_guard<hierarchical_mutex> lk(high_level_m);
+    do_high_level_stuff(low_level_func());
+}
+```
+In this way, the order of locks are defined by the function levels. Any case calling a high level locks in lower level function should throw an exception in run time, and hence will not be able to cause a dead lock. The implementation of the hierachical lock is not part of STL but easy to make:
+```cpp
+class hierarchical_mutex{
+    std::mutex internal_mutex;
+    // assign the hierachy value for each hierarchical mutex
+    unsigned long const hierarchy_value;
+    // track the previous thread hierarchy value, it needs to be stored
+    // if the current mutex is unlocked.
+    unsigned long previous_hierarchy_value;
+    //a thread-global variable to keep the hierarchy value of current mutex
+    static thread_local unsigned long this_thread_herarchy_value;
+    void check_for_herarchy_violation(){
+        if(this_thread_hierarch_value <= hierarchy_value)
+            throw std::logic_error("mutex hierarchy violated");
+    }
+    void update_hierachy_value(){
+        previous_hierarchy_value = this_thread_hierarchy_value;
+        this_thread_hierarchy_value = hierarchy_value;
+    }
+    public: 
+        explicit hierarchical_mutex (unsigend long value):
+            hierarchy_value (value),
+            previous_hierarchy_value(0){}
+        void lock(){
+            check_for_hierarchy_violation();
+            internal_mutex.lock();
+            update_hierarchy_value();
+        }
+        void unlock(){
+            //by the definition, if the current hierarchy value isn't the hierarchy
+            //value of this mutex, the current thread is locked by other mutex so 
+            //unlock this mutex will mess up the lock hierarchy.
+            if(this_hierarchy_value != hierarchy_value)
+                throw std::logic_error("mutex hierarchy violated");
+            this_thread_hierarchy_value= previous_hierarchy_value;
+            internal_mutex.unlock();
+        }
+        bool try_lock(){
+            check_for_hierarchy_violation();
+            if(!internal_mutex.try_lock()) return false;
+            update_hierarchy_value();
+            return true;
+        }
+};
+//init the current thread hierarchy with the maximum value to allow any hierachy lock
+// is allowed at the begining of the thread. 
+thread_local unsigned long 
+    hierarchical_mutex::this_thread_hierarchy_value(ULONG_MAX);
+```
