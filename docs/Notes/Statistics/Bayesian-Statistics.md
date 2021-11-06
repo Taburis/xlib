@@ -49,13 +49,14 @@ $$
 Then the interval $[\beta_0,\beta_1]$ is called the $\alpha$-credible intervals (distinguish from the confidence interval).
 
 ## Hypotheses Test
+---
 The hypotheses about the parameter $\theta$ can be stated as:
 $$
 H_0: \theta\in \Theta_0,\quad H_1: \theta\in \Theta_1,
 $$
 where $\Theta_1\cap\Theta_0=\varnothing$. The conclusion for the test can be made by
 $$
-\text{Accept }H_0: \mathbb{P}(\theta\in \Theta_0|\boldsymbol{x}) \ge \mathbb{P}(\theta\in\Theta_1|\boldsymbol{x}).
+\text{Accept }H_0: \mathbb{P}(\theta\in \Theta_0|\boldsymbol{x}) \ge \mathbb{P}(\theta\in\Theta_1|\boldsymbol{x})
 $$
 
 ## Gibbs Sampling
