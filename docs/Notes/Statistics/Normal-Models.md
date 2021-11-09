@@ -162,7 +162,7 @@ $$
 &=\Vert \hat \boldsymbol{y}-\bar \boldsymbol{y}\Vert^2+\Vert\boldsymbol{y}-\hat \boldsymbol{y}\Vert^2+2(\boldsymbol{y}-\bar\boldsymbol{y})^T(I-P_X)P_X(\boldsymbol{y}-\bar\boldsymbol{y}).
 \end{aligned}
 $$
-where the last term vanishes. It means $(\boldsymbol{\hat y}-\bar y)\perp (\boldsymbol{y}-\hat\boldsymbol{y})$.
+where the last term vanishes. It means $(\boldsymbol{y}-\bar \boldsymbol{y})\perp (\boldsymbol{y}-\hat\boldsymbol{y})$.
 
 :::info
 A explicit solution: $X^+X=X(X^TX)^-X^T$ where $X^-$ is a general inverse of $X$. But in practice, it is usually approximated by a gradient descent search to minimize the residual.

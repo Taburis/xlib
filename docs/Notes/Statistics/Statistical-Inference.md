@@ -53,8 +53,28 @@ The quartiles are used to illustrate the distribution of samples: $Q_0=\xi_{0}$,
 The boxplot is a summary plot for showing the quartiles and each of outliers are usually needs to be plot as dots. The example of boxplot is shown below:
 ![boxplot](/img/docs/Image_boxplot.png)
 
+## Sampling
+---
+Sampling plays a central role during inference. The population is a pool where samples drawn from. The **sampling error** of a statistics $X$ is the error from the finite sample observations. A randomness is required when generating the samples to ensure the samples are effective. Suppose the population size is $N$, and the size of samples is $n$. We want to know a range $2\sigma_X$ so that $(1-\alpha)\times 100\%$ of values are expected fall within it. and this variance $\sigma_X$ is the $\alpha$-confidence **margin of error** (MOE).
 
-## Bootstrap Resampling
+To find the MOE, we first consider that $N\gg n$, which the CLT is applicable. It means that the mean $\overline{X}_n$ over the samples follows a normal distribution $\overline{X}_n\sim N(\overline{X}, \sigma^2/n)$ where $\overline{X}$ is the mean of $X$ over the population. The $\alpha$-confidence margin of error can be estimated from the CTL so that $Z=\sqrt{n}(\overline{X}_n-\overline{X})/\sigma$ and $Z\sim N(0,1)$:
+$$
+\text{MOE}_\alpha=z_\alpha\times \sqrt{\frac{\sigma^2}{n}},
+$$
+where $z_\alpha$ is the point that $F(Z=z)=1-\alpha$ where $F(z)$ is the CDF of $N(0,1)$.
+
+For the case the $N$ is not large comparing to $n$, and the outcomes are two mutual exclusive results, say 0 or 1, we can estimate the MOE in more detials. Suppose sampling is performed with replacement (boostrap), the distribution of $X$ follows the binomial distribution. Then we have $\sigma^2=p(1-p)$ is the variance of the binomial distribution, and the binomial distribution can be approximated by normal distribution so that we have
+$$
+\text{MOE}_\alpha=z_\alpha\times \sqrt{\frac{\sigma^2}{n}}\approx z_\alpha\times \sqrt{\frac{p(1-p)}{n}},
+$$
+where $p$ is the average of the $X$.
+For the non-replacement sampling, it follows the hypergeometric distribution with a variance $np(1-p)(N-n)/(N-1)$ so that it can be approximated as
+$$
+\text{MOE}_\alpha\approx z_\alpha\times \sqrt{\frac{p(1-p)}{n}}\times \sqrt{1-\frac{n}{N}},
+$$
+where the $\sqrt{1-n/N}$ is a correction factor for non-replacement sampling.
+
+### Bootstrap Resampling
 
 A bootstrap resampling is an statistics augmentation method. It treat a given sample as population, repeatly draw samples with replacement from that population to generate new bootstrap samples. 
 
@@ -67,7 +87,7 @@ Let $\lbrace X_n\rbrace$ be a sample with size $n$ and $\hat \theta(\boldsymbol{
 $$
 (\hat \theta^*_m, \hat\theta^*_{N+1-m})
 $$
-is the $\alpha/2\times 100%$ confidence interval for $\theta$. $N$ should be a large number ($N >3000$ usually).
+is the $\alpha/2\times 100\%$ confidence interval for $\theta$. $N$ should be a large number ($N >3000$ usually).
 
 :::note Explanation
 The bootstrap samples $\lbrace X^*_n\rbrace$ follows the empirical distribution $\hat F_n(x)$ from the sample $\lbrace X_n\rbrace$. 
