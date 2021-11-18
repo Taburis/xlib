@@ -127,7 +127,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/Taburis/xlib/edit/master/',
+            'https://github.com/Taburis/xlib/edit/documentation/',
             //'https://github.com/facebook/docusaurus/edit/master/website/',
           remarkPlugins: [math],
 		  rehypePlugins: [katex],
@@ -136,7 +136,7 @@ module.exports = {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/Taburis/xlib/edit/master/blog/',
+            'https://github.com/Taburis/xlib/edit/documentation/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
