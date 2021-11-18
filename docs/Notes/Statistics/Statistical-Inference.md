@@ -63,7 +63,7 @@ $$
 $$
 where $z_\alpha$ is the point that $F(Z=z)=1-\alpha$ where $F(z)$ is the CDF of $N(0,1)$.
 
-For the case the $N$ is not large comparing to $n$, and the outcomes are two mutual exclusive results, say 0 or 1, we can estimate the MOE in more detials. Suppose sampling is performed with replacement (boostrap), the distribution of $X$ follows the binomial distribution. Then we have $\sigma^2=p(1-p)$ is the variance of the binomial distribution, and the binomial distribution can be approximated by normal distribution so that we have
+For the case the $N$ is not large comparing to $n$, and the outcomes are two mutual exclusive results, say 0 or 1, we can estimate the MOE in more detials. Suppose sampling is performed with replacement (bootstrap), the distribution of $X$ follows the binomial distribution. Then we have $\sigma^2=p(1-p)$ is the variance of the binomial distribution, and the binomial distribution can be approximated by normal distribution so that we have
 $$
 \text{MOE}_\alpha=z_\alpha\times \sqrt{\frac{\sigma^2}{n}}\approx z_\alpha\times \sqrt{\frac{p(1-p)}{n}},
 $$
@@ -80,7 +80,7 @@ A bootstrap resampling is an statistics augmentation method. It treat a given sa
 
 ### Percentile Bootstrap Confidence Intervals
 
-Let $\lbrace X_n\rbrace$ be a sample with size $n$ and $\hat \theta(\boldsymbol{X})$ is an estimator, the bootstrap bootstrap confidence interval is obtained from the following procedure:
+Let $\lbrace X_n\rbrace$ be a sample with size $n$ and $\hat \theta(\boldsymbol{X})$ is an estimator, the bootstrap confidence interval is obtained from the following procedure:
 1. Draw a size $n$ sample $\lbrace X_n^*\rbrace$ from the sample $\lbrace X_n\rbrace$ with replacement.
 2. Obtained the estimated value $\hat \theta = \hat \theta(\boldsymbol{X}^*)$.
 3. Repeat the step 1 and 2 $N$ times to form the order statistics $\hat\theta^*_1\le \dots\le\hat \theta_N^*$, and $m=\lfloor N\alpha/2\rfloor$, then the interval:

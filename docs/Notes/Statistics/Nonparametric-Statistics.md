@@ -21,7 +21,7 @@ which is $\frac{n-1}{n}S^2$, where $S$ is the sample variance.
 ## Order Statistics
 
 Given a sample $\lbrace X_n\rbrace$ draw from a PDF $f(x)$ for random variable $X$, let $\lbrace Y_n\rbrace$ represents the statistics of $\lbrace X_n\rbrace$ with the order that $Y_1<Y_2<\dots<Y_n$. 
-1. The probability to have $\lbrace y_n\rbrace$ is denoted as $g(y1,\dots, y_n)$, then
+1. The probability to have $\lbrace y_n\rbrace$ is denoted as $g(y_1,\dots, y_n)$, then
 $$
 g(y_1,\dots, y_n)=n!\prod_{i=1}^nf(y_i),\quad y_1<y_2<\dots<y_n.
 $$

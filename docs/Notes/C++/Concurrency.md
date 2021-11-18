@@ -370,3 +370,170 @@ class hierarchical_mutex{
 thread_local unsigned long 
     hierarchical_mutex::this_thread_hierarchy_value(ULONG_MAX);
 ```
+
+## Synchronization
+---
+Several methods can be used to synchronize the threads:
+
+
+### Conditional variables
+
+This object is contained in the library`<condition_variable>`. It is primarily used for conditional synchronizing between threads. 
+```cpp
+std::condition_variable cond;
+std::mutex mut;
+dataType data;
+void data_prepare(){
+    {
+        std::unique_lock<std::mutex> lk(mut);
+        prepare_some_data(data);
+    }
+    // notify_one will notify one of many threads contained the condidtion variable in wait.
+    cond.notify_one();
+    // notify_all is an alternative way to notify all the waited condition variables.
+    cond.notify_all();
+}
+void process_thread(){
+    std::unique_lock<std::mutex> lk(mut); // using unique_lock here for feasible unlock
+    // cond will triggered after been notified, the wait function will lock the mutex and check
+    // if the  condition is satified. If so, the thread is activated. If not, then it will unlock 
+    // the mutex and put the thread into waiting status.
+    cond.wait(
+        lk, []{return !data.isready();});
+    process(data);
+    lk.unlock();
+}
+```
+
+### Future Library
+
+This library builds threads running with return objects. The threads accessing to these returned objects are automatically synchronized. This library is `<future>` and the returned object wrapper is `std::future<T>` where `T` stands for the returned value type. 
+
+* Asynchronized task `std::async<T>`: Starting a new thread to process the callable function and return in the future. The starting time is customable by the options `std::launch`:
+```cpp
+int func(data && x);
+data x;
+// return from async is contained in a future object
+std::future<int> f1 = std::async(std::launch::async, func, std::ref(x)) // run in new thread
+auto f2 = std::async(std::launch::deferred, func, std::ref(x))// run in wait() or get()
+// Implementation chooses
+auto f3 = std::async(
+    std::launch::deferred | std::launch::async, 
+    func, std::ref(x))
+```
+For deffered, the thread might not be executed ever if it hasn't been used later.
+* Function wrapper `packaged_task<T>`: Associated a function to a future. Since the packaged task is moveable, it wrap a callable function and pass it to other threads so that the function can be called concurrently and the returned value can be used in future:
+```cpp
+std::deque<std::future<data>> queue;
+std::mutex mut;
+data generate_data(Para & par);
+Para par;
+void thread_process(){
+    for(auto i =0; i<N; i++){
+        std::packaged_task<data> task (generate_data, par);
+        {
+            std::unique_lock<std::mutex> lk(mut);
+            // store the returned value contained in the future queue.
+            queue.push_back(task.get_future());
+        }
+        task();
+    }
+}
+// parallel thread to generate the data
+std::thread t1(thread_process);
+void process_data(){
+    while(!queue.empty()){
+        std::unique_lock<std::mutex> lk(mut);
+        // call get() to retrive the data
+        data x = std::move(queue.get());
+        lk.unlock();
+        processing_data(x);
+    }
+}
+```
+* Promising a value `T` in the future `std::promise<T>`: If the program ensures that a variable with type `T` is calculated somewhere in the future, this data can be contained by the `std::promise<T>` to asynchronize the threads. The value for the promised variable can be set by calling `set_value(x)` and this will mark the `promise` to be ready to use. The associated `future` can be obtained from `get_future()`. It can also handle the exception:
+```cpp
+extern std::promise<double> p1;
+try {
+    p1.set_value(calculated_value());
+}catch{
+    p1.set_exception(std::current_exception());
+}
+```
+`promise` enables a more flexible programming synchronization. But it needs more lines for the task can be handled by `std::async` or `std::packaged_task`. 
+
+:::tips Exception Propagation
+If there is an exception occurs in return for `furture`, this exception is stored in the `future` as well. Calling the function `get()` for that `future` will throw the same exception again. Destroye the `promise` or `packaged_task` without calling the `set_value()` or invoking the `packaged_task` will also store a `std::future_errc::broken_promise` exception in the associated state.
+:::
+* Share the future with multi-thread using `std::shared_future<T>`: a `future` object is moveable but not copyable. After the `get()` is called, no value left in that future so no other thread can access to it. To make sure the result is accessible to multi-thread, a shared future can be used instead:
+```cpp
+std::promise<int> p;
+std::future<int> f (p.get_future());
+// implicitly cast the future into a shared future
+std::shared_future<int> f1(p.get_future());
+// call share() to convert the future into a shared future
+auto f2 = f.share();
+```
+
+### Chrono Library
+The date the time utilities are defined in the library `<chrono>`. A **steady** clock is a clock with uniform rate ticks and the time can not be adjusted.
+
+* Specify the tick by `std::ratio<a, b>`: The tick interval is given as every `a/b` second. `chrono` also provides several predefined durations like:
+```cpp
+std::chrono::nanoseconds;
+std::chrono::milliseconds;
+std::chrono::seconds;
+std::chrono::minutes;
+std::chrono::hours;
+```
+* Duration `sd::chrono::duration<type, std::ratio<a,b>>(m)`: This specify the time interval as `m` specified ratio. The `type` here is the `short, double,int`, etc. Specify the data type stored the duration.  The `std::chrono::duration_cast<>` can convert one type of duration into another. If the digits are longer than the data type of the accepter, then the digits are truncated.
+* Time point `std::chorno::time_point<clock, duration>`: The time point is a moment on the associated `clock`. It usually specified by a duration since the clock's epoch. The **epoch** is a time point used as start time for timing convenience. For a given clock, the epoch might not be clear but you can still call the `time_since_epoch` for a given time point. Or the time point can also be obtained by the addition/subtraction between two time points:
+```cpp
+auto start = std::chrono::high_resolution_clock::now();
+auto stop = std::chrono::high_resolution_clock::now();
+auto new_time_point = start+std::chrono::milliseconds(500);
+```
+* `_util` and `_for` extension: These extensions exist for functions like `wait()` or `sleep()`. `_util` extension can be used with time point and the `_for` is used with the duration. For the case that `wait_util(timepoint)`, a `timeout` status will pass to the function.
+
+### Functional Programming with Futures.
+
+The functional programming (FP) makes each program like a function which return the output depends only on the input. No external data modification so that no data race and time race problem. This advantage makes it a good way for concurrent programming. Using a quicksort algorithm as an example:
+```cpp
+template<typename T>
+std::list<T> parallel_quick_sort (std::list<T> input){
+    if(input.empty()) return input;
+    std::list<T> result;
+    result.splice(result.begin(), input, input.begin());
+    T const & pivot = *result.begin();
+    auto divide_point = std::partition(input.begin(), input,end(),
+        [&] (T const &t) {return t<pivot;});
+    std::list<T> lower_part;
+    lower_part.splice(lower_part.end(), input.input.begin(), divide_point);
+    std::future<std::list<T>> new_lower(
+        // the sorting on the lower half can be done by a new thread.
+        // this will create a new thread for each iteration. But if the new threads
+        // are too many to handle, the compiler may generate a task instead (deferred mode)
+        std::async( &parallel_quick_sort<T>, std::move(lower_part)));
+    auto new_higher(
+        parallel_quick_sort(std::move(input)));
+    result.splice(result.end(), new_higher);
+    result.splice(result.begin(), new_lower.get());
+    return result;
+}
+```
+
+You can also use a customized wrapper to integrate the `packaged_task` and `thread`:
+```cpp
+template<typename F, typename A>
+std::future<std::result_of<F(A&&)>::type> 
+    spawn_task(F&& f, A&& a){
+        typedef std::result_of<F (A&&)>::type result_type;
+        std::packaged_task<result_type(A&&)> task(std::move(f));
+        std::future<result_type> res(task.get_future());
+        std::thread t(std::move(task), std::move(a));
+        t.detach();
+        return res;
+    }
+```
+
+**Finite State Machine**  is an object with finite states. It can receive inputs, update its states, and generates the outputs. This model is perticularly well fit for synchronizing operations without sharing data.
