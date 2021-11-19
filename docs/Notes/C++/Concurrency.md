@@ -536,4 +536,38 @@ std::future<std::result_of<F(A&&)>::type>
     }
 ```
 
-**Finite State Machine**  is an object with finite states. It can receive inputs, update its states, and generates the outputs. This model is perticularly well fit for synchronizing operations without sharing data.
+**Finite State Machine**  is an object with finite states. It can receive inputs, update its states, and generates the outputs. This model is perticularly well fit for synchronizing operations without sharing data. 
+
+### Experimental Library
+
+The namespace `std::experimental` provided a continuations for `std::experimental::future`: `then(Callable &&f)`. This function will take the future as inputs for the function `f`:
+```cpp
+int process_result(std::experimental::future<int> input);
+std::experimental::future<int> result;
+auto fut2 = result.then(process_result);
+// after then is called, the result is no longer valid. If you want to acess the future by multiple times,
+// a shared_future is needed; The callable function needs to take the shared_future as input.
+auto fut = result.share();
+int process_shared_result(std::experimental::shared_future<int> input);
+auto fut3 = fut.then(process_shared_result);
+auto fut4 = fut.then(so_other_stuff);
+``` 
+
+Waiting for multiple futures is also implemented in the `experimental` library:
+* `when_all`: It takes iterator begin and the end as input to determine if all futures between them are ready. If so it return a future with a type of vector containing all the ready futures:
+```cpp
+std::experimental::when_all(results.begin(), results.end()).then(
+    [](std::future<std::vector<std::experimetnal::future<int>>> ready_results){
+        std::vector<std::experimental::future<int>> futures = ready_results.get();
+        do_somethin(futures);
+    }
+)
+```
+* `when_any`: It triggers the waiting function when any one of the futures is ready:
+```cpp
+bool DoCheck(
+    std::experimental::future<std::experimental::when_any_result<
+    std::vector<std::experimental::future<MyData *>>>> input);
+std::experimental::when_any(results.begin(), results.end())
+    .then(DoCheck);
+```
