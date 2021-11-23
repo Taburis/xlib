@@ -64,3 +64,24 @@ S&& forward(typename remove_reference<S>::type& a) noexcept
 } 
 ```
 will `noexcept` tells the compiler that this function won't throw any exception. This forward function preserves the original value type for `arg` when calling `std::forward<Arg>(arg)` no matter if `arg` is a lvalue or rvalue referred to the object `Arg`.
+
+### Delete and Defaulted Functions
+
+For some cases, a perticular function is not allowed for an object. It can be specified by the key word `detele` to prevent the compiler to pick it up. 
+Here are two major usage:
+* Prevent the implicit constructor from compiler:
+```cpp
+class obj{
+  public:
+    obj(){};
+    // removed the copy function to make the object non-copyable
+    obj(obj const & x) = delete;
+    obj& operator = (obj & x) = delete;
+};
+```
+* To avoid implicit cast to restrict the input types:
+```cpp
+// prevent the implicit convertion for int as inputs
+void func(short);
+void func(int) = delete;
+```

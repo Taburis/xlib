@@ -405,7 +405,7 @@ void process_thread(){
 }
 ```
 
-### Future Library
+### Future as Placeholder
 
 This library builds threads running with return objects. The threads accessing to these returned objects are automatically synchronized. This library is `<future>` and the returned object wrapper is `std::future<T>` where `T` stands for the returned value type. 
 
