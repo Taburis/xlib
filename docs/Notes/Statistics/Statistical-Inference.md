@@ -39,9 +39,14 @@ $$
 \tilde{\mu}_k=\frac{1}{n}\sum_{i=1}^nz_i=\frac{\mu_k}{\sigma^k}, \quad z_i=\frac{X_i-\mu}{\sigma}, \mu_k=\mathbb{E}\left[(X-\mu)^k\right],\quad \sigma^2=\mathbb{E}\left[(X-\mu)^2\right].
 $$
 $\tilde{\mu}_1=0$ and $\tilde{\mu}_2=1$ by definition for all random variables. The standardized moment is dimensionless. Starting from the third standardized moment, it has different descriptive meaning:
-* **Skewness**: a measure of the asymmetry of the probability distribution of a real-valued random variable. Positive skewness implies the left tail is longer and the negative sign means the right tail is longer.  For a unimodal distribution, the relation between the mean, median and mode are shown for different skewness signs are shown below:
+* **Skewness**: It is the $\tilde{\mu}_3$ for measuring the asymmetry of the probability distribution of a real-valued random variable. 
+For a distribution $X$ with finite $\mu,\sigma$, the skewness is:
+$$
+\tilde{\mu}_3 = \frac{1}{\sigma^3}\left(\mathbb{E}(X^3)-3\mu\sigma^2-\mu^3\right).
+$$
+Positive skewness implies the left tail is longer and the negative sign means the right tail is longer.  For a unimodal distribution, the relation between the mean, median and mode are shown for different skewness signs are shown below:
 ![skewness relationship with mean, median and mode](/img/docs/Image_skewness_mean_median_mode_relation.png)
-* **Kurtosis**: The kurtosis describes the spread of the distribution. A higher kurtosis implies the PDF is wider spread. Smaller kurtosis means more concentrated distribution around the mean.
+* **Kurtosis**: The $\tilde{\mu}_4$ is known as kurtosis which describes the spread of the distribution. A higher kurtosis implies the PDF is wider spread. Smaller kurtosis means more concentrated distribution around the mean.
 
 ### Boxplot
 

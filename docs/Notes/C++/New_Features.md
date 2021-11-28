@@ -182,3 +182,10 @@ std::future<int> spawn_async_task(){
 
 ## Constexpr Functions
 ---
+The `constexpr` key word will convert the expression into constant expression, which are initiated statically. Since the constant expression is evaluated in compiled time insteand of runtime, it has unique flexibility.
+
+A class is **literal type** if it satifies the following requirement:
+1. It's copy constructor is trivial.
+2. The destructor is trivial.
+3. All the non-static data members and base classes must be trivial types.
+4. It must have a trivial constructor or a `constexpr` constructor other than the copy constructor.
