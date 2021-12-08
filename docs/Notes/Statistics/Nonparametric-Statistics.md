@@ -6,7 +6,7 @@ Given a random variable with CDF $F(x)$, a sample $\lbrace X_n\rbrace$ from the 
 $$
 \hat F(x)=\frac{1}{n}\sum_{i=1}^nI(X_i\le x),
 $$
-where $I(X\le x)$ is an indicator function for the set satisfying the condition $X\le x$. Since the distribution of $X\le x$ is $F(x)$ which is the probability of $I(X\le x)=1$, the distribution of $n\hat F_n(x)$ is a binomial distribution $b(n,F(x))$ for any fixed $x$. By the central limit theory, we have
+where $I(X\le x)$ is an indicator function for the set satisfying the condition $X\le x$. Since the distribution of $X\le x$ is $F(x)$ which is the probability of $I(X\le x)=1$, the distribution of $n\hat F_n(x)$ is a binomial distribution $b(n,F(x))$ for any fixed $x$. Due to the asymptotic behavior of the binomial distribution, we have
 $$
 \sqrt{n}\left[\hat F_n(x)-F(x)\right]\xrightarrow{d} N\left(0, F(x)(1-F(x))\right).
 $$
@@ -17,6 +17,13 @@ $$
 \text{Var}(X)=\frac{1}{n}\sum_{i=1}^n(x_i-\bar x)^2,
 $$
 which is $\frac{n-1}{n}S^2$, where $S$ is the sample variance.
+
+:::note **Glivenko-Cantelli** Theorem: 
+Let $\lbrace X\rbrace_n$ is iid random variables with CDF $F$, where $F(x)$ is continuous in $\mathbb{R}$. The empricial distribution function $\hat F_n(x)$ converge to $F$ uniformly almost surely:
+$$
+\max_{x}|\hat F_n(x)-F(x)| \xrightarrow{a.s.} 0.
+$$
+:::
 
 ## Location Model
 

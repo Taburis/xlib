@@ -93,3 +93,14 @@ $$
 $$
 where the last step comes from $\lim_{n\to\infty}(1+x/n)^{n}=e^x$. This is exactly the characteristic function of normal distribution $N(0,\sigma^2)$.
 
+
+## Uniform Convergence of General Functions
+Given a set of iid random variables $\lbrace X\rbrace_n$ with probability $\mathbb{P}$ and a class $\mathcal{F}$ of integrable real-valued functions $f$ defined over the domain of the probability space of $X$. Then we define a random variable as
+$$
+\Vert \mathbb{P}_n-\mathbb{P}\Vert_{\mathcal{F}}=\sup_{f\in\mathcal{F}}\left|\frac{1}{n}\sum_{i=1}^nf(X_i)-\mathbb{E}[f(X)]\right|,
+$$
+which measure the upper bound of the deviation between the sample average from the expectation for the class $\mathcal{F}$. And the class $\mathcal{F}$ is called the **Glivenko-Cantelli** class of $\mathbb{P}$ if
+$$
+\Vert \mathbb{P}_n-\mathbb{P}\Vert_{\mathcal{F}}\xrightarrow{d} 0,
+$$
+as the $n\to\infty$. 

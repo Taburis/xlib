@@ -120,7 +120,7 @@ This is also known as **Lebesgue's dominated convergence theorem**.
 $$
 \lim_{n\to\infty}\int_Af_n(x)d\mu \to \int_Af(x)d\mu.
 $$
-3. Given a sequence monotonic increasing function $f_n(x)$ ($f_n(x)\le f_m(x)$) for all $n\le m$. Suppose $f_n(x)$ is integrable and the integral is bounded
+3. Given a sequence monotonic increasing function $f_n(x)$ that $f_n(x)\le f_m(x)$ for all $n\le m$. Suppose $f_n(x)$ is integrable and the integral is bounded
 $$
 \int_Af_n(x)d\mu\le K.
 $$
