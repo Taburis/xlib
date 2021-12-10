@@ -119,3 +119,72 @@ $$
 since the $q(\theta)\ne 0$ due to the regulation requirement. The left side of the equation is a Laplace transformation and the only function with 0 as Laplace transform is 0 itself. However, the $p(\theta)$ is non-trivial either by the regulation condition. The only possible way is either $\varphi(t)$ or $R(t)$ vanishes. However, the vanishing of $R(t)$ means that the probability vanishes at that point. It follows that $\varphi(t)$ has to be 0 for the point $t$ with non-vanishing probability. 
 
 The third point of the theorem implies that if we can found a unbiased estimator for $\theta\in (\alpha,\beta)$ as a function of $T=\sum_iK(X_i)$, then it must be a MVUE for $\theta$.
+
+## Multiple Parameter Cases
+The exponential class can be extended to the cases when the distribution has more than one parameters, say $f(x,\boldsymbol{\theta})$ where $\boldsymbol{\theta}\in \Theta$ is a vector with $m$ dimensions. The definition of the exponential class becomes:
+$$
+f(x,\boldsymbol{\theta})=\exp\left\lbrace \sum_{j=1}^mp_j(\boldsymbol{\theta})K_j(x)+H(x)+q(\boldsymbol{\theta})\right\rbrace,\quad x\in S.
+$$
+A **regular exponential class** requires the following conditions:
+1. The support $S$ is independent on $\boldsymbol{\theta}$.
+2. The parameter space $\Theta$ contained at least one interior point.
+3. The function $p_i(\boldsymbol{\theta})\not\equiv 0, j=1,\dots, m$ are continuous and indepdent with each other. 
+4. Depends on the random variable:
+    * For the continuous case: the derivatives $K_j'(x), j=1,\dots, m$ are conitnuous for $x\in(a,b)$ and no one is a linear homogeneous function of the others. $H(x)$ is a continuous function in $(a,b)$ as well.
+    * For the discrete case: $K_j(x)\not\equiv 0, j=1,\dots,m$ for $x\in S$ and no one is linear homogeneious function of the others.
+
+Note that the linear homogeneious function means that $f(cx)=cf(x)$ for any scalar $c$. 
+
+The probability to have sample $x_1,\dots, x_n$ from this class is
+$$
+f(x_1,\dots,x_n,\boldsymbol{\theta}) = \prod_if(x_i,\boldsymbol{\theta})=\exp\left\lbrace \sum_{i=1}^mp_j(\boldsymbol{\theta}) \sum_{i=1}^nK_j(x_i)+nq(\boldsymbol{\theta})\right\rbrace\exp\left\lbrace \sum_{i=1}^nH(x_i)\right\rbrace.
+$$
+:::note Sufficient Statistics for Multi-parameter Exponential Class:
+For the regular exponential class above, there are $m$ sufficeint statistics:
+$$
+T_i= \sum_{j=1}^nK_i(x_j),
+$$
+with a joint probability distribution:
+$$
+f_T(\boldsymbol{t},\boldsymbol{\theta})=R(\boldsymbol{t})\exp\left\lbrace \sum_{j=1}^mp_j(\boldsymbol{\theta})t_j+nq(\boldsymbol{\theta})\right \rbrace.
+$$
+These sufficient statistics are complete if $n>m$.
+:::
+
+The exponential class covered a very often used distributions:
+
+### Normal Distributions
+Given a normal distribuiton $N(\mu,\sigma)$, it is a typical exponential class with a PDF
+$$
+f(x,\mu,\sigma) = \exp\left[-\frac{x^2}{2\sigma^2}-\frac{\mu^2}{2\sigma^2}+\frac{\mu x}{\sigma^2}-\ln \sqrt{2\pi\sigma^2}\right],
+$$
+so that the sufficient statistics are:
+$$
+T_1 = \sum_jX_j^2, \quad T_2 = \sum_jX_j.
+$$
+The transform $Z_1 = T_2/n$ and $Z_2=(T_1-T_2^2)/(n-1)$ is also sufficient and $\mathbb{E}(Z_1)=\mu$, $\mathbb{E}(Z_2)=\sigma^2$. It follows that $Z_1, Z_2$ are MVUEs for $\mu$ and $\sigma$, respectively.
+
+For the multivariate normal distribution, it can be expressed as the exponential class form:
+$$
+f(\boldsymbol{X},\boldsymbol{\mu},\Sigma)=\exp\left\lbrace -\frac{\boldsymbol{X}^T\Sigma^{-1}\boldsymbol{X}}{2}+\boldsymbol{\mu}^T\Sigma^{-1}\boldsymbol{X}-\frac{\boldsymbol{\mu}\Sigma^{-1}\boldsymbol{\mu}}{2}-\frac{1}{2}\ln\det\Sigma-\frac{m}{2}\ln 2\pi\right\rbrace.
+$$
+Hence given a samples $\boldsymbol{X}_1,\dots,\boldsymbol{X}_n$ the sufficient statistics are:
+$$
+\boldsymbol{T}_1=\sum_{i=1}^n\boldsymbol{X}_i,\quad \boldsymbol{T}_2=\sum_{i=1}^n\boldsymbol{X}_i\boldsymbol{X}^T_i.
+$$
+The MVUEs for the mean and variance can be obtained by calculating the expectation sufficient statistics in marginal distributions:
+$$
+\hat \mu_j=\frac{1}{n}\sum_{i=1}^nX_{ij}=\overline{X}_j,\quad \hat\sigma_j^2=\frac{1}{n-1}\sum_{i=1}^n(X_{ij}-\overline{X}_j)^2,
+$$
+where $X_{ij}$ is the $i$-th component of $\boldsymbol{X}_j$.
+
+### Multinomial Distributions
+The multinomial distribution describes the samples draw from a Bernoulli experiment with $m$ possible outcomes. This Bernoulli experiment has $p_1,\dots, p_m$ parameters stand for the $i$-th outcome for each trial. Let $X_i$ with possible value $0$ or $1$ stands for the Bernoulli outcome. The PMF can be formed into
+$$
+f(x,p_1,\dots, p_{m-1})=\prod_{i=1}^{m-1}p_i^{x_i}\left(1-\sum_{i=1}^{m-1}p_i\right)^{1-\sum_{i=1}^{m-1}x_i}=\exp\left[\sum_{i=1}^{m-1}x_i\ln \Bigg(\frac{p_i}{1-\sum_{j=1}^{m-1}p_j}\Bigg)+\ln\Bigg(1-\sum_{i=1}^{m-1}p_i\Bigg)\right],
+$$
+It is a regular exponential class and the sufficient statistics are
+$$
+T_i = \sum_{j=1}^nX_{ij}, \quad j=1,\dots, m-1,
+$$
+where $n$ is the sample size and $X_ij$ is the $i$-th outcome in $j$-th trial. Calculating the expectation of $T_i$, we get the MVUE is $\hat p_i=T_i/n$. Furthermore, since $\mathbb{E}(T_iT_j) = (n-1)np_ip_j$. A trick can be used that given $T_i$, the conditional distribution of $\mathbb{E}(T_j|T_i=t)$ is a binomial distribution $b[n-T_i, p_j/(1-p_i)]$. The expectation of $\mathbb{E}(Y_jY_i)=\mathbb{E}[Y_i\mathbb{E}(Y_j|Y_i)]$. Hence the MVUE for $p_ip_j$ is $Y_iY_j/[n(n-1)]$.
