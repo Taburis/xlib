@@ -1,13 +1,30 @@
 # Sufficiency and Information
 
-Given a sample $\lbrace X\rbrace_n$ draw from a distribution $f_\theta$ where $\theta\in \Theta$ is some parameters unknown. A statistics $T=T(\boldsymbol{X})$ is the called **sufficient** if the conditional probability $\mathbb{P}(\boldsymbol{X}|T=t)$ is independent on the $\theta$. It means that once the $T$ is given, there's no other statistics, say $H=H(\boldsymbol{X})$, can be used to determine the $\theta$ since $\mathbb{P}(H=h|T=t)=\mathbb{P}(\boldsymbol{X}_h|T=t)$ has no dependence on the $\theta$, where $H(\boldsymbol{X}_h)=h$. Suppose the distribution of $T$ is $g_\theta$ and follows the Bayesian's formula, the definition of $T$ is sufficient statistics if
+
+## Sufficient and Ancillary Statistics
+---
+Given a sample $\lbrace X\rbrace_n$ draw from a distribution $f_\theta$ where $\theta\in \Theta$ is some parameters unknown. A statistics $T=T(\boldsymbol{X})$ is the called **sufficient** if the conditional probability $\mathbb{P}(\boldsymbol{X}|T=t)$ is independent on the $\theta$. It means that once the $T$ is given, there's no other statistics, say $H=H(\boldsymbol{X})$, can be used to determine the $\theta$ since $\mathbb{P}(H=h|T=t)=\mathbb{P}(\boldsymbol{X}_h|T=t)$ has no dependence on the $\theta$, where $H(\boldsymbol{X}_h)=h$. Suppose the distribution of $T$ is $g_\theta$ and follows the Bayesian's formula, the definition of $T$ is sufficient statistics if the conditional probability $P(\boldsymbol{X}|T)$ is independent on $\theta$. In mathematical expression, it is
 $$
 \frac{\mathbb{P}(\boldsymbol{X}=\boldsymbol{x}, T=t)}{\mathbb{P}(T=t)}\to \frac{f_\theta(\boldsymbol{x})}{g_\theta(t)}=H(x_1,\dots, x_n),\quad t=T(\boldsymbol{x})=T(x_1,\dots, x_n),
 $$
-where $H(\boldsymbol{x})$ is an arbitrary function independent on the $\theta$. 
+where $H(\boldsymbol{x})$ is an arbitrary function independent on the $\theta$. Applying the Baysian rule, the sufficiency between $\boldsymbol{X}$ and $T$ implies that 
+$$
+\mathbb{P}_\theta(\boldsymbol{X}\in A)=\int_B \mathbb{P}(\boldsymbol{X}\in A|T=t)d\mathbb{P}_\theta(T=t),
+$$
+where $A$ and $B$ are supports for $\boldsymbol{X}$ and $T$, respectively.
+
+Given the sufficient statistics, we can construct a random variable $\tilde X$ as random variables with the distribution
+$$
+\tilde X\sim \mathbb{P}(X|T=t).
+$$
+This distribution is independent on $\theta$ and has the same distribution as the original variable $X$ since 
+$$
+\mathbb{P}(\tilde X = x) = \mathbb{E}_\theta\mathbb{P}(X=x|T) = \mathbb{P}(X=x).
+$$
+With this method and the conditional distribution in hand, the sample of $\boldsymbol{X}$ can be argumented by generating the randomized data according to the conditional distribution.
 
 :::note The Neyman **factorization theorem**:
-The theorem states that if $T$ is a sufficient statistics for $\theta$ if and only if there are two non-negative functions $k_1,k_2$ such that
+If $T$ is a sufficient statistics for $\theta$ if and only if there are two non-negative functions $k_1,k_2$ such that
 $$
 f_\theta(x_1)\dots f_\theta(x_n)=k_1[T(x_1,\dots, x_n), \theta]k_2(x_1,\dots, x_n).
 $$
@@ -19,7 +36,7 @@ $$
 where $|J|$ is the Jacobian of transformation that $dx_1\dots dx_n=|J|dt_1\dots dt_n$. Clearly the integral has no dependence on the $\theta$ so that the definition of the sufficiency can be reproduced.
 
 ## The Role of Sufficient Statistics
-
+---
 Although we know that the sufficient statistics carried all the information about $\theta$, the follow theorems detailed the role of the sufficient statistics in estimator.
 :::note Rao-Black Theorem:
 Suppose $X_1,\dots,X_n$ denote a sequence of iid random samples from a distribution $f_\theta$, where $\theta$ is unknown, and $T=T(\boldsymbol{X})$ is a sufficient statistics for $\theta$, and $Y=Y(\boldsymbol{X})$ is an unbaised estimator of $\theta$, then the statistics defined following
@@ -56,8 +73,8 @@ We know the MLEs are asymptotic unbiased estimators for $\theta$, so we usually 
 3. Calculate the $\mathbb{E}(\hat\theta)$ and express the $\theta=\theta(T)$ to obtain the unbiased estimator.
 
 ## Completeness
-
-Let $Z$ be a random variable with a PDF or PMF as one member of the family functions $\lbrace h(z,\theta):\theta\in\Theta\rbrace$. It is called **complete family** if $\mathbb{E}(\varphi(z))=0$ implies that $\varphi(z)=0$ except on those points with probability equal 0.
+---
+Let $Z$ be a random variable with a PDF or PMF as one member of the family functions $\lbrace h(z,\theta):\theta\in\Theta\rbrace$. It is called **complete family** if $\mathbb{E}(\varphi(z))=c$ implies that $\varphi(z)=c$ except on those points with probability equal 0.
 
 The completeness of the distributions ensure that if there are two unbiased estimator for $\theta$, say $\varphi(T), \psi(T)$, as function of a sufficient statistics $T$, then $\varphi(T)=\psi(T)$ except some points with probability 0. A **complete sufficient statistics** is a sufficient statistics with a distribution belong to a complete family. 
 
@@ -66,8 +83,28 @@ Let $X_1,\dots, X_n$ be a random sample from a distribution $f_\theta,\theta\in\
 :::
 **Proof**: The uniqueness follows from the discussion above. To show the minimum variance property, noticed that if there is any other unbiased estimator as functions of $X_i$, there must be an unbiased estimator as function of $T$ with no larger variance based on the Rho-Blackwell's theorem. The uniqueness of this estimator implies that it is MVUE for $\theta$.  
 
-## Exponentail Class of Distributions
-
+An statistics $V=V(\boldsymbol{X})$ is called **ancillary** if its distribution doesn't depends on $\theta$. So that it carries no information about $\theta$.
+:::note Independence
+Suppose the $T$ is complete and sufficient statistics for $\theta$, and $V$ is an ancillary statistics, then $T$ and $V$ are independent for any $\theta$. 
+:::
+**Proof**: By the Baysian formula:
+$$
+\mathbb{P}_\theta(V)=\mathbb{E}[\mathbb{P}(V|T)],
+$$
+and hence $\mathbb{E}[\mathbb{P}_\theta(V)-\mathbb{P}(V|T)] = 0$. It means that $\mathbb{P}_\theta(V)=\mathbb{P}(V|T)$ a.e. and hence we have
+$$
+\begin{aligned}
+\mathbb{P}(T\in A, V\in B)&=\mathbb{E}[1_A(T)1_B(V)]\\
+&=\mathbb{E}\mathbb{E}(1_A(T)1_B(V)|T)\\
+&=\mathbb{E}1_A(T)\mathbb{E}(1_B(V)|T)\\
+&=\mathbb{E}1_A(T)\mathbb{P}(V|T)\\
+&=\mathbb{E}1_A(T)\mathbb{P}(V)\\
+&=\mathbb{P}(T)\mathbb{P}(V),
+\end{aligned}
+$$
+where $1_X(Y)$ is the support function of the set $X$. This conclude the independency.
+## Exponential Class of Distributions
+---
 A family of the distributions with the following form is called the **exponential class**:
 $$
 f(x,\theta) = \exp\left\lbrace p(\theta)K(x)+H(x)+q(\theta)\right\rbrace,\quad x\in S
@@ -121,6 +158,7 @@ since the $q(\theta)\ne 0$ due to the regulation requirement. The left side of t
 The third point of the theorem implies that if we can found a unbiased estimator for $\theta\in (\alpha,\beta)$ as a function of $T=\sum_iK(X_i)$, then it must be a MVUE for $\theta$.
 
 ## Multiple Parameter Cases
+---
 The exponential class can be extended to the cases when the distribution has more than one parameters, say $f(x,\boldsymbol{\theta})$ where $\boldsymbol{\theta}\in \Theta$ is a vector with $m$ dimensions. The definition of the exponential class becomes:
 $$
 f(x,\boldsymbol{\theta})=\exp\left\lbrace \sum_{j=1}^mp_j(\boldsymbol{\theta})K_j(x)+H(x)+q(\boldsymbol{\theta})\right\rbrace,\quad x\in S.
@@ -130,10 +168,10 @@ A **regular exponential class** requires the following conditions:
 2. The parameter space $\Theta$ contained at least one interior point.
 3. The function $p_i(\boldsymbol{\theta})\not\equiv 0, j=1,\dots, m$ are continuous and indepdent with each other. 
 4. Depends on the random variable:
-    * For the continuous case: the derivatives $K_j'(x), j=1,\dots, m$ are conitnuous for $x\in(a,b)$ and no one is a linear homogeneous function of the others. $H(x)$ is a continuous function in $(a,b)$ as well.
-    * For the discrete case: $K_j(x)\not\equiv 0, j=1,\dots,m$ for $x\in S$ and no one is linear homogeneious function of the others.
+    * For the continuous case: the derivatives $K_j'(x), j=1,\dots, m$ are conitnuous for $x\in(a,b)$ and are linear independent with each other. $H(x)$ is a continuous function in $(a,b)$ as well.
+    * For the discrete case: $K_j(x)\not\equiv 0, j=1,\dots,m$ for $x\in S$ and are linear independent with each other.
 
-Note that the linear homogeneious function means that $f(cx)=cf(x)$ for any scalar $c$. 
+Note that the linear independent means that there's no constant vector $\boldsymbol{v}$ such that $\boldsymbol{v}\cdot \boldsymbol{K}=\text{const}$. 
 
 The probability to have sample $x_1,\dots, x_n$ from this class is
 $$
