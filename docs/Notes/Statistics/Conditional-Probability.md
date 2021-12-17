@@ -1,7 +1,39 @@
-# Conditional Expectation
+# Conditional Probability
 
-## Definition
+## Joint and Marginal Densities
+---
+Given two random variables $X\in \mathbb{R}^m$ and $Y\in\mathbb{R}^n$ with measure $\mu_X$ and $\mu_Y$, respectively. The direct product random variable $Z=(X,Y)\in\mathbb{R}^{m+n}$ has the measure $\mu_Z=\mu_X\times \mu_Y$ leads to a denstiy $f_Z=d\mu_Z/dz$ called the **joint density$ of $X$ and $Y$. Then 
 
+Let the $1_S(x)$ be the support function for the set $S$ that the function to be 1 for $x\in S$ and 0 elsewhere. The probability of $Z\in S$ is defined as
+$$
+\mathbb{P}(Z\in S) = \int_{R^{m+n}}1_S(x,y)f_Z(x,y)dxdy,
+$$
+The probability of $X\in A$ is given by
+$$
+\mathbb{P}(X\in A) = \mathbb{P}(Z\in A\times R^n) = \int_{R^m}\int_{R^n} 1_{A\times R^{n}}(x,y) f_Z(x,y)dxdy=\int_A\left\lbrace\int_{R^n}f_Z(x,y)dy\right\rbrace dx.
+$$
+Likewise, the density of $X$ is defined as
+$$
+f_X(x)=\int f_Z(x,y)dy,
+$$
+is called the **marginal density**. The same definition can be derived for $Y$ as well.
+## Conditional Distributions
+---
+The conditional probability of $Y\in B$ given $X=x$ is defined as
+$$
+\mathbb{P}(Y\in B|X =x)=\frac{\mathbb{P}(Y\in B, X=x)}{\mathbb{P}(X=x)},
+$$
+where $B$ is a Borel set. This defined a probability measure for set $B$ with respect to the value $x$, which is known as the **conditional denstiy**. A function  $p_x$ is the coniditional density for $Y$ given $X$ if:
+1. $p_x$ is a probability measure for all $x$;
+2. $p_x(B)$ is a measurable function for any Borel set $B$;
+3. For any Borel sets $A,B$,
+$$
+\mathbb{P}(X\in A, Y\in B)=\int_A p_x(B)d\mathbb{P}_X(x).
+$$
+
+
+## Conditional Expectation
+---
 Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space, $\mathcal{G}\subset \mathcal{F}$ is a sub-$\sigma$-algebra, and $X$ is a integrable random variable. The conditional expectation of $X$ given condition $\mathcal{G}$, denoted as $\mathbb{E}[X|\mathcal{G}]$, is the random variable satisfying
 1. $\mathbb{E}[X|\mathcal{G}]$ is $\mathcal{G}$-measurable;
 2. The following euqation holds
@@ -9,7 +41,7 @@ $$
 \int_A\mathbb{E}[X|\mathcal{G}](\omega)d\mathbb{P}(\omega) = \int_A X(\omega)d\mathbb{P}(\omega),\quad \forall A\in \mathcal{G}.
 $$
 
-## Properties
+### Properties
 
 Here are the properties about the conditional expectation
 1. A conditional expection is always exists and is uniquely defined almost surely (The measurement of the set of different points is 0).
