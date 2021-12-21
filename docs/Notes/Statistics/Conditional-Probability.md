@@ -1,8 +1,43 @@
-# Conditional Probability
+# Conditional Probability 
+
+## Information
+---
+Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space where $\mathcal{F}$ is a $\sigma$-algebra over the sample space $\Omega$. The probability space $\Omega$ contained all the possible samples. Samples draw from $\Omega$ have the maximum randomness, which means no information given for the samples. However, if the sample possible candidates are from a subset of $\Omega$, the randomness reduced a little bit. The most certain case is that there is only one possbile candidate for the samples, the lowest randomness. The information we have for the random space can be formulated into the $\sigma$-algebra generated from a subset of the probability space. Suppose $\mathcal{G}$ is a $\sigma$-algebra with $\mathcal{G}\subset \mathcal{F}$, it represents that information we have for $\mathcal{G}$ is no less than what we have for $\mathcal{F}$.
+
+To illustrate the information gain in a sequential experiments, the information at the time $t\in[0,T]$ is represented by a $\sigma$-sub-algebra $\mathcal{F}(t)\subset \mathcal{F}$. The collections $\lbrace \mathcal{F}(t)|t\in[0,T]\rbrace$ is called a **filtration**. It can be used to represent the shrink of the randomness in a time sequence experiments or sampling.  
+
+## Independence
+---
+Let $\mathcal{H,G}$ be two sub-$\sigma$-algebra standing for two different types of events. The two algebra are independent with each other if
+$$
+\mathbb{P}(A\cap B)=\mathbb{P}(A)\cdot \mathbb{P}(B),
+$$
+for any $A\in \mathcal{H}, B\in\mathcal{G}$. The independence between two random variables means $\sigma(X)$ is independent on $\sigma(Y)$, where $\sigma(X)$ is definted as the minimum $\sigma$-algebra for the collection $\lbrace X^{-1}(B)\rbrace$ of all Borel sets $B$. 
+
+:::note Theorem:
+Suppose random variables $X,Y$ are mutually independent, $X\perp Y$, and $f,g$ are Borel-measurable functions on $\mathbb{R}$, then:
+1. the functions are mutually independent, $f(X)\perp g(Y)$.
+2. The joint distribution measure is factorizable:
+$$
+\mu_{X\times Y}(A\times B)=\mu_X(A)\cdot \mu_Y(B)
+$$
+for all Borel sets $A\subset \sigma(X)$ and $B\subset\sigma(Y)$.
+3. The density distribution is factorizable:
+$$
+f_{X\times Y}(x,y)=f_X(x)\cdot f_Y(y),\quad x,y\in \mathbb{R}.
+$$
+4. The correlation between $\text{Cov}(X,Y)$ is 0 if $X\perp Y$.
+:::
+**Proof**: 
+1. For any Borel set $B$, the inverse image $f^{-1}(B)$ is a Borel set for any Borel-measurable function $f$. It means that $\sigma(f(X))\subset \sigma(X)$ and hence the independency follows.
+2. This conclusion is a direct conclusion from the definition of the condition.
+3. Since $\text{Cov}=\mathbb{E}(XY)-\mathbb{E}X\cdot\mathbb{E}Y$, and the independence means that the right side of the equation is equal. 
+
+However, the inverse of the 3rd point is not true.
 
 ## Joint and Marginal Densities
 ---
-Given two random variables $X\in \mathbb{R}^m$ and $Y\in\mathbb{R}^n$ with measure $\mu_X$ and $\mu_Y$, respectively. The direct product random variable $Z=(X,Y)\in\mathbb{R}^{m+n}$ has the measure $\mu_Z=\mu_X\times \mu_Y$ leads to a denstiy $f_Z=d\mu_Z/dz$ called the **joint density$ of $X$ and $Y$. Then 
+Given two random variables $X\in \mathbb{R}^m$ and $Y\in\mathbb{R}^n$ with measure $\mu_X$ and $\mu_Y$, respectively. The direct product random variable $Z=(X,Y)\in\mathbb{R}^{m+n}$ has the measure $\mu_Z=\mu_X\times \mu_Y$ leads to a denstiy $f_Z=d\mu_Z/dz$ called the **joint density** of $X$ and $Y$. Then 
 
 Let the $1_S(x)$ be the support function for the set $S$ that the function to be 1 for $x\in S$ and 0 elsewhere. The probability of $Z\in S$ is defined as
 $$
@@ -17,23 +52,39 @@ $$
 f_X(x)=\int f_Z(x,y)dy,
 $$
 is called the **marginal density**. The same definition can be derived for $Y$ as well.
-## Conditional Distributions
+
+
+
+
+## Conditional Distributions and Expectation
 ---
-The conditional probability of $Y\in B$ given $X=x$ is defined as
+
+Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space. The conditional probability of $Y\in B$ given $X=x$ is defined as
 $$
 \mathbb{P}(Y\in B|X =x)=\frac{\mathbb{P}(Y\in B, X=x)}{\mathbb{P}(X=x)},
 $$
-where $B$ is a Borel set. This defined a probability measure for set $B$ with respect to the value $x$, which is known as the **conditional denstiy**. A function  $p_x$ is the coniditional density for $Y$ given $X$ if:
-1. $p_x$ is a probability measure for all $x$;
-2. $p_x(B)$ is a measurable function for any Borel set $B$;
+where $B$ is a Borel set. This defined a probability measure for set $B$ with respect to the value $x$, which is known as the **conditional denstiy**. A function  $\mathbb{P}(Y|X)$ is the coniditional density for $Y$ given $X$ if:
+1. $\mathbb{P}(B\in\mathcal{F}|X=x)$ is a probability measure for all $x$;
+2. $\mathbb{P}(B|X=x)$ is a measurable function for any Borel set $B\in \mathcal{F}$;
 3. For any Borel sets $A,B$,
 $$
-\mathbb{P}(X\in A, Y\in B)=\int_A p_x(B)d\mathbb{P}_X(x).
+\mathbb{P}(X\in A, Y\in B)=\int_A \mathbb{P}(B|X=x)d\mathbb{P}(x).
 $$
+The conditional distribution exists and can be obtained explicity for two random vectors $X,Y$ by the formula:
+$$
+p_{Y|X}(y|x)=\frac{f_{Z}(x,y)}{f_X(x)},
+$$
+where $Z=(X,Y)$ and $f_Z$ is the joint distribution for $Z$ and $f_X$ is the marginal distribution for $X$.
 
+Furthermore, given a random vector $X$ as a time series where $x_k$ is the $k$-th step in the series. The probability of $X$ can be expanded into the production of the conditional distributions
+$$
+p_X(x_1,\dots,x_n) = p(x_1)p(x_2|x_1)p(x_3|x_1,x_2)\dots p(x_n|x_1,\dots, x_{n-1}).
+$$
+This formula can be used to build models easily since the conditional probability is easy to model in some cases.
 
-## Conditional Expectation
----
+On the other hand, ff the $B$ is all the probability space, then the kernel $\mathbb{P}(B|X=x)$ above becomes the expectation of $Y$ with a condition that $X=x$. This leads to the definition of the conditional expectation below.
+
+### Conditional Expectation
 Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space, $\mathcal{G}\subset \mathcal{F}$ is a sub-$\sigma$-algebra, and $X$ is a integrable random variable. The conditional expectation of $X$ given condition $\mathcal{G}$, denoted as $\mathbb{E}[X|\mathcal{G}]$, is the random variable satisfying
 1. $\mathbb{E}[X|\mathcal{G}]$ is $\mathcal{G}$-measurable;
 2. The following euqation holds
@@ -41,9 +92,7 @@ $$
 \int_A\mathbb{E}[X|\mathcal{G}](\omega)d\mathbb{P}(\omega) = \int_A X(\omega)d\mathbb{P}(\omega),\quad \forall A\in \mathcal{G}.
 $$
 
-### Properties
-
-Here are the properties about the conditional expectation
+Here are the **properties** about the conditional expectation
 1. A conditional expection is always exists and is uniquely defined almost surely (The measurement of the set of different points is 0).
 2. Given two $\mathcal{G}$-measurable random variables $X,Y$ and $a,b\in\mathbb{R}$, then
 $$

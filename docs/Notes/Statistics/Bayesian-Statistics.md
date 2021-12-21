@@ -6,7 +6,7 @@ $$
 $$
 where $A, B$ are two subsets of $\Omega$. To state the Bayesian statistics, we define the following terms: 
 * $X\sim f(x|\theta)$: the random variable following a PDF with a parameter $\theta$ undetermined. 
-* Piror distribution $\theta\sim h(\theta)$: an assumed distribution of the $\theta$ before observations.
+* Prior distribution $\theta\sim h(\theta)$: an assumed distribution of the $\theta$ before observations.
 * Posterior distribution $p(\theta|\boldsymbol{X})$: the realized distribution after samples $\boldsymbol{X}$ were drawn. 
 
 These conceptions are connected by the Bayes' theorem as follows:
