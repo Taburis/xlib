@@ -28,6 +28,14 @@ $$
 :::note Theorems:
 1. If $X_n\xrightarrow{P}X$ and $Y_n\xrightarrow{P}Y$, then $X_n+Y_n\xrightarrow{P}X+Y$ and $X_nY_n\xrightarrow{P}XY$. If $a\in\mathbb{R}$, then $aX_n\xrightarrow{P}aX$.
 2. Let $M_{X_n}(t)$ be the moment generate function for $X_n$ and exists $[-h,h]$ in $\mathbb{R}$ such that all $M_{X_n}(t)$ is finite for $|t|\le h$. Then $\lim_{n\to\infty}M_{X_n}(t)=M(t)$, for some subinterval in $[-h,h]$, is equivalent to $X_n\xrightarrow{d}X$.
+3. If 
+$$
+\lim_{n\to\infty}\mathbb{E}(X_n-X)^2\to 0,
+$$
+then $X_n\xrightarrow{P}X$.  
+4. If $X_n\xrightarrow{P}c$ and $f$ is a function continuous at $c$, then $f(X_n)\xrightarrow{P}f(c)$.
+5. $X_n\xrightarrow{d}X$ if and only if $\mathbb{E}f(X_n)\to \mathbb{E}f(X)$ for all bounded continuous function $f$. As a corollary, if $f$ is a continuous function and $X_n\xrightarrow{d} X$, then $f(X_n)\xrightarrow{d}f(X)$. 
+6. Suppose $X_n\xrightarrow{X}$, $A_n\xrightarrow{P}a$, and $B_n\xrightarrow{P}b$, then $A_n+B_nX_n\xrightarrow{d}a+bX$.
 :::
 
 **Proof**
@@ -93,6 +101,13 @@ $$
 $$
 where the last step comes from $\lim_{n\to\infty}(1+x/n)^{n}=e^x$. This is exactly the characteristic function of normal distribution $N(0,\sigma^2)$.
 
+
+:::info Delta Method:
+With the assumption of the central limit theorem, if $f$ is differentiable at $\mu$, then
+$$
+\sqrt{n}[f(\overline{X}_n)-f(\mu)]\xrightarrow{d} N(0,[f'(\mu)]^2\sigma^2).
+$$
+:::
 
 ## Uniform Convergence of General Functions
 Given a set of iid random variables $\lbrace X\rbrace_n$ with probability $\mathbb{P}$ and a class $\mathcal{F}$ of integrable real-valued functions $f$ defined over the domain of the probability space of $X$. Then we define a random variable as
