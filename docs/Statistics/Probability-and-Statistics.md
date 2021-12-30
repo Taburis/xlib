@@ -1,7 +1,7 @@
 ---
 id: Probability-and-Statistics
 slug: /Statistics
-sidebar_poistion: 1
+sidebar_position: 1
 ---
 
 # Probability and Statistics

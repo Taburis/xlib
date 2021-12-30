@@ -27,7 +27,7 @@ $$
 This test is also known as **Welch's $t$-test**.
 
 :::note Mathematical Foundation 
-From the [student's theorem](Special-Distributions.md#t-distributions) we know that following facts:
+From the student's theorem we know that following facts:
 1. $\overline{X}\sim N(\mu,\sigma^2_x/m)$ and $\overline{X}\sim N(\mu_y,\sigma^2_y/n)$.
 2. $(m-1)S_X^2/\sigma^2_X\sim\chi^2(m-1)$ and $(n-1)S_Y^2/\sigma^2_Y\sim\chi^2(n-1)$.
 3. $\overline{X}\perp S^2_X$ and $\overline{Y}\perp S^2_Y$.

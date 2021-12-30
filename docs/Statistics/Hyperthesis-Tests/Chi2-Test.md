@@ -21,7 +21,7 @@ Define $Y_i=(X_i-np_i)/\sqrt{np_i}$, then $Y_i\sim N(0,1-p_i)$. Furthermore, for
 $$
 \text{Cov}(Y_i,Y_j)=\text{Cov}(X_i/n,X_j/n)/(n\sqrt{p_ip_j})=-\sqrt{p_ip_j}
 $$
-and hence $\boldsymbol{Y}\sim N_k(0,\Sigma)$ where $\Sigma_{ii}=1-p_i$ and $\Sigma_{ij}=-\sqrt{p_ip_j}$. Noticing that if we introduce a vector $\boldsymbol{v}=(\sqrt{p_1},\dots,\sqrt{p_k})^T$, then $\Sigma=I_k-\boldsymbol{v}\boldsymbol{v}^T$. Further more, it is easy to verify that $P=\boldsymbol{v}\boldsymbol{v}^T$ is symmetric and idempotent since $P^2=P(\sum_ip_i)=P$ and $\text{rank}(P)=1$. It means that $\text{rank}(\Sigma)=k-1$ and hence there's a transform $\Gamma$ diagonalizing the $\Sigma$ so that $k-1$ diagonal elements are 1 and the rest is 0. Based on the [Cochran's theorem](Normal-Models.md#mathematical-foundation):
+and hence $\boldsymbol{Y}\sim N_k(0,\Sigma)$ where $\Sigma_{ii}=1-p_i$ and $\Sigma_{ij}=-\sqrt{p_ip_j}$. Noticing that if we introduce a vector $\boldsymbol{v}=(\sqrt{p_1},\dots,\sqrt{p_k})^T$, then $\Sigma=I_k-\boldsymbol{v}\boldsymbol{v}^T$. Further more, it is easy to verify that $P=\boldsymbol{v}\boldsymbol{v}^T$ is symmetric and idempotent since $P^2=P(\sum_ip_i)=P$ and $\text{rank}(P)=1$. It means that $\text{rank}(\Sigma)=k-1$ and hence there's a transform $\Gamma$ diagonalizing the $\Sigma$ so that $k-1$ diagonal elements are 1 and the rest is 0. Based on the [Cochran's theorem](/Statistics/Special-Distributions/Normal-Distributions#multivariate-normal-distribution):
 $$
 \boldsymbol{Y}^T\boldsymbol{Y}=\sum_{i=1}^{k-1}Z_i^2\sim\chi^2(k-1),
 $$ 

@@ -8,6 +8,10 @@ $$
 $$
 Usually, a stopping time indicates a stop condition satisfied after some observations have been taken. Hence it should be a function of other random variables. Moreover, a stopping time can also be represented as disjoint union of the event $A\in \mathcal{F}$ which is
 $$
-\left(\lbrace N=n\rbrace \\cap A\right)\in \mathcal{F}_n,\quad  \forall n\ge 0.
+\left(\lbrace N=n\rbrace \cap A\right)\in \mathcal{F}_n,\quad  \forall n\ge 0.
 $$
-It also implies that $N$ is $\mathcal{F}_N$ measurable but $N+1$ is not.
+It also implies that $N$ is $\mathcal{F}_N$ measurable but $N+1$ is not.[section](/Statistics/Special-Distributions/Normal-Distributions#Multivariate-Normal-Distribution)
+
+:::note Wald's Fundamental Identity:
+Suppose 
+:::
