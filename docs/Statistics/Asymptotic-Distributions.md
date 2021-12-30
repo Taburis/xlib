@@ -109,6 +109,17 @@ $$
 $$
 :::
 
+
+The asymptotic distributiuon of the percentiles is an example of the application about the delta method:
+:::note Theorem:
+Let $X_1,\dots,X_n$ be iid random variables with CDF $F$. Suppose $\xi_\gamma$ be the $\gamma$-percentile where $\gamma \in [0,]$, and $\hat \xi_\gamma$ is the $\lfloor\gamma n\rfloor$-th order statistics for $X_1,\dots, X_n$. (This means that $F(\xi_\gamma)=\gamma$ and $\hat \xi_\gamma$ is the unbiased estimator for $\xi_\gamma$.) If $F'(\xi_\gamma)$ exists and is finite and positive, then 
+$$
+\sqrt{n}(\hat \xi_\gamma-\xi_\gamma)\xrightarrow{d} N\left(0, \frac{\gamma(\gamma-1)}{[F'(\xi_\gamma)]^2}\right).
+$$
+:::
+
+
+
 ## Uniform Convergence of General Functions
 Given a set of iid random variables $\lbrace X\rbrace_n$ with probability $\mathbb{P}$ and a class $\mathcal{F}$ of integrable real-valued functions $f$ defined over the domain of the probability space of $X$. Then we define a random variable as
 $$

@@ -53,10 +53,15 @@ module.exports = {
         },
         {
           type: 'doc',
+          docId: 'Statistics/Probability-and-Statistics',
+          position: 'left',
+          label: 'Statistics',
+        },
+        {
+          type: 'doc',
           position: 'left',
           docId: 'Projects/index',
           label: 'Projects',
-          //label: 'Tutorial',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
