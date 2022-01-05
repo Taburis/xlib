@@ -27,7 +27,7 @@ satisfies:
 :::
 
 **Proof**: 
-1. The proof of the 1st refers to the [section](#normal-distributions). 
+1. The proof refers to the theorem in [normal distributions](/Statistics/Special-Distributions/Normal-Distributions). 
 2. Since all $X_i$ and $\overline{X}$ are normal distributions, then $X_i-\overline{X}\perp\overline{X}$ if and only if $\text{Cov}(X_i-\overline{X},\overline{X})=0$. Straight calcuation shows
 $$
 \begin{aligned}

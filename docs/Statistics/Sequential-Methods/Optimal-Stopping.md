@@ -10,7 +10,7 @@ Usually, a stopping time indicates a stop condition satisfied after some observa
 $$
 \left(\lbrace N=n\rbrace \cap A\right)\in \mathcal{F}_n,\quad  \forall n\ge 0.
 $$
-It also implies that $N$ is $\mathcal{F}_N$ measurable but $N+1$ is not.[section](/Statistics/Special-Distributions/Normal-Distributions#Multivariate-Normal-Distribution)
+It also implies that $N$ is $\mathcal{F}_N$ measurable but $N+1$ is not.
 
 :::note Wald's Fundamental Identity:
 Suppose 

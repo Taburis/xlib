@@ -1,4 +1,4 @@
-# Normal Models
+# Linear Models
 
 The follow theorems are the mathematical foundation for many models rely on normal distributions. By the CLT, these models are practically useful in many cases. 
 
