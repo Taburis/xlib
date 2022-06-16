@@ -571,3 +571,103 @@ bool DoCheck(
 std::experimental::when_any(results.begin(), results.end())
     .then(DoCheck);
 ```
+
+
+## Memory Model and Atomic Type Operations
+
+An atomic operation is an operation that can't be divided into a sequence of operations. This property makes the atomic type operations are important in concurrency as they are lock-free and won't lead to race condition.
+### Memory model
+An object in `C++` is defined as "a region of storage" and is stored in one or more "memory location":
+* Every variable is an object;
+* Every object occupies at least one memory location
+* Fundamental variables (like `int` or `char`) occupy exactly one memory location;
+* Adjacent bit fields are part of the same memory location.
+
+
+### Atomic operations
+
+In `C++17`, the atomic data type is defined with the specialization `std::atomic<T>` where `T` is a *trivial copyable object*:
+* `T` doesn't have nay virtual functions or vritual base classes;
+* `T` must use the compiler-generated copy-assignemnt operator;
+* All the base class and every non-`static` data member of `T` must also have a trivial copy-assignment operator.
+
+An `std::atomic<T>` type might not be lock-free, and this property can be check by `is_lock_free()`. The operations of a atomic type `std::atomic<T>` supports:
+
+| Operation | Note|
+|-----------| --------|
+|`=T&`| Assignment using the value from a non-atomic type. Instead of return the reference to `*this`, it return the value of the RHS expression to prevent the modification during the read-assignment cycle.  Can't assign one `std::atomic<T>` to the other as two step operations are involved. |
+|`store(T, std::memory_order)`|Built-in function, store the value `T` into this object|
+|`store(std::memory_order)` |Built-in function, load the stored the value.|
+|`exchange(T,std::memory_order)`|Store the value of `T` into `*this` and return the prevous value of `*this`. It is a read-modify-write operation. |
+|`compare_exchange_weak(T& exp, T des, std::memory_order)`|Load the value stored in `*this` and compare with `exp`, if `*this` value equal to `exp` bitwisely, store the `des` into `*this` and return `true`. Otherwise load the `*this` value and store into `exp` and return `false`. This `*this` value update may fail spuriously (return `false` even if the `*this` value equals to `exp` due to other system problem).| 
+|`compare_exchange_strong(T& exp, T des, std::memory_order)`| Similar like `compare_exchange_weak` with a less effecient but prevents the spurious fail. So it is suggests to use `compare_exchange_weak` when calculation of `des` is simple.|
+
+All the operations above have a default value `std::memory_order = memory_order_seq_cst`. 
+:::note
+The comparision in compare-exchange operations do bitwise comparison as if using `memcmp`. If the comparison for type `T` has different semantics, or there are padding bits don't participate in normal comparison, the comparison in compare-exchange operations may failing even though the values compared equal. For some type like `float` or `double`, `compare_exchange_strong` can fail due to the representation difference between two equal values. 
+:::
+
+A special atomic type `std::atomic_flag`,  which is a boolean type variable defined in `<atomic>`. All operations on this type are and only are atomic in the sense of language definition.
+* Don't have `is_lock_free()` function as this type is required to be lock-free.
+* Initiated as the value `ATOMIC_FLAG_INIT`, which should be `false` and corresponds to a `clear` status;
+* `clear()` function, which is a store type function that can set this flag to `clear` status (`false` value);
+* `test_and_set()` is a read-modify-write operation will set the value to be `true` and return the old value. This function becomes `exchange` in general atomic types.
+
+The limitation of the `std::atomic_flag` can be used to build a lock to make the thread in busy-waiting status (spin lock):
+```cpp
+class spinlock_mutex
+{
+    std::atomic_flag flag;
+    public: 
+        spinlock_mutex(): flag(ATOMIC_FLAG_INIT){}
+        void lock(){
+            while(flag.test_and_set(std::memory_order_acquire));
+        }
+        void unlock(){
+            flag.clear(std::memory_order_release);
+        }
+};
+```
+
+An atomic pointer can be defined as `std::atomic<T*>` where `T` doesn't have to be trivial copyable object as all pointers are trivial copyable. And all the operations work for the atomic pointer. 
+
+A summary of the avaliability of atomic operation for atomic types:
+
+|Operations | `atomic_flag` | `atomic<bool>` | `atomic<T*>` | `atomic<integral-type>` | `atomic<other-type>`|
+|-----------|---------------|----------------|--------------|-------------------------|---------------------|
+|`test_and_set`|  Y         |                |              |                         |                     |
+|`clear`|         Y|||||
+|`is_lock_free`||Y|Y|Y|Y|
+|`load`||Y|Y|Y|Y|
+|`store`||Y|Y|Y|Y|
+|`exchange`||Y|Y|Y|Y|
+|`compare_exchange_weak`||Y|Y|Y|Y|
+|`compare_exchange_strong`||Y|Y|Y|Y|
+|fetch_add `+=`|||Y|Y||
+|fetch_sub `-=`|||Y|Y||
+|fetch_or <code>&#124;=</code>||||Y||
+|fetch_and `&=`||||Y||
+|fetch_xor `^=`||||Y||
+|`++, --`|||Y|Y||
+
+
+### Memory ordering
+
+There are two memory model relations:
+1. Happens-before
+2. Synchronizes-with
+The The following six memory ordering is defined in `C++`:
+1. `memory_order_relaxed`;
+2. `memory_order_consume`;
+3. `memory_order_acquire`;
+4. `memory_order_release`;
+5. `memory_order_acq_rel`;
+6. `memory_order_seq_cst`.
+
+All the operations can classified into three categories and the possible memory order for each category is list below:
+
+|Operation Category|Possible ordering|
+|------------------|-----------------|
+|Store| `relaxed`, `release`, `seq_cst`|
+|Load | `relaxed`, `consume`, `acquire`, `seq_cst`|
+|Read-modify-write| all six orders|
