@@ -39,9 +39,14 @@ $$
 \tilde{\mu}_k=\frac{1}{n}\sum_{i=1}^nz_i=\frac{\mu_k}{\sigma^k}, \quad z_i=\frac{X_i-\mu}{\sigma}, \mu_k=\mathbb{E}\left[(X-\mu)^k\right],\quad \sigma^2=\mathbb{E}\left[(X-\mu)^2\right].
 $$
 $\tilde{\mu}_1=0$ and $\tilde{\mu}_2=1$ by definition for all random variables. The standardized moment is dimensionless. Starting from the third standardized moment, it has different descriptive meaning:
-* **Skewness**: a measure of the asymmetry of the probability distribution of a real-valued random variable. Positive skewness implies the left tail is longer and the negative sign means the right tail is longer.  For a unimodal distribution, the relation between the mean, median and mode are shown for different skewness signs are shown below:
+* **Skewness**: It is the $\tilde{\mu}_3$ for measuring the asymmetry of the probability distribution of a real-valued random variable. 
+For a distribution $X$ with finite $\mu,\sigma$, the skewness is:
+$$
+\tilde{\mu}_3 = \frac{1}{\sigma^3}\left(\mathbb{E}(X^3)-3\mu\sigma^2-\mu^3\right).
+$$
+Positive skewness implies the left tail is longer and the negative sign means the right tail is longer.  For a unimodal distribution, the relation between the mean, median and mode are shown for different skewness signs are shown below:
 ![skewness relationship with mean, median and mode](/img/docs/Image_skewness_mean_median_mode_relation.png)
-* **Kurtosis**: The kurtosis describes the spread of the distribution. A higher kurtosis implies the PDF is wider spread. Smaller kurtosis means more concentrated distribution around the mean.
+* **Kurtosis**: The $\tilde{\mu}_4$ is known as kurtosis which describes the spread of the distribution. A higher kurtosis implies the PDF is wider spread. Smaller kurtosis means more concentrated distribution around the mean.
 
 ### Boxplot
 
@@ -63,7 +68,7 @@ $$
 $$
 where $z_\alpha$ is the point that $F(Z=z)=1-\alpha$ where $F(z)$ is the CDF of $N(0,1)$.
 
-For the case the $N$ is not large comparing to $n$, and the outcomes are two mutual exclusive results, say 0 or 1, we can estimate the MOE in more detials. Suppose sampling is performed with replacement (boostrap), the distribution of $X$ follows the binomial distribution. Then we have $\sigma^2=p(1-p)$ is the variance of the binomial distribution, and the binomial distribution can be approximated by normal distribution so that we have
+For the case the $N$ is not large comparing to $n$, and the outcomes are two mutual exclusive results, say 0 or 1, we can estimate the MOE in more detials. Suppose sampling is performed with replacement (bootstrap), the distribution of $X$ follows the binomial distribution. Then we have $\sigma^2=p(1-p)$ is the variance of the binomial distribution, and the binomial distribution can be approximated by normal distribution so that we have
 $$
 \text{MOE}_\alpha=z_\alpha\times \sqrt{\frac{\sigma^2}{n}}\approx z_\alpha\times \sqrt{\frac{p(1-p)}{n}},
 $$
@@ -80,7 +85,7 @@ A bootstrap resampling is an statistics augmentation method. It treat a given sa
 
 ### Percentile Bootstrap Confidence Intervals
 
-Let $\lbrace X_n\rbrace$ be a sample with size $n$ and $\hat \theta(\boldsymbol{X})$ is an estimator, the bootstrap bootstrap confidence interval is obtained from the following procedure:
+Let $\lbrace X_n\rbrace$ be a sample with size $n$ and $\hat \theta(\boldsymbol{X})$ is an estimator, the bootstrap confidence interval is obtained from the following procedure:
 1. Draw a size $n$ sample $\lbrace X_n^*\rbrace$ from the sample $\lbrace X_n\rbrace$ with replacement.
 2. Obtained the estimated value $\hat \theta = \hat \theta(\boldsymbol{X}^*)$.
 3. Repeat the step 1 and 2 $N$ times to form the order statistics $\hat\theta^*_1\le \dots\le\hat \theta_N^*$, and $m=\lfloor N\alpha/2\rfloor$, then the interval:

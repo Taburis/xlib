@@ -1,7 +1,7 @@
 # New Features in C++ Library
 
 ## Rvalue 
-
+---
 The lvalue and rvalue stands for the value can appear on the left and right side of assigment, respectively. The reference to lvalue and rvalue is
 ```cpp
 int & lref;  // lvalue reference
@@ -64,3 +64,128 @@ S&& forward(typename remove_reference<S>::type& a) noexcept
 } 
 ```
 will `noexcept` tells the compiler that this function won't throw any exception. This forward function preserves the original value type for `arg` when calling `std::forward<Arg>(arg)` no matter if `arg` is a lvalue or rvalue referred to the object `Arg`.
+
+## Delete and Defaulted Functions
+---
+For some cases, a perticular function is not allowed for an object. It can be specified by the key word `detele` to prevent the compiler to pick it up. 
+Here are two major usage:
+* Prevent the implicit constructor from compiler:
+```cpp
+class obj{
+  public:
+    obj(){};
+    // removed the copy function to make the object non-copyable
+    obj(obj const & x) = delete;
+    obj& operator = (obj & x) = delete;
+};
+```
+* To avoid implicit cast to restrict the input types:
+```cpp
+// prevent the implicit convertion for int as inputs
+void func(short);
+void func(int) = delete;
+```
+
+The `default` is an opposite key word to the `delete`. It tells the compiler to generate a function for you and this can only applied to constructor, desctructor and copy function that can be copied with `memcpy` or `memmove`.
+```cpp
+class X{
+  private:
+  // make the default generated function to be private
+    X() = default;
+  public:
+  // makes itake a non-const reference
+    X(X& ) = default ;
+    //declared for documentation
+    T& operator = (const X&) = default;
+  protected:
+    // change access and add virtual.
+    virtual ~X() = default;
+};
+```
+
+A compiler generated constructor can be **trivial** which makes it can be used with `std::atomic<T>`. 
+
+## Lambda Functions
+---
+Since the `C++11` standard, the lambda expression is added to simply the code. The function defined by lambda expression looks like:
+```cpp
+// labmda function start with []
+[]{
+  // function body
+  do_something();
+  return value;
+}
+```
+
+The input of a lambda function can be specified by adding `(inputs)` follows the `[]`:
+```cpp
+[](int a){return a+5;}
+```
+
+It is requried to specify the return variable type if there's more than one return in lambda express:
+```cpp
+bool data_ready;
+std::condition_variable cond;
+// specify the return type by using ->
+cond.wait(lk, []()->bool{
+  if(data_ready) return true;
+  else return false;
+})
+```
+### Capture local variables
+There are several way to capture local variables:
+```cpp
+// [=] capture local variables by copy
+std::function<int(int)> sum(int a, int b){
+  return [=](){return a+b;}
+}
+// [&] capture local variables by reference
+std::function<int(int)> update(int a){
+  return [&](int x){
+    a =x; return a;}
+}
+```
+
+The variables can also be captured mixing with copy and reference. For example `[=, &a, &b]` will copy all the local variables except `a,b` are captured by reference. Similar method works for `[&, a,b]` can reference to all the variables except `a,b` are copied.
+
+Use `this` to capture the object:
+```cpp
+stuct X{
+  int data;
+  void update(std::vector<int> &vec){
+    std::for_each(vec.begin(), vec.end(),
+    [this](int &j){i+=data;})
+  }
+}
+```
+### Generic Lambdas and Generalized Captures
+Since the `C++14`, the **generic lambda** can be formed by using the `auto` key word like:
+```cpp
+auto f = [](auto x){std::cout<<x<<std::endl;};
+```
+The type of the input to the function above will be deduced from the supplied argument when the lambda function is invoked.
+
+A **generalized capture** allows to capture the results of expressions:
+```cpp
+std::future<int> spawn_async_task(){
+  std::promise<int> p;
+  auto f=p.get_future();
+  // here p is captured as the result of the std::move(p). 
+  // this p has been moved into a thread, it is safe to detach the thread.
+  std::thread t([p=std::move(p)](){
+    p.set_value(find_the_anwer());
+  });
+  t.detach();
+  return f;
+}
+```
+
+## Constexpr Functions
+---
+The `constexpr` key word will convert the expression into constant expression, which are initiated statically. Since the constant expression is evaluated in compiled time insteand of runtime, it has unique flexibility.
+
+A class is **literal type** if it satifies the following requirement:
+1. It's copy constructor is trivial.
+2. The destructor is trivial.
+3. All the non-static data members and base classes must be trivial types.
+4. It must have a trivial constructor or a `constexpr` constructor other than the copy constructor.
