@@ -60,9 +60,9 @@ The boxplot is a summary plot for showing the quartiles and each of outliers are
 
 ## Sampling
 ---
-Sampling plays a central role during inference. The population is a pool where samples drawn from. The **sampling error** of a statistics $X$ is the error from the finite sample observations. A randomness is required when generating the samples to ensure the samples are effective. Suppose the population size is $N$, and the size of samples is $n$. We want to know a range $2\sigma_X$ so that $(1-\alpha)\times 100\%$ of values are expected fall within it. and this variance $\sigma_X$ is the $\alpha$-confidence **margin of error** (MOE).
+Sampling plays a central role during inference. The population is a pool where samples drawn from. The **sampling error** of a statistics $X$ is the error from the finite sample observations. A randomness is required when generating the samples to ensure the samples are effective. Suppose the population size is $N$, and a sample of size $n$ ($n\ll N$) is drawn. We can calculate a range, say $\sigma_X$, so that the probability of the sample mean $\overline{X}_n$ falling within the range $\sigma_X$ centered at the true value of $X$ is $(1-\alpha)\times 100\%$. This range $\sigma_X$ is called the $\alpha$-confidence **margin of error** (MOE).
 
-To find the MOE, we first consider that $N\gg n$, which the CLT is applicable. It means that the mean $\overline{X}_n$ over the samples follows a normal distribution $\overline{X}_n\sim N(\overline{X}, \sigma^2/n)$ where $\overline{X}$ is the mean of $X$ over the population. The $\alpha$-confidence margin of error can be estimated from the CTL so that $Z=\sqrt{n}(\overline{X}_n-\overline{X})/\sigma$ and $Z\sim N(0,1)$:
+To find out the MOE, we first consider that $N\gg n$ so that the CLT is applicable. It means that the mean $\overline{X}_n$ over the samples follows a normal distribution $\overline{X}_n\sim N(\overline{X}, \sigma^2/n)$ where $\overline{X}$ is the mean of $X$ over the population. The $\alpha$-confidence margin of error can be estimated from the CTL so that $Z=\sqrt{n}(\overline{X}_n-\overline{X})/\sigma$ and $Z\sim N(0,1)$:
 $$
 \text{MOE}_\alpha=z_\alpha\times \sqrt{\frac{\sigma^2}{n}},
 $$
