@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkxlib=self.webpackChunkxlib||[]).push([[2535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Greetings!","permalink":"/xlib/blog/greetings"}]}')}}]);
